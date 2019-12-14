@@ -10,6 +10,19 @@
 		C2963EEF239FAD590020A2DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2963EEE239FAD590020A2DD /* AppDelegate.swift */; };
 		C2963EF8239FAD5B0020A2DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2963EF7239FAD5B0020A2DD /* Assets.xcassets */; };
 		C2963EFB239FAD5B0020A2DD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2963EF9239FAD5B0020A2DD /* LaunchScreen.storyboard */; };
+		C2963F03239FADE40020A2DD /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2963F02239FADE40020A2DD /* FormViewController.swift */; };
+		C2BCAD9623A5265E0008D492 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BCAD9523A5265E0008D492 /* Theme.swift */; };
+		C2BCAD9A23A52FEB0008D492 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BCAD9923A52FEB0008D492 /* Section.swift */; };
+		C2BCAD9D23A5496E0008D492 /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BCAD9C23A5496E0008D492 /* Form.swift */; };
+		C2E1570F23A39FF600105763 /* FromView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E1570E23A39FF600105763 /* FromView.swift */; };
+		C2E1571123A3A01000105763 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E1571023A3A01000105763 /* BaseView.swift */; };
+		C2E1571323A3A1C000105763 /* TextInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E1571223A3A1C000105763 /* TextInputCell.swift */; };
+		C2E1571723A3A1E500105763 /* BaseTableVIewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E1571623A3A1E500105763 /* BaseTableVIewCell.swift */; };
+		C2E1571923A3A3F600105763 /* CommonTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E1571823A3A3F600105763 /* CommonTextField.swift */; };
+		C2E1572623A3AAC800105763 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E1572523A3AAC800105763 /* WebView.swift */; };
+		C2E1572823A4C05700105763 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E1572723A4C05700105763 /* Cell.swift */; };
+		C2E1572C23A4C27200105763 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E1572B23A4C27200105763 /* UserDefaultsManager.swift */; };
+		C2E1572E23A4C81E00105763 /* Display.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E1572D23A4C81E00105763 /* Display.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,6 +31,19 @@
 		C2963EF7239FAD5B0020A2DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C2963EFA239FAD5B0020A2DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C2963EFC239FAD5B0020A2DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C2963F02239FADE40020A2DD /* FormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
+		C2BCAD9523A5265E0008D492 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		C2BCAD9923A52FEB0008D492 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		C2BCAD9C23A5496E0008D492 /* Form.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Form.swift; sourceTree = "<group>"; };
+		C2E1570E23A39FF600105763 /* FromView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FromView.swift; sourceTree = "<group>"; };
+		C2E1571023A3A01000105763 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		C2E1571223A3A1C000105763 /* TextInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputCell.swift; sourceTree = "<group>"; };
+		C2E1571623A3A1E500105763 /* BaseTableVIewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableVIewCell.swift; sourceTree = "<group>"; };
+		C2E1571823A3A3F600105763 /* CommonTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonTextField.swift; sourceTree = "<group>"; };
+		C2E1572523A3AAC800105763 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		C2E1572723A4C05700105763 /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
+		C2E1572B23A4C27200105763 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		C2E1572D23A4C81E00105763 /* Display.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Display.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,11 +76,121 @@
 		C2963EED239FAD590020A2DD /* StopPark */ = {
 			isa = PBXGroup;
 			children = (
-				C2963EF7239FAD5B0020A2DD /* Assets.xcassets */,
-				C2963EF9239FAD5B0020A2DD /* LaunchScreen.storyboard */,
+				C2E1572423A3A70E00105763 /* Source */,
+				C2E1571A23A3A66000105763 /* Resource */,
 				C2963EFC239FAD5B0020A2DD /* Info.plist */,
 			);
 			path = StopPark;
+			sourceTree = "<group>";
+		};
+		C2BCAD9B23A549190008D492 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C2E1572723A4C05700105763 /* Cell.swift */,
+				C2BCAD9923A52FEB0008D492 /* Section.swift */,
+				C2BCAD9C23A5496E0008D492 /* Form.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C2E1571A23A3A66000105763 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				C2BCAD9523A5265E0008D492 /* Theme.swift */,
+				C2E1572D23A4C81E00105763 /* Display.swift */,
+				C2963EF7239FAD5B0020A2DD /* Assets.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		C2E1571B23A3A68100105763 /* Supporting FIles */ = {
+			isa = PBXGroup;
+			children = (
+				C2963EEE239FAD590020A2DD /* AppDelegate.swift */,
+				C2963EF9239FAD5B0020A2DD /* LaunchScreen.storyboard */,
+			);
+			path = "Supporting FIles";
+			sourceTree = "<group>";
+		};
+		C2E1571C23A3A69C00105763 /* BaseCell */ = {
+			isa = PBXGroup;
+			children = (
+				C2E1571623A3A1E500105763 /* BaseTableVIewCell.swift */,
+			);
+			path = BaseCell;
+			sourceTree = "<group>";
+		};
+		C2E1571D23A3A6A500105763 /* BaseView */ = {
+			isa = PBXGroup;
+			children = (
+				C2E1571023A3A01000105763 /* BaseView.swift */,
+			);
+			path = BaseView;
+			sourceTree = "<group>";
+		};
+		C2E1571E23A3A6AD00105763 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				C2E1571823A3A3F600105763 /* CommonTextField.swift */,
+				C2E1571D23A3A6A500105763 /* BaseView */,
+				C2E1571C23A3A69C00105763 /* BaseCell */,
+				C2E1572B23A4C27200105763 /* UserDefaultsManager.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		C2E1571F23A3A6CD00105763 /* FormView */ = {
+			isa = PBXGroup;
+			children = (
+				C2E1572023A3A6D400105763 /* Cells */,
+				C2E1570E23A39FF600105763 /* FromView.swift */,
+			);
+			path = FormView;
+			sourceTree = "<group>";
+		};
+		C2E1572023A3A6D400105763 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				C2E1571223A3A1C000105763 /* TextInputCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		C2E1572123A3A6E100105763 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				C2E1572323A3A6FB00105763 /* FormViewController */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		C2E1572223A3A6F500105763 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C2E1571F23A3A6CD00105763 /* FormView */,
+				C2E1572523A3AAC800105763 /* WebView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C2E1572323A3A6FB00105763 /* FormViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C2963F02239FADE40020A2DD /* FormViewController.swift */,
+			);
+			path = FormViewController;
+			sourceTree = "<group>";
+		};
+		C2E1572423A3A70E00105763 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				C2E1571B23A3A68100105763 /* Supporting FIles */,
+				C2E1572123A3A6E100105763 /* ViewControllers */,
+				C2E1572223A3A6F500105763 /* Views */,
+				C2E1571E23A3A6AD00105763 /* Common */,
+				C2BCAD9B23A549190008D492 /* Model */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,7 +263,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2E1570F23A39FF600105763 /* FromView.swift in Sources */,
+				C2E1572623A3AAC800105763 /* WebView.swift in Sources */,
+				C2BCAD9D23A5496E0008D492 /* Form.swift in Sources */,
+				C2963F03239FADE40020A2DD /* FormViewController.swift in Sources */,
+				C2BCAD9A23A52FEB0008D492 /* Section.swift in Sources */,
+				C2BCAD9623A5265E0008D492 /* Theme.swift in Sources */,
+				C2E1572C23A4C27200105763 /* UserDefaultsManager.swift in Sources */,
+				C2E1571923A3A3F600105763 /* CommonTextField.swift in Sources */,
+				C2E1571723A3A1E500105763 /* BaseTableVIewCell.swift in Sources */,
+				C2E1572823A4C05700105763 /* Cell.swift in Sources */,
 				C2963EEF239FAD590020A2DD /* AppDelegate.swift in Sources */,
+				C2E1571323A3A1C000105763 /* TextInputCell.swift in Sources */,
+				C2E1572E23A4C81E00105763 /* Display.swift in Sources */,
+				C2E1571123A3A01000105763 /* BaseView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,11 +414,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = StopPark/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = tech.telegin.StopPark;
+				PRODUCT_BUNDLE_IDENTIFIER = tech.telegin.stoppark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -282,11 +432,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = StopPark/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = tech.telegin.StopPark;
+				PRODUCT_BUNDLE_IDENTIFIER = tech.telegin.stoppark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
