@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C27F625F23A7CC82002D55EB /* RegistrationFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27F625E23A7CC82002D55EB /* RegistrationFormViewController.swift */; };
 		C2963EEF239FAD590020A2DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2963EEE239FAD590020A2DD /* AppDelegate.swift */; };
 		C2963EF8239FAD5B0020A2DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2963EF7239FAD5B0020A2DD /* Assets.xcassets */; };
 		C2963EFB239FAD5B0020A2DD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2963EF9239FAD5B0020A2DD /* LaunchScreen.storyboard */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C27F625E23A7CC82002D55EB /* RegistrationFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationFormViewController.swift; sourceTree = "<group>"; };
 		C2963EEB239FAD590020A2DD /* StopPark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StopPark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2963EEE239FAD590020A2DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2963EF7239FAD5B0020A2DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				C2E1572323A3A6FB00105763 /* FormViewController */,
+				C27F625E23A7CC82002D55EB /* RegistrationFormViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				C2E1572C23A4C27200105763 /* UserDefaultsManager.swift in Sources */,
 				C2E1571923A3A3F600105763 /* CommonTextField.swift in Sources */,
 				C2E1571723A3A1E500105763 /* BaseTableVIewCell.swift in Sources */,
+				C27F625F23A7CC82002D55EB /* RegistrationFormViewController.swift in Sources */,
 				C2E1572823A4C05700105763 /* Cell.swift in Sources */,
 				C2963EEF239FAD590020A2DD /* AppDelegate.swift in Sources */,
 				C2E1571323A3A1C000105763 /* TextInputCell.swift in Sources */,

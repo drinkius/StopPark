@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow()
         
-        let vc = FormViewController()
+        let vc = RegistrationFormViewController()
         let nav = UINavigationController(rootViewController: vc)
         
         window?.rootViewController = nav
