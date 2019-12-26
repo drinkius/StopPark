@@ -12,6 +12,9 @@
 		C2963EF8239FAD5B0020A2DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2963EF7239FAD5B0020A2DD /* Assets.xcassets */; };
 		C2963EFB239FAD5B0020A2DD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2963EF9239FAD5B0020A2DD /* LaunchScreen.storyboard */; };
 		C2963F03239FADE40020A2DD /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2963F02239FADE40020A2DD /* FormViewController.swift */; };
+		C2AB640823A6652D007379DA /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AB640723A6652D007379DA /* InformationView.swift */; };
+		C2AB640A23A6671F007379DA /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AB640923A6671F007379DA /* Strings.swift */; };
+		C2AB640C23A6694B007379DA /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AB640B23A6694B007379DA /* InformationViewController.swift */; };
 		C2BCAD9623A5265E0008D492 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BCAD9523A5265E0008D492 /* Theme.swift */; };
 		C2BCAD9A23A52FEB0008D492 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BCAD9923A52FEB0008D492 /* Section.swift */; };
 		C2BCAD9D23A5496E0008D492 /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BCAD9C23A5496E0008D492 /* Form.swift */; };
@@ -34,6 +37,9 @@
 		C2963EFA239FAD5B0020A2DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C2963EFC239FAD5B0020A2DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C2963F02239FADE40020A2DD /* FormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
+		C2AB640723A6652D007379DA /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
+		C2AB640923A6671F007379DA /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		C2AB640B23A6694B007379DA /* InformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
 		C2BCAD9523A5265E0008D492 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		C2BCAD9923A52FEB0008D492 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		C2BCAD9C23A5496E0008D492 /* Form.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Form.swift; sourceTree = "<group>"; };
@@ -99,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				C2BCAD9523A5265E0008D492 /* Theme.swift */,
+				C2AB640923A6671F007379DA /* Strings.swift */,
 				C2E1572D23A4C81E00105763 /* Display.swift */,
 				C2963EF7239FAD5B0020A2DD /* Assets.xcassets */,
 			);
@@ -162,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				C2E1572323A3A6FB00105763 /* FormViewController */,
+				C2AB640B23A6694B007379DA /* InformationViewController.swift */,
 				C27F625E23A7CC82002D55EB /* RegistrationFormViewController.swift */,
 			);
 			path = ViewControllers;
@@ -172,6 +180,7 @@
 			children = (
 				C2E1571F23A3A6CD00105763 /* FormView */,
 				C2E1572523A3AAC800105763 /* WebView.swift */,
+				C2AB640723A6652D007379DA /* InformationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -266,6 +275,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2AB640823A6652D007379DA /* InformationView.swift in Sources */,
 				C2E1570F23A39FF600105763 /* FromView.swift in Sources */,
 				C2E1572623A3AAC800105763 /* WebView.swift in Sources */,
 				C2BCAD9D23A5496E0008D492 /* Form.swift in Sources */,
@@ -281,6 +291,7 @@
 				C2E1571323A3A1C000105763 /* TextInputCell.swift in Sources */,
 				C2E1572E23A4C81E00105763 /* Display.swift in Sources */,
 				C2E1571123A3A01000105763 /* BaseView.swift in Sources */,
+				C2AB640C23A6694B007379DA /* InformationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
