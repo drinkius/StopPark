@@ -29,3 +29,8 @@ extension UIColor {
     static var nameEditingColor: UIColor = .highlited
     static var nameDefaultColor: UIColor = .darkGray
 }
+
+extension UIImage {
+    static let done = UIImage(named: "success")
+    static let send = UIImage(named: "send")
+}
