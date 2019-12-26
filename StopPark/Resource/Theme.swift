@@ -28,6 +28,11 @@ extension UIColor {
     
     static var nameEditingColor: UIColor = .highlited
     static var nameDefaultColor: UIColor = .darkGray
+    static var submitTitleColor: UIColor = .white
+    static var submitBackgroundColor: UIColor = .highlited
+    
+    static let loaderDoneColor: UIColor = .highlited
+    static let loaderLoadingColor: UIColor = .lightGray
 }
 
 extension UIImage {

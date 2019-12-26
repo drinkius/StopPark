@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C21E71DB23A6806C002BC191 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E71DA23A6806C002BC191 /* Loader.swift */; };
 		C27F625F23A7CC82002D55EB /* RegistrationFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27F625E23A7CC82002D55EB /* RegistrationFormViewController.swift */; };
+		C27F626123A7ED93002D55EB /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27F626023A7ED93002D55EB /* AuthorizationManager.swift */; };
 		C2963EEF239FAD590020A2DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2963EEE239FAD590020A2DD /* AppDelegate.swift */; };
 		C2963EF8239FAD5B0020A2DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2963EF7239FAD5B0020A2DD /* Assets.xcassets */; };
 		C2963EFB239FAD5B0020A2DD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2963EF9239FAD5B0020A2DD /* LaunchScreen.storyboard */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		C21E71DA23A6806C002BC191 /* Loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
 		C27F625E23A7CC82002D55EB /* RegistrationFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationFormViewController.swift; sourceTree = "<group>"; };
+		C27F626023A7ED93002D55EB /* AuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
 		C2963EEB239FAD590020A2DD /* StopPark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StopPark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2963EEE239FAD590020A2DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2963EF7239FAD5B0020A2DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				C2E1571D23A3A6A500105763 /* BaseView */,
 				C2E1571C23A3A69C00105763 /* BaseCell */,
 				C2E1572B23A4C27200105763 /* UserDefaultsManager.swift */,
+				C27F626023A7ED93002D55EB /* AuthorizationManager.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 			files = (
 				C2AB640823A6652D007379DA /* InformationView.swift in Sources */,
 				C2E1570F23A39FF600105763 /* FromView.swift in Sources */,
+				C27F626123A7ED93002D55EB /* AuthorizationManager.swift in Sources */,
 				C2AB640A23A6671F007379DA /* Strings.swift in Sources */,
 				C2E1572623A3AAC800105763 /* WebView.swift in Sources */,
 				C2BCAD9D23A5496E0008D492 /* Form.swift in Sources */,
