@@ -13,6 +13,14 @@ class TextInputCell: BaseTableViewCell {
     public func fill(with model: Cell) {
         textField.name = model.name.rawValue
         textField.returnKeyAction = ReturnKeyAction(button: .done, block: model.name.formDataAction())
+        switch model.name {
+        case .userEmail:
+            textField.keyboardType = .emailAddress
+        case .userPhone, .userNumberLetter, .userNumber:
+            textField.keyboardType = .numberPad
+        default: textField.keyboardType = .default
+        }
+        configureFetchingData(at: model.name)
     }
     
     private var textField: CommonTextField = {
@@ -50,6 +58,22 @@ extension TextInputCell {
     }
 }
 
+extension TextInputCell {
+    private func configureFetchingData(at type: FormData) {
+        textField.returnKeyAction = ReturnKeyAction(button: .done) { text in
+            switch type {
+            case .userName: UserDefaultsManager.setUserName(text)
+            case .userSurname: UserDefaultsManager.setUserSurname(text)
+            case .userFatherName: UserDefaultsManager.setUserFatherName(text)
+            case .userEmail: UserDefaultsManager.setEmail(text)
+            case .userPhone: UserDefaultsManager.setPhone(text)
+            default: break
+            }
+        }
+    }
+}
+
+// MARK: - Support
 extension TextInputCell {
     static let identifier: String = "textInputCellId"
 }

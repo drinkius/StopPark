@@ -34,12 +34,18 @@ class CommonTextField: BaseView {
             }
         }
     }
+    
+    public var keyboardType: UIKeyboardType = .default {
+        didSet {
+            textField.keyboardType = keyboardType
+        }
+    }
         
     private var containerStack: UIStackView = {
         let sv = UIStackView()
         sv.alignment = .fill
         sv.axis = .horizontal
-        sv.distribution = .fillProportionally
+        sv.distribution = .fill
         sv.translatesAutoresizingMaskIntoConstraints = false
         return sv
     }()
@@ -48,7 +54,9 @@ class CommonTextField: BaseView {
         let label = UILabel()
         label.textAlignment = .left
         label.textColor = .nameDefaultColor
-        label.sizeToFit()
+//        label.sizeToFit()
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+        label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

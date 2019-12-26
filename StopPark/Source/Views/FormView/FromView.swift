@@ -10,7 +10,11 @@ import UIKit
 
 class FormView: BaseView {
     
-    private var form = Form()
+    public var formDestination: Form.Destination = .requestToServer {
+        didSet { form.updateData(for: formDestination); tableView.reloadData() }
+    }
+    
+    private lazy var form = Form(formDestination)
     private lazy var tableView: UITableView = {
         let tw = UITableView()
         tw.allowsSelection = false
