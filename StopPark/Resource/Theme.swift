@@ -36,6 +36,8 @@ extension UIColor {
 }
 
 extension UIImage {
-    static let done = UIImage(named: "success")
-    static let send = UIImage(named: "send")
+    static let done     = UIImage(named: "success")?.withRenderingMode(.alwaysTemplate)
+    static let send     = UIImage(named: "send")?.withRenderingMode(.alwaysTemplate)
+    static let delete   = UIImage(named: "delete")?.withRenderingMode(.alwaysTemplate)
+    static let update   = UIImage(named: "update")?.withRenderingMode(.alwaysTemplate)
 }
