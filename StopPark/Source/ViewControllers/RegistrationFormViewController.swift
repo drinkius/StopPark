@@ -38,6 +38,17 @@ class RegistrationFormViewController: UIViewController {
         return btn
     }()
     
+    private lazy var openUpload: UIButton = {
+        let btn = UIButton()
+        btn.setTitle("Download", for: .normal)
+        btn.setTitleColor(.gray, for: .normal)
+        btn.backgroundColor = .submitBackgroundColor
+        btn.layer.cornerRadius = Theme.buttonItemCornerRadius
+        btn.addTarget(self, action: #selector(open), for: .touchUpInside)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        return btn
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -54,7 +65,7 @@ extension RegistrationFormViewController {
     }
 
     private func configureViews() {
-        [segmentedControl, formView, submitButton].forEach {
+        [segmentedControl, formView, submitButton, openUpload].forEach {
             view.addSubview($0)
         }
     }
@@ -72,7 +83,13 @@ extension RegistrationFormViewController {
          submitButton.heightAnchor.constraint(equalToConstant: Theme.buttonItemHeight),
          submitButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: .nanoPadding),
          submitButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -.nanoPadding),
-         submitButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -.nanoPadding)
+         submitButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -.nanoPadding),
+         
+         openUpload.heightAnchor.constraint(equalToConstant: Theme.buttonItemHeight),
+         openUpload.leftAnchor.constraint(equalTo: view.leftAnchor, constant: .nanoPadding),
+         openUpload.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -.nanoPadding),
+         openUpload.bottomAnchor.constraint(equalTo: submitButton.topAnchor, constant: -.nanoPadding)
+
             ].forEach { $0.isActive = true }
     }
 }
@@ -95,6 +112,11 @@ extension RegistrationFormViewController {
         let nav = UINavigationController(rootViewController: formVC)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)
+    }
+    
+    @objc private func open() {
+        let vc = UploadImageViewController()
+        present(vc, animated: true)
     }
 }
 

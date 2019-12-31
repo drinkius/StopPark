@@ -8,10 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		C21E71DB23A6806C002BC191 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E71DA23A6806C002BC191 /* Loader.swift */; };
+		C22D19C223B5291100378E21 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22D19C123B5291100378E21 /* BaseCollectionViewCell.swift */; };
+		C239B6DF23AD3340007F1949 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = C239B6DE23AD3340007F1949 /* Media.swift */; };
+		C239B6E123AD4E4D007F1949 /* UploadImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C239B6E023AD4E4D007F1949 /* UploadImageViewController.swift */; };
+		C239B6E323AD4F23007F1949 /* UploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C239B6E223AD4F23007F1949 /* UploadView.swift */; };
+		C239B6E623AD5438007F1949 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C239B6E523AD5438007F1949 /* ImageCell.swift */; };
+		C239B6E823AD54D5007F1949 /* LoadImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C239B6E723AD54D5007F1949 /* LoadImageCell.swift */; };
+		C239B6EA23AD5DA2007F1949 /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C239B6E923AD5DA2007F1949 /* URLs.swift */; };
+		C23C1D5523B62D1A006D270B /* ImageInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23C1D5423B62D1A006D270B /* ImageInputCell.swift */; };
+		C23C1D5723B63824006D270B /* TitleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23C1D5623B63824006D270B /* TitleHeaderView.swift */; };
+		C23C1D5923B638E7006D270B /* BaseCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23C1D5823B638E7006D270B /* BaseCollectionReusableView.swift */; };
+		C23C1D5B23B63BD5006D270B /* TextInputCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23C1D5A23B63BD5006D270B /* TextInputCollectionCell.swift */; };
+		C265B34023A80815000C72B5 /* UIImage+download.swift in Sources */ = {isa = PBXBuildFile; fileRef = C265B33F23A80815000C72B5 /* UIImage+download.swift */; };
 		C27F625D23A7C60C002D55EB /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27F625C23A7C60C002D55EB /* RequestManager.swift */; };
 		C27F625F23A7CC82002D55EB /* RegistrationFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27F625E23A7CC82002D55EB /* RegistrationFormViewController.swift */; };
 		C27F626123A7ED93002D55EB /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27F626023A7ED93002D55EB /* AuthorizationManager.swift */; };
 		C27F626323A8010E002D55EB /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27F626223A8010E002D55EB /* CaptureView.swift */; };
+		C281DB7E23A93C7B00D2AC0D /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C281DB7D23A93C7B00D2AC0D /* ImagePicker.swift */; };
 		C2963EEF239FAD590020A2DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2963EEE239FAD590020A2DD /* AppDelegate.swift */; };
 		C2963EF8239FAD5B0020A2DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2963EF7239FAD5B0020A2DD /* Assets.xcassets */; };
 		C2963EFB239FAD5B0020A2DD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2963EF9239FAD5B0020A2DD /* LaunchScreen.storyboard */; };
@@ -35,10 +48,23 @@
 
 /* Begin PBXFileReference section */
 		C21E71DA23A6806C002BC191 /* Loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
+		C22D19C123B5291100378E21 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
+		C239B6DE23AD3340007F1949 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
+		C239B6E023AD4E4D007F1949 /* UploadImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImageViewController.swift; sourceTree = "<group>"; };
+		C239B6E223AD4F23007F1949 /* UploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadView.swift; sourceTree = "<group>"; };
+		C239B6E523AD5438007F1949 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		C239B6E723AD54D5007F1949 /* LoadImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadImageCell.swift; sourceTree = "<group>"; };
+		C239B6E923AD5DA2007F1949 /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
+		C23C1D5423B62D1A006D270B /* ImageInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageInputCell.swift; sourceTree = "<group>"; };
+		C23C1D5623B63824006D270B /* TitleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleHeaderView.swift; sourceTree = "<group>"; };
+		C23C1D5823B638E7006D270B /* BaseCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionReusableView.swift; sourceTree = "<group>"; };
+		C23C1D5A23B63BD5006D270B /* TextInputCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputCollectionCell.swift; sourceTree = "<group>"; };
+		C265B33F23A80815000C72B5 /* UIImage+download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+download.swift"; sourceTree = "<group>"; };
 		C27F625C23A7C60C002D55EB /* RequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
 		C27F625E23A7CC82002D55EB /* RegistrationFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationFormViewController.swift; sourceTree = "<group>"; };
 		C27F626023A7ED93002D55EB /* AuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
 		C27F626223A8010E002D55EB /* CaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
+		C281DB7D23A93C7B00D2AC0D /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		C2963EEB239FAD590020A2DD /* StopPark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StopPark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2963EEE239FAD590020A2DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2963EF7239FAD5B0020A2DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -73,6 +99,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C239B6E423AD5417007F1949 /* UploadView */ = {
+			isa = PBXGroup;
+			children = (
+				C239B6E223AD4F23007F1949 /* UploadView.swift */,
+				C239B6E523AD5438007F1949 /* ImageCell.swift */,
+				C239B6E723AD54D5007F1949 /* LoadImageCell.swift */,
+			);
+			path = UploadView;
+			sourceTree = "<group>";
+		};
+		C281DB7C23A8FCF600D2AC0D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C265B33F23A80815000C72B5 /* UIImage+download.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		C2963EE2239FAD590020A2DD = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +166,8 @@
 			children = (
 				C2BCAD9523A5265E0008D492 /* Theme.swift */,
 				C27F625C23A7C60C002D55EB /* RequestManager.swift */,
+				C239B6DE23AD3340007F1949 /* Media.swift */,
+				C239B6E923AD5DA2007F1949 /* URLs.swift */,
 				C2AB640923A6671F007379DA /* Strings.swift */,
 				C2E1572D23A4C81E00105763 /* Display.swift */,
 				C2963EF7239FAD5B0020A2DD /* Assets.xcassets */,
@@ -142,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				C2E1571623A3A1E500105763 /* BaseTableVIewCell.swift */,
+				C22D19C123B5291100378E21 /* BaseCollectionViewCell.swift */,
 			);
 			path = BaseCell;
 			sourceTree = "<group>";
@@ -158,11 +205,14 @@
 			isa = PBXGroup;
 			children = (
 				C2E1571823A3A3F600105763 /* CommonTextField.swift */,
+				C281DB7D23A93C7B00D2AC0D /* ImagePicker.swift */,
 				C21E71DA23A6806C002BC191 /* Loader.swift */,
+				C23C1D5823B638E7006D270B /* BaseCollectionReusableView.swift */,
 				C2E1571D23A3A6A500105763 /* BaseView */,
 				C2E1571C23A3A69C00105763 /* BaseCell */,
 				C2E1572B23A4C27200105763 /* UserDefaultsManager.swift */,
 				C27F626023A7ED93002D55EB /* AuthorizationManager.swift */,
+				C281DB7C23A8FCF600D2AC0D /* Extensions */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -180,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				C2E1571223A3A1C000105763 /* TextInputCell.swift */,
+				C23C1D5423B62D1A006D270B /* ImageInputCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -190,6 +241,7 @@
 				C2E1572323A3A6FB00105763 /* FormViewController */,
 				C2AB640B23A6694B007379DA /* InformationViewController.swift */,
 				C27F625E23A7CC82002D55EB /* RegistrationFormViewController.swift */,
+				C239B6E023AD4E4D007F1949 /* UploadImageViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -201,6 +253,9 @@
 				C2AB640623A6651B007379DA /* WebView */,
 				C2AB640723A6652D007379DA /* InformationView.swift */,
 				C27F626223A8010E002D55EB /* CaptureView.swift */,
+				C239B6E423AD5417007F1949 /* UploadView */,
+				C23C1D5623B63824006D270B /* TitleHeaderView.swift */,
+				C23C1D5A23B63BD5006D270B /* TextInputCollectionCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -295,13 +350,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C239B6E323AD4F23007F1949 /* UploadView.swift in Sources */,
 				C2AB640823A6652D007379DA /* InformationView.swift in Sources */,
+				C23C1D5523B62D1A006D270B /* ImageInputCell.swift in Sources */,
+				C239B6E823AD54D5007F1949 /* LoadImageCell.swift in Sources */,
+				C239B6E123AD4E4D007F1949 /* UploadImageViewController.swift in Sources */,
 				C2E1570F23A39FF600105763 /* FromView.swift in Sources */,
 				C27F626123A7ED93002D55EB /* AuthorizationManager.swift in Sources */,
+				C23C1D5723B63824006D270B /* TitleHeaderView.swift in Sources */,
+				C239B6E623AD5438007F1949 /* ImageCell.swift in Sources */,
 				C27F626323A8010E002D55EB /* CaptureView.swift in Sources */,
+				C239B6DF23AD3340007F1949 /* Media.swift in Sources */,
 				C2AB640A23A6671F007379DA /* Strings.swift in Sources */,
+				C22D19C223B5291100378E21 /* BaseCollectionViewCell.swift in Sources */,
 				C2E1572623A3AAC800105763 /* WebView.swift in Sources */,
 				C2BCAD9D23A5496E0008D492 /* Form.swift in Sources */,
+				C23C1D5B23B63BD5006D270B /* TextInputCollectionCell.swift in Sources */,
 				C2963F03239FADE40020A2DD /* FormViewController.swift in Sources */,
 				C27F625D23A7C60C002D55EB /* RequestManager.swift in Sources */,
 				C2BCAD9A23A52FEB0008D492 /* Section.swift in Sources */,
@@ -311,10 +375,14 @@
 				C2E1571923A3A3F600105763 /* CommonTextField.swift in Sources */,
 				C2E1571723A3A1E500105763 /* BaseTableVIewCell.swift in Sources */,
 				C27F625F23A7CC82002D55EB /* RegistrationFormViewController.swift in Sources */,
+				C265B34023A80815000C72B5 /* UIImage+download.swift in Sources */,
 				C2E1572823A4C05700105763 /* Cell.swift in Sources */,
+				C23C1D5923B638E7006D270B /* BaseCollectionReusableView.swift in Sources */,
 				C2963EEF239FAD590020A2DD /* AppDelegate.swift in Sources */,
 				C2E1571323A3A1C000105763 /* TextInputCell.swift in Sources */,
+				C239B6EA23AD5DA2007F1949 /* URLs.swift in Sources */,
 				C2E1572E23A4C81E00105763 /* Display.swift in Sources */,
+				C281DB7E23A93C7B00D2AC0D /* ImagePicker.swift in Sources */,
 				C2E1571123A3A01000105763 /* BaseView.swift in Sources */,
 				C2AB640C23A6694B007379DA /* InformationViewController.swift in Sources */,
 			);
@@ -453,6 +521,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7UVUKQP8WG;
 				INFOPLIST_FILE = StopPark/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -471,6 +540,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7UVUKQP8WG;
 				INFOPLIST_FILE = StopPark/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -22,6 +22,7 @@ class FormView: BaseView {
         tw.delegate = self
         tw.dataSource = self
         tw.register(TextInputCell.self, forCellReuseIdentifier: TextInputCell.identifier)
+        tw.register(ImageInputCell.self, forCellReuseIdentifier: ImageInputCell.identifier)
         tw.translatesAutoresizingMaskIntoConstraints = false
         return tw
     }()
@@ -53,6 +54,9 @@ extension FormView {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension FormView: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
+        if formDestination == .requestToServer {
+            return form.data.count + 1
+        }
         return form.data.count
     }
     

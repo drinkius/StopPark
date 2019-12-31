@@ -20,9 +20,19 @@ class FormViewController: UIViewController {
         return w
     }()
     
-    private var formView: FormView = {
-        let view = FormView()
+//    private var formView: FormView = {
+//        let view = FormView()
+////        view.isHidden = true
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        return view
+//    }()
+    private lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+//        view.delegate = self
+//        view.dataSource = self
         view.isHidden = true
+        view.register(TitleHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TitleHeaderView.identifier)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -43,7 +53,7 @@ class FormViewController: UIViewController {
                 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Сервис приема обращений"
+        title = "Прием обращений"
         setupView()
     }
 }
@@ -52,13 +62,12 @@ class FormViewController: UIViewController {
 extension FormViewController {
     private func setupView() {
         view.backgroundColor = .red
-        showInfoIfNeeded()
         configureViews()
         configureConstraints()
     }
     
     private func configureViews() {
-        [webView, formView, loader, captureView].forEach {
+        [webView, collectionView, loader, captureView].forEach {
             view.addSubview($0)
         }
     }
@@ -69,10 +78,10 @@ extension FormViewController {
          webView.rightAnchor.constraint(equalTo: view.rightAnchor),
          webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         
-         formView.topAnchor.constraint(equalTo: view.topAnchor),
-         formView.leftAnchor.constraint(equalTo: view.leftAnchor),
-         formView.rightAnchor.constraint(equalTo: view.rightAnchor),
-         formView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+         collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+         collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
+         collectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
+         collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
          
          loader.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -.nanoPadding),
          loader.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -.nanoPadding),
@@ -87,14 +96,18 @@ extension FormViewController {
 
 // MARK: - Actions
 extension FormViewController {
-    private func showInfoIfNeeded() {
-//        guard UserDefaultsManager.getInfoSubmit() else {
-//            let vc = InformationViewController()
-//            present(vc, animated: true)
-//            return
-//        }
-    }
 }
+
+// MARK: - UICollectionView
+//extension FormViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return 1
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        <#code#>
+//    }
+//}
 
 // MARK: - WebViewDelegate
 extension FormViewController: WebViewDelegate {
@@ -120,6 +133,6 @@ extension FormViewController: WebViewDelegate {
 
 extension FormViewController: CaptureViewDelegate {
     func needsUpdateForm() {
-        webView.loadFinalRequest()
+        webView.loadAppealRequest()
     }
 }

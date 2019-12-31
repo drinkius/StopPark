@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let vc = RegistrationFormViewController()
         let nav = UINavigationController(rootViewController: vc)
+        nav.navigationBar.prefersLargeTitles = true
         
         window?.rootViewController = nav
         window?.makeKeyAndVisible()

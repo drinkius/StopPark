@@ -69,38 +69,46 @@ extension WebView {
 // MARK: - Actions
 extension WebView {
     public func loadRequest() {
-        guard let url = url else { return }
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = "POST"
-        let dataBody = RequestManager.shared.createFormURLEncodedBody(regionCode: 01, subUnit: 1, message: "Обращение")
-        urlRequest.httpBody = dataBody
-        urlRequest.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-//        if let session = UserDefaultsManager.getUploadImagesSession() {
-//            urlRequest.addValue("regionCode=77; session=\(session)", forHTTPHeaderField: "cookie")
-//        }
+        guard let urlRequest = RequestManager.shared.initialRequest() else {
+            return
+        }
+        
+        web.load(urlRequest)
+        delegate?.loading()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0, execute: {
+            self.web.getCookies(completion: { dat in
+                guard !dat.isEmpty else {
+                    self.loadRequest()
+                    print("should return")
+                    return
+                }
+                
+                guard let sputnik_session = dat["session"] as? [String: Any], let ses = sputnik_session["Value"] as? String else {
+                    self.loadRequest()
+                    print("should return")
+                    return
+                }
+                print("entered")
+                UserDefaultsManager.setUploadImagesSession(ses)
+
+                print("log cockie: \(dat)")
+            })
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10.0, execute: {
+                self.sendImageToServer(image: phot)
+            })
+        })
+    }
+    
+    public func loadAppealRequest() {
+        guard let urlRequest = RequestManager.shared.finalRequest() else {
+            return
+        }
+
         web.load(urlRequest)
         delegate?.loading()
     }
     
-    public func loadFinalRequest() {
-        guard let url = url else { return }
-        var urlRequest = URLRequest(url: url)
-        
-        let boundary = RequestManager.shared.generateBoundaryString()
-        let photo = Media(withImage: phot, forKey: "file", mime: "application/octet-stream", filename: "")!
-        let dataBody = RequestManager.shared.finalRequest(regionCode: 01, subUnit: 1, message: "Обращение", media: [photo], boundary: boundary)
-
-        
-        urlRequest.httpMethod = "POST"
-        urlRequest.httpBody = dataBody
-        urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        urlRequest.setValue("text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9", forHTTPHeaderField: "accept")
-//        urlRequest.setValue("XMLHttpRequest", forHTTPHeaderField: "x-requested-with")
-        urlRequest.setValue("https://xn--90adear.xn--p1ai/request_main/", forHTTPHeaderField: "Referer")
-
-        web.load(urlRequest)
-        delegate?.loading()
-    }
     
     private func openForm() {
         web.evaluateJavaScript(Scripts.setCheckbox)
@@ -114,6 +122,38 @@ extension WebView {
         
         web.evaluateJavaScript("document.querySelector('#request > div.b-form > div:nth-child(1) > div.bf-item-holder > table > tbody > tr:nth-child(1) > td:nth-child(2) > span > span.selection > span').value = '23 Краснодарский край';")
     }
+    
+    
+    private func sendImageToServer(image: UIImage) {
+        guard let urlRequest = RequestManager.shared.uploadDataRequest(image: image) else {
+            return
+        }
+        
+        URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+            if let data = data {
+                if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                    if let file = json["file"] as? [String: Any] {
+                        if let id = file["id"] as? String, let sessionId = file["session_id"] as? String {
+                            print(json)
+                            UserDefaultsManager.setUploadImagesIds([id])
+//                            UserDefaultsManager.setUploadImagesSession(sessionId)
+                            print("id: \(id)")
+                        }
+                    }
+                }
+            }
+            
+            if let error = error {
+                print(error.localizedDescription)
+            }
+            
+            if let response = response as? HTTPURLResponse {
+                print(response.statusCode)
+            }
+            
+        }.resume()
+    }
+
 }
 
 
@@ -183,3 +223,24 @@ extension WebView {
 
 // Shorted version
 // $("body > div.ln-page > div > div.ln-content.wrapper.clearfix > div:nth-child(4) > div > script:nth-child(1)")
+
+extension WKWebView {
+
+    private var httpCookieStore: WKHTTPCookieStore  { return WKWebsiteDataStore.default().httpCookieStore }
+
+    func getCookies(for domain: String? = nil, completion: @escaping ([String : Any])->())  {
+        var cookieDict = [String : AnyObject]()
+        httpCookieStore.getAllCookies { cookies in
+            for cookie in cookies {
+                if let domain = domain {
+                    if cookie.domain.contains(domain) {
+                        cookieDict[cookie.name] = cookie.properties as AnyObject?
+                    }
+                } else {
+                    cookieDict[cookie.name] = cookie.properties as AnyObject?
+                }
+            }
+            completion(cookieDict)
+        }
+    }
+}

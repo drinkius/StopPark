@@ -39,6 +39,7 @@ class Loader: BaseView {
     private var image: UIImageView = {
         let view = UIImageView()
         view.image = .done
+        view.tintColor = .white
         view.contentMode = .scaleAspectFill
         view.alpha = 0
         view.translatesAutoresizingMaskIntoConstraints = false
