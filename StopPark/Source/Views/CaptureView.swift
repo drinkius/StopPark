@@ -14,7 +14,7 @@ protocol CaptureViewDelegate: class {
 
 class CaptureView: BaseView {
     
-    public var delegate: CaptureViewDelegate?
+    public weak var delegate: CaptureViewDelegate?
     
     public var imageURL: URL? {
         didSet { downloadImage() }
