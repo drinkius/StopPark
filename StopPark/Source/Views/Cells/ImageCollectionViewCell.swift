@@ -8,7 +8,13 @@
 
 import UIKit
 
-class ImageCell: BaseCollectionViewCell {
+protocol ImageCollectionViewCellDelegate: class {
+    func delete(image: UIImage?)
+}
+
+class ImageCollectionViewCell: BaseCollectionViewCell {
+    
+    public weak var delegate: ImageCollectionViewCellDelegate?
     
     public func fill(with image: UIImage?) {
         guard let image = image else { return }
@@ -20,6 +26,7 @@ class ImageCell: BaseCollectionViewCell {
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = Theme.imageItemCornerRadius
         imageView.layer.masksToBounds = true
+        imageView.backgroundColor = UIColor.red.withAlphaComponent(0.5)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -27,7 +34,8 @@ class ImageCell: BaseCollectionViewCell {
     private lazy var deleteButton: UIButton = {
         let btn = UIButton()
         btn.setImage(.delete, for: .normal)
-        btn.backgroundColor = .red
+        btn.tintColor = .white
+        btn.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         btn.layer.cornerRadius = Theme.buttonItemCornerRadius
         btn.layer.masksToBounds = true
         btn.addTarget(self, action: #selector(deleteAction), for: .touchUpInside)
@@ -43,7 +51,7 @@ class ImageCell: BaseCollectionViewCell {
 }
 
 // MARK: - Private Functions
-extension ImageCell {
+extension ImageCollectionViewCell {
     private func configureViews() {
         [uploadImage, deleteButton].forEach {
             addSubview($0)
@@ -51,13 +59,13 @@ extension ImageCell {
     }
     
     private func configureConstraints() {
-        [uploadImage.leftAnchor.constraint(equalTo: leftAnchor, constant: .padding),
-         uploadImage.centerYAnchor.constraint(equalTo: centerYAnchor),
-         uploadImage.widthAnchor.constraint(equalToConstant: Theme.imageItemHeight),
-         uploadImage.heightAnchor.constraint(equalToConstant: Theme.imageItemHeight),
+        [uploadImage.topAnchor.constraint(equalTo: topAnchor, constant: .smallPadding),
+         uploadImage.leftAnchor.constraint(equalTo: leftAnchor, constant: .smallPadding),
+         uploadImage.rightAnchor.constraint(equalTo: rightAnchor, constant: -.smallPadding),
+         uploadImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.smallPadding),
          
-         deleteButton.topAnchor.constraint(equalTo: uploadImage.topAnchor),
-         deleteButton.leftAnchor.constraint(equalTo: uploadImage.leftAnchor),
+         deleteButton.topAnchor.constraint(equalTo: uploadImage.topAnchor, constant: -(Theme.buttonItemWidth / 3)),
+         deleteButton.leftAnchor.constraint(equalTo: uploadImage.leftAnchor, constant: -(Theme.buttonItemWidth / 3)),
          deleteButton.widthAnchor.constraint(equalToConstant: Theme.buttonItemWidth),
          deleteButton.heightAnchor.constraint(equalToConstant: Theme.buttonItemHeight)
             ].forEach { $0.isActive = true }
@@ -65,18 +73,27 @@ extension ImageCell {
 }
 
 // MARK: - Actions
-extension ImageCell {
+extension ImageCollectionViewCell {
     @objc private func deleteAction() {
-        uploadImage.image = nil
+        UIView.animate(withDuration: 0.3, animations: {
+            [self.uploadImage, self.deleteButton].forEach {
+                $0.alpha = 0
+            }
+        }, completion: { _ in
+            [self.uploadImage, self.deleteButton].forEach {
+                $0.alpha = 1
+            }
+            self.delegate?.delete(image: self.uploadImage.image)
+        })
     }
 }
 
 // MARK: - Support
-extension ImageCell {
+extension ImageCollectionViewCell {
     enum Theme {
         static let imageItemHeight: CGFloat = 50.0
         static let imageItemCornerRadius: CGFloat = 5.0
-        static let buttonItemHeight: CGFloat = 20.0
+        static let buttonItemHeight: CGFloat = 15.0
         static let buttonItemWidth: CGFloat = buttonItemHeight
         static let buttonItemCornerRadius: CGFloat = buttonItemHeight / 2
     }
