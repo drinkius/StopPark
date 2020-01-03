@@ -53,6 +53,19 @@ class FormVC: UIViewController {
         return picker
     }()
     
+    private lazy var cancelButton: UIBarButtonItem = {
+        let btn = UIButton()
+        btn.setTitle("Отмена", for: .normal)
+        btn.setTitleColor(.white, for: .normal)
+        btn.layer.cornerRadius = Theme.buttonItemCornerRadius
+        btn.layer.masksToBounds = true
+        btn.backgroundColor = .highlited
+        btn.contentEdgeInsets = Theme.buttonItemContentInset
+        btn.titleLabel?.font = .systemFont(ofSize: 12)
+        btn.addTarget(self, action: #selector(closeForm), for: .touchUpInside)
+        return UIBarButtonItem(customView: btn)
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -68,6 +81,7 @@ extension FormVC {
     private func setupView() {
         title = "Форма обращения"
         view.backgroundColor = .smokeWhite
+        navigationItem.rightBarButtonItem = cancelButton
         configureViews()
         configureConstraints()
     }
@@ -97,6 +111,13 @@ extension FormVC {
          captureView.rightAnchor.constraint(equalTo: view.rightAnchor),
          captureView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ].forEach { $0.isActive = true }
+    }
+}
+
+// MARK: - Actions
+extension FormVC {
+    @objc private func closeForm() {
+        dismiss(animated: true)
     }
 }
 
@@ -267,3 +288,10 @@ extension FormVC: ImagesTableViewCellDelegate, ImageCollectionViewCellDelegate {
     }
 }
 
+// MARK: - Support
+extension FormVC {
+    enum Theme {
+        static let buttonItemCornerRadius: CGFloat = 5.0
+        static let buttonItemContentInset: UIEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
+    }
+}

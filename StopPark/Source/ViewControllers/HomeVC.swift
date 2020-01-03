@@ -118,7 +118,9 @@ extension HomeVC {
     
     private func presentFormVC() {
         let formVC = FormVC()
-        present(formVC, animated: true)
+        let nav = UINavigationController(rootViewController: formVC)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
     }
 }
 
