@@ -26,7 +26,7 @@
 		C27F625D23A7C60C002D55EB /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27F625C23A7C60C002D55EB /* RequestManager.swift */; };
 		C27F625F23A7CC82002D55EB /* RegistrationFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27F625E23A7CC82002D55EB /* RegistrationFormViewController.swift */; };
 		C27F626123A7ED93002D55EB /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27F626023A7ED93002D55EB /* AuthorizationManager.swift */; };
-		C27F626323A8010E002D55EB /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27F626223A8010E002D55EB /* CaptureView.swift */; };
+		C27F626323A8010E002D55EB /* CaptchaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27F626223A8010E002D55EB /* CaptchaView.swift */; };
 		C281DB7E23A93C7B00D2AC0D /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C281DB7D23A93C7B00D2AC0D /* ImagePicker.swift */; };
 		C2963EEF239FAD590020A2DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2963EEE239FAD590020A2DD /* AppDelegate.swift */; };
 		C2963EF8239FAD5B0020A2DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2963EF7239FAD5B0020A2DD /* Assets.xcassets */; };
@@ -69,7 +69,7 @@
 		C27F625C23A7C60C002D55EB /* RequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
 		C27F625E23A7CC82002D55EB /* RegistrationFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationFormViewController.swift; sourceTree = "<group>"; };
 		C27F626023A7ED93002D55EB /* AuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
-		C27F626223A8010E002D55EB /* CaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
+		C27F626223A8010E002D55EB /* CaptchaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptchaView.swift; sourceTree = "<group>"; };
 		C281DB7D23A93C7B00D2AC0D /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		C2963EEB239FAD590020A2DD /* StopPark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StopPark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2963EEE239FAD590020A2DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -287,8 +287,8 @@
 				C2E1571F23A3A6CD00105763 /* FormView */,
 				C2AB640623A6651B007379DA /* WebView */,
 				C2AB640723A6652D007379DA /* InformationView.swift */,
-				C27F626223A8010E002D55EB /* CaptureView.swift */,
 				C239B6E423AD5417007F1949 /* UploadView */,
+				C27F626223A8010E002D55EB /* CaptchaView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -390,7 +390,7 @@
 				C27F626123A7ED93002D55EB /* AuthorizationManager.swift in Sources */,
 				C23C1D5723B63824006D270B /* TitleHeaderView.swift in Sources */,
 				C239B6E623AD5438007F1949 /* ImageCollectionViewCell.swift in Sources */,
-				C27F626323A8010E002D55EB /* CaptureView.swift in Sources */,
+				C27F626323A8010E002D55EB /* CaptchaView.swift in Sources */,
 				C246AC2423BB82FA00B1C7C0 /* TextFieldCell.swift in Sources */,
 				C246AC2223BB825700B1C7C0 /* FormVC.swift in Sources */,
 				C239B6DF23AD3340007F1949 /* Media.swift in Sources */,

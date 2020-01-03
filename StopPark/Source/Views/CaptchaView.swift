@@ -1,5 +1,5 @@
 //
-//  CaptureView.swift
+//  CaptchaView.swift
 //  StopPark
 //
 //  Created by Arman Turalin on 12/17/19.
@@ -9,10 +9,10 @@
 import UIKit
 
 protocol CaptureViewDelegate: class {
-    func needsUpdateForm()
+    func needsUpdateForm(with captcha: String)
 }
 
-class CaptureView: BaseView {
+class CaptchaView: BaseView {
     
     public weak var delegate: CaptureViewDelegate?
     
@@ -106,7 +106,7 @@ class CaptureView: BaseView {
 }
 
 // MARK: - Private Functions
-extension CaptureView {
+extension CaptchaView {
     private func configureViews() {
         [containerView, changeButton, titleLabel, closeButton, imageView, containerTextInput, textField, sendButton].forEach {
             addSubview($0)
@@ -157,7 +157,7 @@ extension CaptureView {
 }
 
 // MARK: - Actions
-extension CaptureView {
+extension CaptchaView {
     private func downloadImage() {
         guard let url = imageURL else { return }
         imageView.downloadCapture(with: url)
@@ -173,23 +173,23 @@ extension CaptureView {
     
     @objc private func send() {
         isHidden = true
-        UserDefaultsManager.setCaptureImageText(textField.text)
-        delegate?.needsUpdateForm()
+        guard let text = textField.text else { return }
+        delegate?.needsUpdateForm(with: text)
     }
 }
 
 // MARK: - UITextFieldDelegate
-extension CaptureView: UITextFieldDelegate {
+extension CaptchaView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         isHidden = true
-        UserDefaultsManager.setCaptureImageText(textField.text)
-        delegate?.needsUpdateForm()
+        guard let text = textField.text else { return true }
+        delegate?.needsUpdateForm(with: text)
         return true
     }
 }
 
 // MARK: - Support
-extension CaptureView {
+extension CaptchaView {
     enum Theme {
         static let containerItemHeight: CGFloat = 250.0
         static let containerItemWidth: CGFloat = 100.0

@@ -40,8 +40,8 @@ class FormVC: UIViewController {
         return view
     }()
     
-    private lazy var captureView: CaptureView = {
-        let view = CaptureView()
+    private lazy var captureView: CaptchaView = {
+        let view = CaptchaView()
         view.isHidden = true
         view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -227,7 +227,8 @@ extension FormVC: WebViewDelegate {
 
 // MARK: - CaptureViewDelegate
 extension FormVC: CaptureViewDelegate {
-    func needsUpdateForm() {
+    func needsUpdateForm(with captcha: String) {
+        webView.loadAppealRequest(with: captcha)
 //        webView.loadAppealRequest()
     }
 }
