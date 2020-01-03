@@ -24,7 +24,7 @@
 		C246AC2823BBDA4400B1C7C0 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C246AC2723BBDA4400B1C7C0 /* HeaderView.swift */; };
 		C265B34023A80815000C72B5 /* UIImage+download.swift in Sources */ = {isa = PBXBuildFile; fileRef = C265B33F23A80815000C72B5 /* UIImage+download.swift */; };
 		C27F625D23A7C60C002D55EB /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27F625C23A7C60C002D55EB /* RequestManager.swift */; };
-		C27F625F23A7CC82002D55EB /* RegistrationFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27F625E23A7CC82002D55EB /* RegistrationFormViewController.swift */; };
+		C27F625F23A7CC82002D55EB /* RegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27F625E23A7CC82002D55EB /* RegistrationVC.swift */; };
 		C27F626123A7ED93002D55EB /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27F626023A7ED93002D55EB /* AuthorizationManager.swift */; };
 		C27F626323A8010E002D55EB /* CaptchaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27F626223A8010E002D55EB /* CaptchaView.swift */; };
 		C281DB7E23A93C7B00D2AC0D /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C281DB7D23A93C7B00D2AC0D /* ImagePicker.swift */; };
@@ -64,7 +64,7 @@
 		C246AC2723BBDA4400B1C7C0 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		C265B33F23A80815000C72B5 /* UIImage+download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+download.swift"; sourceTree = "<group>"; };
 		C27F625C23A7C60C002D55EB /* RequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
-		C27F625E23A7CC82002D55EB /* RegistrationFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationFormViewController.swift; sourceTree = "<group>"; };
+		C27F625E23A7CC82002D55EB /* RegistrationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationVC.swift; sourceTree = "<group>"; };
 		C27F626023A7ED93002D55EB /* AuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
 		C27F626223A8010E002D55EB /* CaptchaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptchaView.swift; sourceTree = "<group>"; };
 		C281DB7D23A93C7B00D2AC0D /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -251,7 +251,7 @@
 			children = (
 				C2E1572323A3A6FB00105763 /* FormViewController */,
 				C2AB640B23A6694B007379DA /* InformationViewController.swift */,
-				C27F625E23A7CC82002D55EB /* RegistrationFormViewController.swift */,
+				C27F625E23A7CC82002D55EB /* RegistrationVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -381,7 +381,7 @@
 				C21E71DB23A6806C002BC191 /* Loader.swift in Sources */,
 				C2E1572C23A4C27200105763 /* UserDefaultsManager.swift in Sources */,
 				C2E1571723A3A1E500105763 /* BaseTableVIewCell.swift in Sources */,
-				C27F625F23A7CC82002D55EB /* RegistrationFormViewController.swift in Sources */,
+				C27F625F23A7CC82002D55EB /* RegistrationVC.swift in Sources */,
 				C265B34023A80815000C72B5 /* UIImage+download.swift in Sources */,
 				C2E1572823A4C05700105763 /* Cell.swift in Sources */,
 				C23C1D5923B638E7006D270B /* BaseCollectionReusableView.swift in Sources */,
