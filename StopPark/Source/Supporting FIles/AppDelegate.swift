@@ -17,11 +17,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow()
         
-        let vc = RegistrationVC()
-        let nav = UINavigationController(rootViewController: vc)
-        nav.navigationBar.prefersLargeTitles = true
+        if AuthorizationManager.authorized {
+            let vc = HomeVC()
+            let nav = UINavigationController(rootViewController: vc)
+            window?.rootViewController = nav
+        } else {
+            let vc = RegistrationVC()
+            let nav = UINavigationController(rootViewController: vc)
+            nav.navigationBar.prefersLargeTitles = true
+            window?.rootViewController = nav
+        }
         
-        window?.rootViewController = nav
         window?.makeKeyAndVisible()
         return true
     }
