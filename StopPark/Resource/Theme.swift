@@ -20,6 +20,7 @@ extension CGFloat {
     static let elementSpacing: CGFloat = 24
     static let topInset: CGFloat = 51
     static let cellHeight: CGFloat = 48
+    static let standartCornerRadius: CGFloat = 10.0
 }
 
 extension UIColor {
@@ -42,4 +43,7 @@ extension UIImage {
     static let delete   = UIImage(named: "delete")?.withRenderingMode(.alwaysTemplate)
     static let update   = UIImage(named: "update")?.withRenderingMode(.alwaysTemplate)
     static let add      = UIImage(named: "add")?.withRenderingMode(.alwaysTemplate)
+    static let profile  = UIImage(named: "profile")?.withRenderingMode(.alwaysTemplate)
+    static let waiting  = UIImage(named: "waiting")?.withRenderingMode(.alwaysTemplate)
+    static let consider = UIImage(named: "consider")?.withRenderingMode(.alwaysTemplate)
 }
