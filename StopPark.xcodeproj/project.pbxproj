@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C21D267D23BF918B0057CC17 /* Appeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21D267C23BF918B0057CC17 /* Appeal.swift */; };
 		C21D267F23BF9E990057CC17 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21D267E23BF9E990057CC17 /* ProfileView.swift */; };
+		C21D268123BFA72F0057CC17 /* MessageFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21D268023BFA72F0057CC17 /* MessageFooterView.swift */; };
 		C21E71DB23A6806C002BC191 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E71DA23A6806C002BC191 /* Loader.swift */; };
 		C22D19C223B5291100378E21 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22D19C123B5291100378E21 /* BaseCollectionViewCell.swift */; };
 		C239B6DF23AD3340007F1949 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = C239B6DE23AD3340007F1949 /* Media.swift */; };
@@ -51,7 +53,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C21D267C23BF918B0057CC17 /* Appeal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appeal.swift; sourceTree = "<group>"; };
 		C21D267E23BF9E990057CC17 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		C21D268023BFA72F0057CC17 /* MessageFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageFooterView.swift; sourceTree = "<group>"; };
 		C21E71DA23A6806C002BC191 /* Loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
 		C22D19C123B5291100378E21 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		C239B6DE23AD3340007F1949 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
@@ -166,6 +170,7 @@
 				C2AFBF7923BF3F8E00209F31 /* RequestTableViewCell.swift */,
 				C242FB8E23BD203900C3B16C /* ButtonTableViewCell.swift */,
 				C242FB8C23BD0B1D00C3B16C /* ImagesTableViewCell.swift */,
+				C21D268023BFA72F0057CC17 /* MessageFooterView.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -183,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				C2E1572723A4C05700105763 /* Cell.swift */,
+				C21D267C23BF918B0057CC17 /* Appeal.swift */,
 				C2BCAD9923A52FEB0008D492 /* Section.swift */,
 				C2BCAD9C23A5496E0008D492 /* Form.swift */,
 			);
@@ -397,10 +403,12 @@
 				C27F625F23A7CC82002D55EB /* RegistrationVC.swift in Sources */,
 				C265B34023A80815000C72B5 /* UIImage+download.swift in Sources */,
 				C2E1572823A4C05700105763 /* Cell.swift in Sources */,
+				C21D267D23BF918B0057CC17 /* Appeal.swift in Sources */,
 				C23C1D5923B638E7006D270B /* BaseCollectionReusableView.swift in Sources */,
 				C242FB8F23BD203900C3B16C /* ButtonTableViewCell.swift in Sources */,
 				C2AFBF7623BF1BF400209F31 /* HomeVC.swift in Sources */,
 				C2AFBF7C23BF41D100209F31 /* MessageView.swift in Sources */,
+				C21D268123BFA72F0057CC17 /* MessageFooterView.swift in Sources */,
 				C21D267F23BF9E990057CC17 /* ProfileView.swift in Sources */,
 				C2963EEF239FAD590020A2DD /* AppDelegate.swift in Sources */,
 				C239B6EA23AD5DA2007F1949 /* URLs.swift in Sources */,

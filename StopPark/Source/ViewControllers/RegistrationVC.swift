@@ -98,8 +98,11 @@ extension RegistrationVC {
     }
     
     @objc private func submit() {
-        guard AuthorizationManager.authorized else { return }
-        let formVC = FormVC()
+        guard AuthorizationManager.authorized else {
+            showErrorMessage("Вы заполнили не все пункты.")
+            return
+        }
+        let formVC = HomeVC()
         let nav = UINavigationController(rootViewController: formVC)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)
@@ -136,6 +139,13 @@ extension RegistrationVC: UITableViewDelegate, UITableViewDataSource {
             
             let name = cells[indexPath.row].name
             textFieldCell.fill(with: name.rawValue) { text in
+                
+                if name == .userEmail {
+                    let email = text?.lowercased()
+                    UserDefaultsManager.setFormData(name, data: email)
+                    return
+                }
+                
                 UserDefaultsManager.setFormData(name, data: text)
             }
         }
@@ -147,6 +157,13 @@ extension RegistrationVC: UITableViewDelegate, UITableViewDataSource {
         let headerView = HeaderView()
         headerView.fill(with: sections[section].name)
         return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        guard section == registrationForm.data.count - 1 else { return UIView() }
+        let messageFooterView = MessageFooterView()
+        messageFooterView.fill(with: "Ваши данные используются только для отправки Ваших обращений в ГИБДД. Мы не отправляем спам и не используем Ваши данные в иных целях.")
+        return messageFooterView
     }
 }
 
