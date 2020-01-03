@@ -111,6 +111,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C21D268223BFB0100057CC17 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				C2E1572B23A4C27200105763 /* UserDefaultsManager.swift */,
+				C27F626023A7ED93002D55EB /* AuthorizationManager.swift */,
+				C27F625C23A7C60C002D55EB /* RequestManager.swift */,
+				C246AC1F23BB6D1200B1C7C0 /* NetworkManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		C281DB7C23A8FCF600D2AC0D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,8 +210,6 @@
 			isa = PBXGroup;
 			children = (
 				C2BCAD9523A5265E0008D492 /* Theme.swift */,
-				C27F625C23A7C60C002D55EB /* RequestManager.swift */,
-				C246AC1F23BB6D1200B1C7C0 /* NetworkManager.swift */,
 				C239B6DE23AD3340007F1949 /* Media.swift */,
 				C239B6E923AD5DA2007F1949 /* URLs.swift */,
 				C2AB640923A6671F007379DA /* Strings.swift */,
@@ -241,10 +250,9 @@
 		C2E1571E23A3A6AD00105763 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C21D268223BFB0100057CC17 /* Managers */,
 				C281DB7D23A93C7B00D2AC0D /* ImagePicker.swift */,
 				C21E71DA23A6806C002BC191 /* Loader.swift */,
-				C2E1572B23A4C27200105763 /* UserDefaultsManager.swift */,
-				C27F626023A7ED93002D55EB /* AuthorizationManager.swift */,
 				C281DB7C23A8FCF600D2AC0D /* Extensions */,
 			);
 			path = Common;
