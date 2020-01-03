@@ -14,11 +14,13 @@ class RequestManager {
     static let shared = RequestManager()
     
 //    let step2 = ["agree": "on", "step": "2"]
-    func createFormURLEncodedBody(regionCode: Int, subUnit: Int, post: String = "", fio: String = "", eventRegion: String = "", rrSubUnitName: String = "", rrDate: String = "", message: String) -> Data? {
+    private var eventInfoForm: [FormData: String]?
+    func createFormURLEncodedBody(captcha: String = "") -> Data? {
         
         guard let firstName = UserDefaultsManager.getUserName() else { return Data() }
         guard let lastName = UserDefaultsManager.getUserSurname() else { return Data() }
         guard let email = UserDefaultsManager.getEmail() else { return Data() }
+        guard let eventInfoForm = eventInfoForm else { return nil }
         
         var params = [
             "surname": "\(lastName)",
@@ -53,24 +55,44 @@ class RequestManager {
         if let orgLetter = UserDefaultsManager.getOrganizationLetter() {
             params["org_letter"] = "\(orgLetter)"
         }
-        
-        if let captureText = UserDefaultsManager.getCapruteImageText() {
-            params["captcha"] = "\(captureText)"
-        }
-        
+                
         if let imageIDs = UserDefaultsManager.getUploadImagesIds() {
             for id in imageIDs {
                 params["file"] = "\(id)"
             }
         }
         
-        params["region_code"] = "\(regionCode)"
-        params["subunit"] = "\(subUnit)"
-        params["post"] = "\(post)"
-        params["fio"] = "\(fio)"
-        params["event_region"] = "\(eventRegion)"
-        params["subunit_name"] = "\(rrSubUnitName)"
-        params["subunit_date"] = "\(rrDate)"
+        for (key, value) in eventInfoForm {
+            switch key {
+            case .district: params["region_code"] = "\(value)"
+            case .subDivision: params["subunit"] = "\(value)"
+            case .rang: params["post"] = "\(value)"
+            case .policeName: params["fio"] = "\(value)"
+            case .eventPlace: params["event_region"] = "\(value)"
+            case .repeatedDivision: params["subunit_name"] = "\(value)"
+            case .repeatedDate: params["subunit_date"] = "\(value)"
+            default: break
+            }
+        }
+        
+        guard let eventDate = eventInfoForm[.eventDate] else { return nil }
+        guard let autoMark = eventInfoForm[.autoMark] else { return nil }
+        guard let autoNumber = eventInfoForm[.autoNumber] else { return nil }
+        guard let eventAddress = eventInfoForm[.eventAddress] else { return nil }
+        guard let photoDate = eventInfoForm[.photoDate] else { return nil }
+        let eventViolation = eventInfoForm[.eventViolation] ?? "" // need to append
+        
+        let message = Strings.generateTemplateText(date: eventDate, auto: autoMark, number: autoNumber, address: eventAddress, photoDate: photoDate)
+
+        
+//        params["region_code"] = "\(regionCode)"
+//        params["subunit"] = "\(subUnit)"
+//        params["post"] = "\(post)"
+//        params["fio"] = "\(fio)"
+//        params["event_region"] = "\(eventRegion)"
+//        params["subunit_name"] = "\(rrSubUnitName)"
+//        params["subunit_date"] = "\(rrDate)"
+        params["captcha"] = "\(captcha)"
         params["message"] = "\(message)"
         
         return getFormURLEncodedData(params: params)
@@ -118,16 +140,18 @@ class RequestManager {
 }
 
 extension RequestManager {
-    func initialRequest() -> URLRequest? {
+    func initialRequest(with data: [FormData: String]) -> URLRequest? {
         guard let url = URLs.mainRequestURL else {
             return nil
         }
+        
+        eventInfoForm = data
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
         urlRequest.addValue(.defaultContentType)
         
-        let dataBody = createFormURLEncodedBody(regionCode: 01, subUnit: 1, message: "Обращение")
+        let dataBody = createFormURLEncodedBody()
         urlRequest.httpBody = dataBody
         
         return urlRequest
@@ -139,7 +163,7 @@ extension RequestManager {
             return nil
         }
         
-        guard let session = UserDefaultsManager.getUploadImagesSession() else {
+        guard let session = UserDefaultsManager.getSession() else {
             return nil
         }
         
@@ -168,7 +192,7 @@ extension RequestManager {
             return nil
         }
         
-        guard let session = UserDefaultsManager.getUploadImagesSession() else {
+        guard let session = UserDefaultsManager.getSession() else {
             return nil
         }
 
@@ -179,7 +203,7 @@ extension RequestManager {
         urlRequest.addValue(.xRequestedWith)
         urlRequest.addValue(.setCookieWithPath(session))
 
-        let dataBody = RequestManager.shared.createFormURLEncodedBody(regionCode: 01, subUnit: 1, message: "Обращение")
+        let dataBody = RequestManager.shared.createFormURLEncodedBody()
         urlRequest.httpBody = dataBody
         
         return urlRequest

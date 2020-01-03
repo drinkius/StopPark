@@ -26,7 +26,7 @@ let kUserOrganizationLetter: String = "kUserOrganizationLetter"
 let kCaptureImage: String = "kCaptureImage"
 
 let kUploadImageIds: String = "kUploadImageIds"
-let kUploadImageSession: String = "kUploadImageSession"
+let kSession: String = "kUploadImageSession"
 
 struct UserDefaultsManager {
     static func setDistrict(_ text: String?) {
@@ -161,11 +161,11 @@ struct UserDefaultsManager {
         return UserDefaults.standard.array(forKey: kUploadImageIds) as? [String]
     }
     
-    static func setUploadImagesSession(_ sessionId: String?) {
-        UserDefaults.standard.set(sessionId, forKey: kUploadImageSession)
+    static func setSession(_ sessionId: String?) {
+        UserDefaults.standard.set(sessionId, forKey: kSession)
     }
     
-    static func getUploadImagesSession() -> String? {
-        return UserDefaults.standard.string(forKey: kUploadImageSession)
+    static func getSession() -> String? {
+        return UserDefaults.standard.string(forKey: kSession)
     }
 }

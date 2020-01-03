@@ -37,12 +37,22 @@ class Form {
                                     Cell(name: .userNumberLetter)]
     private let userContactInformation = [Cell(name: .userEmail),
                                           Cell(name: .userPhone)]
+    private let repeatedRequest = [Cell(name: .repeatedDivision),
+                                   Cell(name: .repeatedDate)]
+    private let appeal = [Cell(name: .eventDate),
+                          Cell(name: .autoMark),
+                          Cell(name: .autoNumber),
+                          Cell(name: .eventAddress),
+                          Cell(name: .photoDate),
+                          Cell(name: .eventViolation)]
     
     private func fillForm(_ destination: Destination) {
         let toSomeoneSection = Section(name: "Куда адресовано", cells: toSomeone)
         let atUserSection = Section(name: "Заявитель", cells: userData)
         let atOrganizationSection = Section(name: "Заявитель", cells: organizationData)
         let responceAddressSection = Section(name: "Адрес для ответа", cells: userContactInformation)
+        let repeatedRequestSection = Section(name: "Уже обращались по данному вопросу?", cells: repeatedRequest)
+        let appealSection = Section(name: "Генерация текста обращения", cells: appeal)
         
         switch destination {
         case .registrationUser:
@@ -50,7 +60,7 @@ class Form {
         case .registrationOrganization:
             data = [atOrganizationSection, responceAddressSection]
         case .requestToServer:
-            data = [toSomeoneSection]
+            data = [toSomeoneSection, repeatedRequestSection, appealSection]
         }
     }
     
