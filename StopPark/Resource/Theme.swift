@@ -25,6 +25,7 @@ extension CGFloat {
 extension UIColor {
     static let separator: UIColor = #colorLiteral(red   : 0.9254901961, green   : 0.9098039216, blue   : 0.9098039216, alpha   : 1)
     static let highlited: UIColor = #colorLiteral(red: 0, green: 0.5388351083, blue: 0.9526227117, alpha: 1)
+    static let smokeWhite: UIColor = #colorLiteral(red: 0.9458671212, green: 0.9460254312, blue: 0.9458462596, alpha: 1)
     
     static var nameEditingColor: UIColor = .highlited
     static var nameDefaultColor: UIColor = .darkGray
@@ -40,4 +41,5 @@ extension UIImage {
     static let send     = UIImage(named: "send")?.withRenderingMode(.alwaysTemplate)
     static let delete   = UIImage(named: "delete")?.withRenderingMode(.alwaysTemplate)
     static let update   = UIImage(named: "update")?.withRenderingMode(.alwaysTemplate)
+    static let add      = UIImage(named: "add")?.withRenderingMode(.alwaysTemplate)
 }
