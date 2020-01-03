@@ -108,8 +108,8 @@ extension WebView {
         delegate?.loading()
     }
         
-    public func loadAppealRequest() {
-        guard let urlRequest = RequestManager.shared.finalRequest() else {
+    public func loadAppealRequest(with captcha: String) {
+        guard let urlRequest = RequestManager.shared.finalRequest(with: captcha) else {
             return
         }
 

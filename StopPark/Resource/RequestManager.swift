@@ -187,8 +187,8 @@ extension RequestManager {
     }
     
     
-    func finalRequest() -> URLRequest? {
-        guard let url = URLs.mainRequestURL else {
+    func finalRequest(with captcha: String) -> URLRequest? {
+        guard let url = URLs.checkCorrectURL else {
             return nil
         }
         
@@ -203,7 +203,7 @@ extension RequestManager {
         urlRequest.addValue(.xRequestedWith)
         urlRequest.addValue(.setCookieWithPath(session))
 
-        let dataBody = RequestManager.shared.createFormURLEncodedBody()
+        let dataBody = RequestManager.shared.createFormURLEncodedBody(captcha: captcha)
         urlRequest.httpBody = dataBody
         
         return urlRequest
