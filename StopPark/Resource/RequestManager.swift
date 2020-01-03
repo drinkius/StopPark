@@ -17,9 +17,9 @@ class RequestManager {
     private var eventInfoForm: [FormData: String]?
     func createFormURLEncodedBody(captcha: String = "") -> Data? {
         
-        guard let firstName = UserDefaultsManager.getUserName() else { return Data() }
-        guard let lastName = UserDefaultsManager.getUserSurname() else { return Data() }
-        guard let email = UserDefaultsManager.getEmail() else { return Data() }
+        guard let firstName = UserDefaultsManager.getFormData(.userName) else { return Data() }
+        guard let lastName = UserDefaultsManager.getFormData(.userSurname) else { return Data() }
+        guard let email = UserDefaultsManager.getFormData(.userEmail) else { return Data() }
         guard let eventInfoForm = eventInfoForm else { return nil }
         
         var params = [
@@ -29,30 +29,30 @@ class RequestManager {
             "step": "3",
             "agree": "on"]
         
-        if let fatherName = UserDefaultsManager.getUserFatherName() {
+        if let fatherName = UserDefaultsManager.getFormData(.userFatherName) {
             params["patronymic"] = "\(fatherName)"
         }
         
-        if let phone = UserDefaultsManager.getPhone() {
+        if let phone = UserDefaultsManager.getFormData(.userPhone) {
             params["phone"] = "\(phone)"
         }
         
-        if let orgName = UserDefaultsManager.getOrganizationName() {
+        if let orgName = UserDefaultsManager.getFormData(.userOrganizationName) {
             params["is_organization"] = "\(1)"
             params["org_name"] = "\(orgName)"
         } else {
             params["is_organization"] = "\(0)"
         }
         
-        if let orgOut = UserDefaultsManager.getOrganizationOut() {
+        if let orgOut = UserDefaultsManager.getFormData(.userOrganizationNumber) {
             params["org_out"] = "\(orgOut)"
         }
         
-        if let orgDate = UserDefaultsManager.getOrganizationDate() {
+        if let orgDate = UserDefaultsManager.getFormData(.userOrganizationDate) {
             params["org_date"] = "\(orgDate)"
         }
         
-        if let orgLetter = UserDefaultsManager.getOrganizationLetter() {
+        if let orgLetter = UserDefaultsManager.getFormData(.userOrganizationLetter) {
             params["org_letter"] = "\(orgLetter)"
         }
                 

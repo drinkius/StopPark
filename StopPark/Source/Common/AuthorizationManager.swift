@@ -10,9 +10,9 @@ import Foundation
 
 struct AuthorizationManager {
     static var authorized: Bool {
-        guard let _ = UserDefaultsManager.getUserName() else { return false }
-        guard let _ = UserDefaultsManager.getUserSurname() else { return false }
-        guard let _ = UserDefaultsManager.getEmail() else { return false }
+        guard let _ = UserDefaultsManager.getFormData(.userName) else { return false }
+        guard let _ = UserDefaultsManager.getFormData(.userSurname) else { return false }
+        guard let _ = UserDefaultsManager.getFormData(.userEmail) else { return false }
         return true
     }
 }

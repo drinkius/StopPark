@@ -29,127 +29,35 @@ let kUploadImageIds: String = "kUploadImageIds"
 let kSession: String = "kUploadImageSession"
 
 struct UserDefaultsManager {
-    static func setDistrict(_ text: String?) {
-        UserDefaults.standard.set(text, forKey: kDistrict)
+    
+    static func setFormData(_ type: FormData, data: String?) {
+        switch type {
+        case .userName: UserDefaults.standard.set(data, forKey: kUserName)
+        case .userSurname: UserDefaults.standard.set(data, forKey: kUserSurname)
+        case .userFatherName: UserDefaults.standard.set(data, forKey: kUserFatherName)
+        case .userOrganizationName: UserDefaults.standard.set(data, forKey: kUserOrganizationName)
+        case .userOrganizationNumber: UserDefaults.standard.set(data, forKey: kUserOrganizationOut)
+        case .userOrganizationDate: UserDefaults.standard.set(data, forKey: kUserOrganizationDate)
+        case .userOrganizationLetter: UserDefaults.standard.set(data, forKey: kUserOrganizationLetter)
+        case .userEmail: UserDefaults.standard.set(data, forKey: kEmail)
+        case .userPhone: UserDefaults.standard.set(data, forKey: kPhone)
+        default: break
+        }
     }
     
-    static func getDistrict() -> String? {
-        return UserDefaults.standard.string(forKey: kDistrict)
-    }
-    
-    
-    static func setSubdivision(_ text: String?) {
-        UserDefaults.standard.set(text, forKey: kSubdivision)
-    }
-    
-    static func getSubdivision() -> String? {
-        return UserDefaults.standard.string(forKey: kSubdivision)
-    }
-    
-    
-    static func setRang(_ text: String?) {
-        UserDefaults.standard.set(text, forKey: kRang)
-    }
-    
-    static func getRang() -> String? {
-        return UserDefaults.standard.string(forKey: kRang)
-    }
-    
-    
-    static func setPoliceName(_ text: String?) {
-        UserDefaults.standard.set(text, forKey: kPoliceName)
-    }
-    
-    static func getPoliceName() -> String? {
-        return UserDefaults.standard.string(forKey: kPoliceName)
-    }
-    
-// MARK: - User Info
-    static func setUserName(_ text: String?) {
-        UserDefaults.standard.set(text, forKey: kUserName)
-    }
-    
-    static func getUserName() -> String? {
-        return UserDefaults.standard.string(forKey: kUserName)
-    }
-
-    
-    static func setUserSurname(_ text: String?) {
-        UserDefaults.standard.set(text, forKey: kUserSurname)
-    }
-    
-    static func getUserSurname() -> String? {
-        return UserDefaults.standard.string(forKey: kUserSurname)
-    }
-    
-    
-    static func setUserFatherName(_ text: String?) {
-        UserDefaults.standard.set(text, forKey: kUserFatherName)
-    }
-    
-    static func getUserFatherName() -> String? {
-        return UserDefaults.standard.string(forKey: kUserFatherName)
-    }
-    
-    
-    static func setEmail(_ text: String?) {
-        UserDefaults.standard.set(text, forKey: kEmail)
-    }
-    
-    static func getEmail() -> String? {
-        return UserDefaults.standard.string(forKey: kEmail)
-    }
-
-    
-    static func setPhone(_ text: String?) {
-        UserDefaults.standard.set(text, forKey: kPhone)
-    }
-    
-    static func getPhone() -> String? {
-        return UserDefaults.standard.string(forKey: kPhone)
-    }
-
-    
-// MARK: - Organization
-    static func setOrganizationName(_ text: String?) {
-        UserDefaults.standard.set(text, forKey: kUserOrganizationName)
-    }
-    
-    static func getOrganizationName() -> String? {
-        return UserDefaults.standard.string(forKey: kUserOrganizationName)
-    }
-    
-    static func setOrganizationOut(_ text: Int?) {
-        UserDefaults.standard.set(text, forKey: kUserOrganizationOut)
-    }
-    
-    static func getOrganizationOut() -> String? {
-        return UserDefaults.standard.string(forKey: kUserOrganizationOut)
-    }
-
-    static func setOrganizationDate(_ text: String?) {
-        UserDefaults.standard.set(text, forKey: kUserOrganizationDate)
-    }
-    
-    static func getOrganizationDate() -> String? {
-        return UserDefaults.standard.string(forKey: kUserOrganizationDate)
-    }
-
-    static func setOrganizationLetter(_ text: Int?) {
-        UserDefaults.standard.set(text, forKey: kUserOrganizationLetter)
-    }
-    
-    static func getOrganizationLetter() -> String? {
-        return UserDefaults.standard.string(forKey: kUserOrganizationLetter)
-    }
-
-// MARK: - Capture Image
-    static func setCaptureImageText(_ text: String?) {
-        UserDefaults.standard.set(text, forKey: kCaptureImage)
-    }
-    
-    static func getCapruteImageText() -> String? {
-        return UserDefaults.standard.string(forKey: kCaptureImage)
+    static func getFormData(_ type: FormData) -> String? {
+        switch type {
+        case .userName: return UserDefaults.standard.string(forKey: kUserName)
+        case .userSurname: return UserDefaults.standard.string(forKey: kUserSurname)
+        case .userFatherName: return UserDefaults.standard.string(forKey: kUserFatherName)
+        case .userOrganizationName: return UserDefaults.standard.string(forKey: kUserOrganizationName)
+        case .userOrganizationNumber: return UserDefaults.standard.string(forKey: kUserOrganizationOut)
+        case .userOrganizationDate: return UserDefaults.standard.string(forKey: kUserOrganizationDate)
+        case .userOrganizationLetter: return UserDefaults.standard.string(forKey: kUserOrganizationLetter)
+        case .userEmail: return UserDefaults.standard.string(forKey: kEmail)
+        case .userPhone: return UserDefaults.standard.string(forKey: kPhone)
+        default: return nil
+        }
     }
     
 // MARK: - Upload Images Ids

@@ -32,9 +32,9 @@ class Form {
                                     Cell(name: .userSurname),
                                     Cell(name: .userFatherName),
                                     Cell(name: .userOrganizationName),
-                                    Cell(name: .userNumberLetter),
+                                    Cell(name: .userOrganizationLetter),
                                     Cell(name: .userOrganizationDate),
-                                    Cell(name: .userNumberLetter)]
+                                    Cell(name: .userOrganizationLetter)]
     private let userContactInformation = [Cell(name: .userEmail),
                                           Cell(name: .userPhone)]
     private let repeatedRequest = [Cell(name: .repeatedDivision),
