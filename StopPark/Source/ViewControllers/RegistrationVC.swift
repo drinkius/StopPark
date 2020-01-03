@@ -38,7 +38,7 @@ class RegistrationVC: UIViewController {
         btn.setTitle("Готово", for: .normal)
         btn.setTitleColor(.submitTitleColor, for: .normal)
         btn.backgroundColor = .submitBackgroundColor
-        btn.layer.cornerRadius = Theme.buttonItemCornerRadius
+        btn.layer.cornerRadius = .standartCornerRadius
         btn.addTarget(self, action: #selector(submit), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
@@ -154,6 +154,5 @@ extension RegistrationVC: UITableViewDelegate, UITableViewDataSource {
 extension RegistrationVC {
     enum Theme {
         static let buttonItemHeight: CGFloat = 44.0
-        static let buttonItemCornerRadius: CGFloat = 8.0
     }
 }

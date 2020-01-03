@@ -14,7 +14,7 @@ class ButtonCollectionViewCell: BaseCollectionViewCell {
         let btn = UIButton()
         btn.setImage(.add, for: .normal)
         btn.tintColor = .white
-        btn.backgroundColor = .blue
+        btn.backgroundColor = .highlited
         btn.isUserInteractionEnabled = false
         btn.layer.cornerRadius = Theme.buttonItemCornerRadius
         btn.layer.masksToBounds = true

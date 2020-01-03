@@ -23,7 +23,7 @@ class CaptchaView: BaseView {
     private var containerView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
-        view.layer.cornerRadius = Theme.cornerRadius
+        view.layer.cornerRadius = .standartCornerRadius
         view.layer.masksToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -45,7 +45,7 @@ class CaptchaView: BaseView {
         btn.setImage(.delete, for: .normal)
         btn.tintColor = .darkGray
         btn.backgroundColor = .lightGray
-        btn.layer.cornerRadius = Theme.cornerRadius
+        btn.layer.cornerRadius = .standartCornerRadius
         btn.layer.masksToBounds = true
         btn.addTarget(self, action: #selector(close), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
@@ -57,7 +57,7 @@ class CaptchaView: BaseView {
         btn.setImage(.update, for: .normal)
         btn.tintColor = .darkGray
         btn.backgroundColor = .lightGray
-        btn.layer.cornerRadius = Theme.cornerRadius
+        btn.layer.cornerRadius = .standartCornerRadius
         btn.layer.masksToBounds = true
         btn.addTarget(self, action: #selector(change), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
@@ -75,7 +75,7 @@ class CaptchaView: BaseView {
     private var containerTextInput: UIView = {
         let view = UIView()
         view.backgroundColor = .lightGray
-        view.layer.cornerRadius = Theme.cornerRadius
+        view.layer.cornerRadius = .standartCornerRadius
         view.layer.masksToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -194,7 +194,6 @@ extension CaptchaView {
         static let containerItemHeight: CGFloat = 250.0
         static let containerItemWidth: CGFloat = 100.0
         
-        static let cornerRadius: CGFloat = 10.0
         static let buttonItemHeight: CGFloat = 30.0
         static let buttonItemWidth: CGFloat = buttonItemHeight
         static let imageViewItemHeight: CGFloat = 80.0

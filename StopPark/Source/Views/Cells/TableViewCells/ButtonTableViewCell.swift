@@ -20,8 +20,8 @@ class ButtonTableViewCell: BaseTableViewCell {
         let btn = UIButton()
         btn.setTitle("Отправить форму", for: .normal)
         btn.titleLabel?.font = .systemFont(ofSize: 12, weight: .medium)
-        btn.backgroundColor = .blue
-        btn.layer.cornerRadius = Theme.buttonItemCornerRadius
+        btn.backgroundColor = .highlited
+        btn.layer.cornerRadius = .standartCornerRadius
         btn.layer.masksToBounds = true
         btn.addTarget(self, action: #selector(sendForm), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
@@ -61,9 +61,5 @@ extension ButtonTableViewCell {
 
 // MARK: - Support
 extension ButtonTableViewCell {
-    enum Theme {
-        static let buttonItemCornerRadius: CGFloat = 5.0
-    }
-    
     static let identifier: String = "buttonTableViewCellID"
 }

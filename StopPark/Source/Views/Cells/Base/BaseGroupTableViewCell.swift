@@ -47,7 +47,7 @@ extension BaseGroupedTableViewCell {
     private func updateConfiguredConstraints() {
         switch destination {
         case .top:
-            contentContainer.roundCorners(corners: [.topLeft, .topRight], radius: Theme.containerItemCornerRadius)
+            contentContainer.roundCorners(corners: [.topLeft, .topRight], radius: .standartCornerRadius)
             configureConstraints()
 
             configureShadow()
@@ -56,12 +56,12 @@ extension BaseGroupedTableViewCell {
             configureConstraints()
             configureShadow()
         case .bottom:
-            contentContainer.roundCorners(corners: [.bottomLeft, .bottomRight], radius: Theme.containerItemCornerRadius)
+            contentContainer.roundCorners(corners: [.bottomLeft, .bottomRight], radius: .standartCornerRadius)
             configureConstraints()
 
             configureShadow(height: 1)
         case .single:
-            contentContainer.roundCorners(corners: [.topLeft, .topRight, .bottomRight, .bottomLeft], radius: Theme.containerItemCornerRadius)
+            contentContainer.roundCorners(corners: [.topLeft, .topRight, .bottomRight, .bottomLeft], radius: .standartCornerRadius)
             configureConstraints()
 
             configureShadow(height: 1)
@@ -83,10 +83,6 @@ extension BaseGroupedTableViewCell {
         case middle
         case bottom
         case single
-    }
-    
-    enum Theme {
-        static let containerItemCornerRadius: CGFloat = 10.0
     }
 }
 
