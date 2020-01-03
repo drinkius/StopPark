@@ -138,7 +138,7 @@ extension RegistrationVC: UITableViewDelegate, UITableViewDataSource {
             }
             
             let name = cells[indexPath.row].name
-            textFieldCell.fill(with: name.rawValue) { text in
+            textFieldCell.fill(with: name) { text in
                 
                 if name == .userEmail {
                     let email = text?.lowercased()

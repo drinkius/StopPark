@@ -166,7 +166,7 @@ extension FormVC: UITableViewDelegate, UITableViewDataSource {
                 }
                 
                 let name = requestForm.data[indexPath.section].cells[indexPath.row].name
-                textFieldCell.fill(with: name.rawValue) { [unowned self] text in
+                textFieldCell.fill(with: name) { [unowned self] text in
                     guard let text = text else { return }
                     self.eventInfoForm[name] = text
                 }

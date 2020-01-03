@@ -10,9 +10,17 @@ import UIKit
 
 class TextFieldCell: BaseGroupedTableViewCell {
     
-    public func fill(with data: String, block: @escaping (String?) -> ()) {
-        titleLabel.text = data
+    public func fill(with data: FormData, block: @escaping (String?) -> ()) {
+        titleLabel.text = data.rawValue
         actionBlock = block
+        
+        switch data {
+        case .userPhone, .userOrganizationNumber, .userOrganizationLetter:
+            textField.keyboardType = .numberPad
+        case .userEmail:
+            textField.keyboardType = .emailAddress
+        default: textField.keyboardType = .default
+        }
     }
         
     override func setSelected(_ selected: Bool, animated: Bool) {
