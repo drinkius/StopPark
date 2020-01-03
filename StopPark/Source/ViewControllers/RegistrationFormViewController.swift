@@ -108,7 +108,7 @@ extension RegistrationFormViewController {
     
     @objc private func submit() {
         guard AuthorizationManager.authorized else { return }
-        let formVC = FormViewController()
+        let formVC = FormVC()
         let nav = UINavigationController(rootViewController: formVC)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)
