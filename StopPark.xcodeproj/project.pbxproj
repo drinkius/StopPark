@@ -33,6 +33,7 @@
 		C2AB640823A6652D007379DA /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AB640723A6652D007379DA /* InformationView.swift */; };
 		C2AB640A23A6671F007379DA /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AB640923A6671F007379DA /* Strings.swift */; };
 		C2AB640C23A6694B007379DA /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AB640B23A6694B007379DA /* InformationViewController.swift */; };
+		C2AFBF7023BF0AF300209F31 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AFBF6F23BF0AF300209F31 /* UIViewController+Alert.swift */; };
 		C2BCAD9623A5265E0008D492 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BCAD9523A5265E0008D492 /* Theme.swift */; };
 		C2BCAD9A23A52FEB0008D492 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BCAD9923A52FEB0008D492 /* Section.swift */; };
 		C2BCAD9D23A5496E0008D492 /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BCAD9C23A5496E0008D492 /* Form.swift */; };
@@ -76,6 +77,7 @@
 		C2AB640723A6652D007379DA /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		C2AB640923A6671F007379DA /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		C2AB640B23A6694B007379DA /* InformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
+		C2AFBF6F23BF0AF300209F31 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		C2BCAD9523A5265E0008D492 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		C2BCAD9923A52FEB0008D492 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		C2BCAD9C23A5496E0008D492 /* Form.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Form.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				C265B33F23A80815000C72B5 /* UIImage+download.swift */,
+				C2AFBF6F23BF0AF300209F31 /* UIViewController+Alert.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 				C2BCAD9D23A5496E0008D492 /* Form.swift in Sources */,
 				C23C1D5B23B63BD5006D270B /* TextInputCollectionCell.swift in Sources */,
 				C2963F03239FADE40020A2DD /* FormViewController.swift in Sources */,
+				C2AFBF7023BF0AF300209F31 /* UIViewController+Alert.swift in Sources */,
 				C27F625D23A7C60C002D55EB /* RequestManager.swift in Sources */,
 				C2BCAD9A23A52FEB0008D492 /* Section.swift in Sources */,
 				C2BCAD9623A5265E0008D492 /* Theme.swift in Sources */,
