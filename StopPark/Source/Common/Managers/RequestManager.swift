@@ -186,6 +186,18 @@ extension RequestManager {
         return urlRequest
     }
     
+    func subUnitRequest(with code: String) -> URLRequest? {
+        guard let url = URL(string: URLs.getSubUnit + code) else {
+            return nil
+        }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "GET"
+        urlRequest.addValue(.xRequestedWith)
+        
+        return urlRequest
+    }
+    
     
     func finalRequest(with captcha: String) -> URLRequest? {
         guard let url = URLs.checkCorrectURL else {

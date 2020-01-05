@@ -10,6 +10,7 @@ import UIKit
 
 class TextFieldCell: BaseGroupedTableViewCell {
     
+    public weak var pickerDelegate: (UIPickerViewDelegate & UIPickerViewDataSource)?
     public func fill(with data: FormData, block: @escaping (String?) -> ()) {
         titleLabel.text = data.rawValue
         actionBlock = block
@@ -19,6 +20,9 @@ class TextFieldCell: BaseGroupedTableViewCell {
             textField.keyboardType = .numberPad
         case .userEmail:
             textField.keyboardType = .emailAddress
+        case .district:
+            textField.inputView = pickerView
+            textField.inputAccessoryView = toolBar
         default: textField.keyboardType = .default
         }
     }
@@ -29,6 +33,35 @@ class TextFieldCell: BaseGroupedTableViewCell {
         case false: textField.resignFirstResponder()
         }
     }
+    
+    private lazy var cancelButton: UIBarButtonItem = {
+        let btn = UIButton()
+        btn.setTitle("Готово", for: .normal)
+        btn.setTitleColor(.white, for: .normal)
+        btn.layer.cornerRadius = Theme.buttonItemCornerRadius
+        btn.layer.masksToBounds = true
+        btn.backgroundColor = .highlited
+        btn.contentEdgeInsets = Theme.buttonItemContentInset
+        btn.titleLabel?.font = .systemFont(ofSize: 12)
+        btn.addTarget(self, action: #selector(textFieldEndEditing), for: .touchUpInside)
+        return UIBarButtonItem(customView: btn)
+    }()
+    
+    private lazy var toolBar: UIToolbar = {
+        let tb = UIToolbar()
+        tb.sizeToFit()
+        tb.backgroundColor = .white
+        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        tb.setItems([cancelButton, space], animated: false)
+        return tb
+    }()
+    
+    private lazy var pickerView: UIPickerView = {
+        let view = UIPickerView()
+        view.delegate = pickerDelegate
+        view.backgroundColor = .white
+        return view
+    }()
                        
     private var titleLabelTopConstraint: NSLayoutConstraint!
     private var titleLabelBottomConstraint: NSLayoutConstraint!
@@ -122,6 +155,11 @@ extension TextFieldCell {
             }
         }
     }
+    
+    @objc private func textFieldEndEditing() {
+        textField.resignFirstResponder()
+        animateTextCell()
+    }
 }
 
 // MARK: - UITextFieldDelegate
@@ -144,5 +182,10 @@ extension TextFieldCell: UITextFieldDelegate {
 
 // MARK: - Support
 extension TextFieldCell {
+    enum Theme {
+        static let buttonItemCornerRadius: CGFloat = 5.0
+        static let buttonItemContentInset: UIEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
+    }
+    
     static let identifier: String = "textFieldCellID"
 }

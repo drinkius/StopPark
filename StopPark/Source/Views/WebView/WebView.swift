@@ -127,6 +127,17 @@ extension WebView {
             completion(result)
         }
     }
+    
+    public func getSubUnitCode(with code: String, completion: @escaping (Result) -> ()) {
+        guard let urlRequest = RequestManager.shared.subUnitRequest(with: code) else {
+            completion(.failure("Ссылка неверная, напишите в поддержку."))
+            return
+        }
+        
+        NetworkManager.shared.getSubUnitCode(from: urlRequest) { result in
+            completion(result)
+        }
+    }
 }
 
 // MARK: - WKNavigationDelegate
@@ -169,6 +180,9 @@ extension WebView {
 
 // Shorted version
 // $("body > div.ln-page > div > div.ln-content.wrapper.clearfix > div:nth-child(4) > div > script:nth-child(1)")
+
+// Final response
+// document.querySelector("body > div.ln-page > div > div.ln-content.wrapper.clearfix > div:nth-child(4) > div")
 
 extension WKWebView {
 

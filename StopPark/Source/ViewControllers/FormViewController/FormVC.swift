@@ -10,6 +10,8 @@ import UIKit
 
 class FormVC: UIViewController {
     
+    private var districtData = DistrictData.allCases
+    
     private var eventInfoForm: [FormData: String] = [:]
     private var eventImages: [UIImage] = []
     private var requestForm = Form(.requestToServer)
@@ -166,8 +168,15 @@ extension FormVC: UITableViewDelegate, UITableViewDataSource {
                 }
                 
                 let name = requestForm.data[indexPath.section].cells[indexPath.row].name
+                textFieldCell.pickerDelegate = self
                 textFieldCell.fill(with: name) { [unowned self] text in
-                    guard let text = text else { return }
+                    guard let text = text, !text.isEmpty else { return }
+                    
+                    if name == .district {
+                        self.eventInfoForm[name] = String(text.dropLast(text.count - 2))
+                        return
+                    }
+                    
                     self.eventInfoForm[name] = text
                 }
             }
@@ -285,6 +294,27 @@ extension FormVC: ImagesTableViewCellDelegate, ImageCollectionViewCellDelegate {
         
         let indexSet = IndexSet(integer: requestForm.data.count)
         tableView.reloadSections(indexSet, with: .none)
+    }
+}
+
+// MARK: - UIPickerView
+extension FormVC: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return districtData.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return districtData[row].rawValue
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TextFieldCell else { return }
+        cell.textField.text = districtData[row].rawValue
+        
     }
 }
 

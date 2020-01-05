@@ -22,7 +22,6 @@ class Form {
     }
     
     private let toSomeone = [Cell(name: .district),
-                             Cell(name: .subDivision),
                              Cell(name: .rang),
                              Cell(name: .policeName)]
     private let userData = [Cell(name: .userName),
