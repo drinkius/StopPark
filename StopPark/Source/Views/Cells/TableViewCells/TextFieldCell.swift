@@ -26,6 +26,10 @@ class TextFieldCell: BaseGroupedTableViewCell {
         default: textField.keyboardType = .default
         }
     }
+    public var textFieldText: String? {
+        get { return textField.text }
+        set { textField.text = newValue }
+    }
         
     override func setSelected(_ selected: Bool, animated: Bool) {
         switch selected {

@@ -319,8 +319,7 @@ extension FormVC: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TextFieldCell else { return }
-        cell.textField.text = districtData[row].rawValue
-        
+        cell.textFieldText = districtData[row].rawValue
     }
 }
 
