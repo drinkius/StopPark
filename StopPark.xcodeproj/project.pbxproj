@@ -45,6 +45,7 @@
 		C2BCAD9623A5265E0008D492 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BCAD9523A5265E0008D492 /* Theme.swift */; };
 		C2BCAD9A23A52FEB0008D492 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BCAD9923A52FEB0008D492 /* Section.swift */; };
 		C2BCAD9D23A5496E0008D492 /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BCAD9C23A5496E0008D492 /* Form.swift */; };
+		C2D9BA0223C1A7370077DE46 /* SendFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D9BA0123C1A7370077DE46 /* SendFormView.swift */; };
 		C2E1571123A3A01000105763 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E1571023A3A01000105763 /* BaseView.swift */; };
 		C2E1571723A3A1E500105763 /* BaseTableVIewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E1571623A3A1E500105763 /* BaseTableVIewCell.swift */; };
 		C2E1572623A3AAC800105763 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E1572523A3AAC800105763 /* WebView.swift */; };
@@ -94,6 +95,7 @@
 		C2BCAD9523A5265E0008D492 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		C2BCAD9923A52FEB0008D492 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		C2BCAD9C23A5496E0008D492 /* Form.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Form.swift; sourceTree = "<group>"; };
+		C2D9BA0123C1A7370077DE46 /* SendFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFormView.swift; sourceTree = "<group>"; };
 		C2E1571023A3A01000105763 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		C2E1571623A3A1E500105763 /* BaseTableVIewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableVIewCell.swift; sourceTree = "<group>"; };
 		C2E1572523A3AAC800105763 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 				C2AB640623A6651B007379DA /* WebView */,
 				C2AB640723A6652D007379DA /* InformationView.swift */,
 				C27F626223A8010E002D55EB /* CaptchaView.swift */,
+				C2D9BA0123C1A7370077DE46 /* SendFormView.swift */,
 				C2AFBF7B23BF41D100209F31 /* MessageView.swift */,
 				C21D267E23BF9E990057CC17 /* ProfileView.swift */,
 			);
@@ -404,6 +407,7 @@
 				C2E1572623A3AAC800105763 /* WebView.swift in Sources */,
 				C2BCAD9D23A5496E0008D492 /* Form.swift in Sources */,
 				C2AFBF7023BF0AF300209F31 /* UIViewController+Alert.swift in Sources */,
+				C2D9BA0223C1A7370077DE46 /* SendFormView.swift in Sources */,
 				C246AC2623BB974300B1C7C0 /* BaseGroupTableViewCell.swift in Sources */,
 				C27F625D23A7C60C002D55EB /* RequestManager.swift in Sources */,
 				C2BCAD9A23A52FEB0008D492 /* Section.swift in Sources */,

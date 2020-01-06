@@ -42,14 +42,6 @@ class FormVC: UIViewController {
         return view
     }()
     
-    private lazy var captureView: CaptchaView = {
-        let view = CaptchaView()
-        view.isHidden = true
-        view.delegate = self
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     private lazy var imagePicker: ImagePicker = {
         let picker = ImagePicker(presentationController: self, delegate: self)
         return picker
@@ -66,6 +58,13 @@ class FormVC: UIViewController {
         btn.titleLabel?.font = .systemFont(ofSize: 12)
         btn.addTarget(self, action: #selector(closeForm), for: .touchUpInside)
         return UIBarButtonItem(customView: btn)
+    }()
+        
+    private lazy var sendFormView: SendFormView = {
+        let view = SendFormView()
+        view.delegate = self
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     override func viewDidLoad() {
@@ -95,7 +94,7 @@ extension FormVC {
     }
     
     private func configureViews() {
-        [webView, tableView, loader, captureView].forEach {
+        [webView, tableView, loader, sendFormView].forEach {
             view.addSubview($0)
         }
     }
@@ -113,12 +112,21 @@ extension FormVC {
             
          loader.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -.nanoPadding),
          loader.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -.nanoPadding),
-      
-         captureView.topAnchor.constraint(equalTo: view.topAnchor),
-         captureView.leftAnchor.constraint(equalTo: view.leftAnchor),
-         captureView.rightAnchor.constraint(equalTo: view.rightAnchor),
-         captureView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+         
+         sendFormView.topAnchor.constraint(equalTo: view.topAnchor),
+         sendFormView.leftAnchor.constraint(equalTo: view.leftAnchor),
+         sendFormView.rightAnchor.constraint(equalTo: view.rightAnchor),
+         sendFormView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ].forEach { $0.isActive = true }
+    }
+    
+    private func openSendFormView() {        
+        let indexPath = IndexPath(row: 0, section: requestForm.data.count + 1)
+        let frame = tableView.rectForRow(at: indexPath).offsetBy(dx: -tableView.contentOffset.x, dy: -tableView.contentOffset.y)
+        
+        sendFormView.animateFillingBackground(with: frame) {
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+        }
     }
 }
 
@@ -256,16 +264,20 @@ extension FormVC: WebViewDelegate {
     }
     
     func showCapture(with url: URL?) {
-        captureView.imageURL = url
-        captureView.isHidden = false
+        sendFormView.updateView(for: .getCaptcha(url))
     }
 }
 
-// MARK: - CaptureViewDelegate
-extension FormVC: CaptureViewDelegate {
-    func needsUpdateForm(with captcha: String) {
+// MARK: - SendFormViewDelegate
+extension FormVC: SendFormViewDelegate {
+    func formShouldSend(withCaptcha captcha: String) {
         webView.finalLoadData(with: captcha)
-//        webView.loadAppealRequest()
+        sendFormView.isHidden = true
+        tableView.isHidden = true
+    }
+    
+    func errorShouldShow(withText text: String) {
+        showErrorMessage(text)
     }
 }
 
