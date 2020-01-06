@@ -73,7 +73,13 @@ class FormVC: UIViewController {
         setupView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        webView.initialRequest()
+    }
+    
     deinit {
+        UserDefaultsManager.setSession(nil)
         print("vc died")
     }
 }
@@ -226,7 +232,7 @@ extension FormVC: ButtonTableViewCellDelegate {
                 return
         }
 
-        webView.loadRequest(with: eventInfoForm)
+        webView.preFinalLoadData(eventInfoForm)
 
         print(eventInfoForm)
         tableView.isHidden = true
@@ -258,7 +264,7 @@ extension FormVC: WebViewDelegate {
 // MARK: - CaptureViewDelegate
 extension FormVC: CaptureViewDelegate {
     func needsUpdateForm(with captcha: String) {
-        webView.loadAppealRequest(with: captcha)
+        webView.finalLoadData(with: captcha)
 //        webView.loadAppealRequest()
     }
 }

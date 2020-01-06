@@ -20,7 +20,6 @@ class WebView: BaseView {
         
     public weak var delegate: WebViewDelegate?
     
-    private var isSessionUpdated: Bool = false
     private var eventInfoForm: [FormData: String]?
     private let config = WKWebViewConfiguration()
     private lazy var web: WKWebView = {
@@ -39,7 +38,6 @@ class WebView: BaseView {
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "estimatedProgress" {
-            checkCookie()
             print("web progress: \(web.estimatedProgress)")
             if web.estimatedProgress >= 0.9 {
                 delegate?.done()
@@ -68,27 +66,22 @@ extension WebView {
             ].forEach { $0.isActive = true }
     }
     
-    private func checkCookie() {
-        guard isSessionUpdated == false else { return }
-        guard let data = eventInfoForm else { return }
+    private func getCookieFromStore() {
         self.web.getCookies(completion: { dict in
-            let session = UserDefaultsManager.getSession()
             guard !dict.isEmpty else {
-                guard session == nil else { return }
-                self.loadRequest(with: data)
+                self.initialRequest()
                 print("should return")
                 return
             }
             
             guard let sessionDict = dict["session"] as? [String: Any],
                 let newSession = sessionDict["Value"] as? String else {
-                self.loadRequest(with: data)
+                self.initialRequest()
                 print("should return")
                 return
             }
             print("entered")
             UserDefaultsManager.setSession(newSession)
-            self.isSessionUpdated = true
 
             print("log cockie: \(dict)")
         })
@@ -97,8 +90,17 @@ extension WebView {
 
 // MARK: - Actions
 extension WebView {
-    public func loadRequest(with data: [FormData: String]) {
-        guard let urlRequest = RequestManager.shared.initialRequest(with: data) else {
+    public func initialRequest() {
+        guard let urlRequest = RequestManager.shared.initialRequest() else {
+            return
+        }
+        
+        web.load(urlRequest)
+        delegate?.loading()
+    }
+    
+    public func preFinalLoadData(_ data: [FormData: String]) {
+        guard let urlRequest = RequestManager.shared.preFinalRequest(with: data) else {
             return
         }
         
@@ -108,7 +110,7 @@ extension WebView {
         delegate?.loading()
     }
         
-    public func loadAppealRequest(with captcha: String) {
+    public func finalLoadData(with captcha: String) {
         guard let urlRequest = RequestManager.shared.finalRequest(with: captcha) else {
             return
         }
@@ -143,10 +145,31 @@ extension WebView {
 // MARK: - WKNavigationDelegate
 extension WebView: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-        if let response = navigationResponse.response as? HTTPURLResponse {
-            print(response.statusCode)
-        }
         decisionHandler(WKNavigationResponsePolicy.allow)
+        guard UserDefaultsManager.getSession() == nil else { return }
+        
+        guard let response = navigationResponse.response as? HTTPURLResponse else {
+            getCookieFromStore()
+            return
+        }
+            
+        guard let headers = response.allHeaderFields as? [String: String], let url = response.url else {
+            getCookieFromStore()
+            return
+        }
+        
+        let cookies = HTTPCookie.cookies(withResponseHeaderFields: headers, for: url)
+                
+        for cookie in cookies {
+            if cookie.name == "session" {
+                UserDefaultsManager.setSession(cookie.value)
+            }
+        }
+        
+        guard let _ = UserDefaultsManager.getSession() else {
+            getCookieFromStore()
+            return
+        }
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {

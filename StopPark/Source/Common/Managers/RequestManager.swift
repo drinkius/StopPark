@@ -140,7 +140,18 @@ class RequestManager {
 }
 
 extension RequestManager {
-    func initialRequest(with data: [FormData: String]) -> URLRequest? {
+    func initialRequest() -> URLRequest? {
+        guard let url = URLs.mainRequestURL else {
+            return nil
+        }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "GET"
+        
+        return urlRequest
+    }
+    
+    func preFinalRequest(with data: [FormData: String]) -> URLRequest? {
         guard let url = URLs.mainRequestURL else {
             return nil
         }
