@@ -128,6 +128,24 @@ extension FormVC {
             self.navigationController?.setNavigationBarHidden(true, animated: true)
         }
     }
+    
+    private func sendPreFinalRequest(with code: String) {
+        webView.getSubUnitCode(with: code) { [unowned self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let text): self.showErrorMessage(text)
+                case .success(let data):
+                    guard let code = data as? String else {
+                        return
+                    }
+
+                    self.eventInfoForm[.subDivision] = code
+                    self.webView.preFinalLoadData(self.eventInfoForm)
+                    print(self.eventInfoForm)
+                }
+            }
+        }
+    }
 }
 
 // MARK: - Actions
@@ -229,8 +247,7 @@ extension FormVC: UITableViewDelegate, UITableViewDataSource {
 // MARK: - ButtonTableViewCellDelegate
 extension FormVC: ButtonTableViewCellDelegate {
     func send() {
-        guard let _ = eventInfoForm[.district],
-            let _ = eventInfoForm[.subDivision],
+        guard let code = eventInfoForm[.district],
             let _ = eventInfoForm[.eventDate],
             let _ = eventInfoForm[.autoMark],
             let _ = eventInfoForm[.autoNumber],
@@ -240,10 +257,20 @@ extension FormVC: ButtonTableViewCellDelegate {
                 return
         }
 
-        webView.preFinalLoadData(eventInfoForm)
-
-        print(eventInfoForm)
-        tableView.isHidden = true
+        openSendFormView()
+        
+        guard !eventImages.isEmpty else {
+            sendPreFinalRequest(with: code)
+            return
+        }
+        
+        sendFormView.updateView(for: .uploadImages)
+        webView.sendImageToServer(images: eventImages) { [unowned self] result in
+            switch result {
+            case .failure(let text): self.showErrorMessage(text)
+            case .success(_): self.sendPreFinalRequest(with: code)
+            }
+        }
     }
 }
 

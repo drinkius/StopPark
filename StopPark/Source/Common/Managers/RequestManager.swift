@@ -57,8 +57,8 @@ class RequestManager {
         }
                 
         if let imageIDs = UserDefaultsManager.getUploadImagesIds() {
-            for id in imageIDs {
-                params["file"] = "\(id)"
+            for (i, id) in imageIDs.enumerated() {
+                params["file\(i)"] = "\(id)"
             }
         }
         
@@ -132,6 +132,12 @@ class RequestManager {
         var data = [String]()
 
         for (key, value) in params {
+            
+            if key.contains("file") {
+                data.append("file" + "=\(value)")
+                continue
+            }
+            
             data.append(key + "=\(value)")
         }
         print(data.map { String($0) }.joined(separator: "&"))

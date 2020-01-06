@@ -119,14 +119,32 @@ extension WebView {
         delegate?.loading()
     }
     
-    public func sendImageToServer(image: UIImage, completion: @escaping (Result) -> ()) {
-        guard let urlRequest = RequestManager.shared.uploadDataRequest(image: image) else {
-            completion(.failure("Ссылка неверная, напишите в поддержку."))
-            return
-        }
+    public func sendImageToServer(images: [UIImage], completion: @escaping (Result) -> ()) {        
+        var ids: [String] = []
         
-        NetworkManager.shared.uploadImage(to: urlRequest) { result in
-            completion(result)
+        for image in images {
+            guard let urlRequest = RequestManager.shared.uploadDataRequest(image: image) else {
+                completion(.failure("Ссылка неверная, напишите в поддержку."))
+                return
+            }
+            
+            NetworkManager.shared.uploadImage(to: urlRequest) { result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .failure(let text):
+                        completion(.failure(text))
+                        return
+                    case .success(let data):
+                        guard let id = data as? String else { return }
+                        ids.append(id)
+                        
+                        if ids.count == images.count {
+                            UserDefaultsManager.setUploadImagesIds(ids)
+                            completion(.success())
+                        }
+                    }
+                }
+            }
         }
     }
     

@@ -34,7 +34,7 @@ class NetworkManager {
             }
             
             print(json)
-            UserDefaultsManager.setUploadImagesIds([id])
+            completion(.success(id))
         }
     }
     
