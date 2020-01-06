@@ -162,11 +162,16 @@ extension RequestManager {
             return nil
         }
         
+        guard let session = UserDefaultsManager.getSession() else {
+            return nil
+        }
+        
         eventInfoForm = data
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
         urlRequest.addValue(.defaultContentType)
+        urlRequest.addValue(.setCookieWithPath(session))
         
         let dataBody = createFormURLEncodedBody()
         urlRequest.httpBody = dataBody
