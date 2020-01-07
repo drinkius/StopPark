@@ -80,7 +80,7 @@ class RequestTableViewCell: BaseGroupedTableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        let margins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
+        let margins = UIEdgeInsets(top: 2, left: 0, bottom: 2, right: 0)
         contentContainer.frame = contentContainer.frame.inset(by: margins)
     }
 }
