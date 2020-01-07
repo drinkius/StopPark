@@ -26,12 +26,26 @@ struct Strings {
     Информация о персональных данных, направленных в электронном виде, хранится и обрабатывается с соблюдением требований российского законодательства о персональных данных.
     """
     
-    static func generateTemplateText(date: String, auto: String, number: String, address: String, photoDate: String) -> String {
+    static func generateTemplateText(date: String, auto: String, number: String, address: String, photoDate: String, eventViolation: String?) -> String {
         let count = UserDefaultsManager.getUploadImagesIds()?.count ?? 0
+        var violation: String = ""
+        if let event = eventViolation {
+            if event.last == "." {
+                violation = event + " "
+            }
+            
+            if event.suffix(2) == ". " {
+                violation = event
+            }
+            
+            if event.last == " " {
+                violation = String(event.prefix(event.count - 1)) + ". "
+            }
+        }
         let templateText: String =
         """
         Заявление
-        \(date) я увидел автомобиль \(auto) с госномером \(number), расположенный на \(address). Знаков о допустимости подобной стоянки на тротуаре рядом нет, при такой парковке машина закрывает обзор поворачивающим с перекрёстка и не даёт увидеть переходящих пешеходов. Водителя в салоне либо рядом не было. С водителем либо собственником автомобиля я не знаком.
+        \(date) я увидел автомобиль \(auto) с госномером \(number), расположенный на \(address). \(violation)Водителя в салоне либо рядом не было. С водителем либо собственником автомобиля я не знаком.
 
         Прилагаю фотографии машины (\(count)), сделанные мной в \(photoDate).
 
