@@ -11,7 +11,7 @@ import UIKit
 class RequestTableViewCell: BaseGroupedTableViewCell {
     
     public func fill(with data: Appeal) {
-        timeLabel.text = "Обращение от " + "\(data.time)"
+        timeLabel.text = "Обращение от " + "\(data.time.toCalendarDate())"
         idLabel.text = "ID обращения: " + data.id
         codeLabel.text = "Код проверки статуса обращения: " + data.code
         

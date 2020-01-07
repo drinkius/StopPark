@@ -37,6 +37,7 @@
 		C2963EF8239FAD5B0020A2DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2963EF7239FAD5B0020A2DD /* Assets.xcassets */; };
 		C2963EFB239FAD5B0020A2DD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2963EF9239FAD5B0020A2DD /* LaunchScreen.storyboard */; };
 		C2974EE723C49E63007CD2BB /* WKWebView+Cookie.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2974EE623C49E63007CD2BB /* WKWebView+Cookie.swift */; };
+		C2974EE923C4A0FD007CD2BB /* Double+CalendarDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2974EE823C4A0FD007CD2BB /* Double+CalendarDate.swift */; };
 		C2AB640823A6652D007379DA /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AB640723A6652D007379DA /* InformationView.swift */; };
 		C2AB640A23A6671F007379DA /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AB640923A6671F007379DA /* Strings.swift */; };
 		C2AB640C23A6694B007379DA /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AB640B23A6694B007379DA /* InformationViewController.swift */; };
@@ -89,6 +90,7 @@
 		C2963EFA239FAD5B0020A2DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C2963EFC239FAD5B0020A2DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C2974EE623C49E63007CD2BB /* WKWebView+Cookie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+Cookie.swift"; sourceTree = "<group>"; };
+		C2974EE823C4A0FD007CD2BB /* Double+CalendarDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+CalendarDate.swift"; sourceTree = "<group>"; };
 		C2AB640723A6652D007379DA /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		C2AB640923A6671F007379DA /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		C2AB640B23A6694B007379DA /* InformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				C26CB3F923C3A67B0018A0E4 /* Data+String.swift */,
 				C2AFBF6F23BF0AF300209F31 /* UIViewController+Alert.swift */,
 				C2974EE623C49E63007CD2BB /* WKWebView+Cookie.swift */,
+				C2974EE823C4A0FD007CD2BB /* Double+CalendarDate.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -428,6 +431,7 @@
 				C21D267D23BF918B0057CC17 /* Appeal.swift in Sources */,
 				C23C1D5923B638E7006D270B /* BaseCollectionReusableView.swift in Sources */,
 				C242FB8F23BD203900C3B16C /* ButtonTableViewCell.swift in Sources */,
+				C2974EE923C4A0FD007CD2BB /* Double+CalendarDate.swift in Sources */,
 				C2974EE723C49E63007CD2BB /* WKWebView+Cookie.swift in Sources */,
 				C2AFBF7623BF1BF400209F31 /* HomeVC.swift in Sources */,
 				C2AFBF7C23BF41D100209F31 /* MessageView.swift in Sources */,
