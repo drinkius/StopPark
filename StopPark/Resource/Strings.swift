@@ -48,4 +48,9 @@ struct Strings {
         """
         return templateText
     }
+    
+    static let captchaError: String = "Не удалось загрузить капчу. Попробуйте снова, либо напишите, пожалуйста, нам на почту."
+    static let wrongURL: String = "Ссылка неверная, напишите в поддержку."
+    static let notConnected: String = "Проверьте интернет соединение."
+    static let cantGetData: String = "Не смогли получить данные. Попробуйте еще раз."
 }

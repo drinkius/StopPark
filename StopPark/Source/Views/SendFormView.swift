@@ -11,13 +11,14 @@ import UIKit
 protocol SendFormViewDelegate: class {
     func formShouldSend(withCaptcha captcha: String)
     func errorShouldShow(withText text: String)
+    func formVCShouldClose()
 }
 
 class SendFormView: BaseView {
         
     public weak var delegate: SendFormViewDelegate?
     
-    private var type: ContentDestination = .closeForm
+    private var type: ContentDestination = .sendingRequest
     private var fillView: UIView = {
         let view = UIView()
         view.frame = .zero
@@ -40,7 +41,6 @@ class SendFormView: BaseView {
     
     private var titleLabel: UILabel = {
         let lbl = UILabel()
-        lbl.text = "Отправляем запрос на сервер..."
         lbl.textAlignment = .center
         lbl.textColor = .white
         lbl.numberOfLines = 0
@@ -123,8 +123,11 @@ extension SendFormView {
         closeButton.isHidden = false
         captchaView.isHidden = true
         switch type {
+        case .sendingRequest:
+            titleLabel.text = "Отправляем запрос на сервер..."
+            closeButton.isHidden = true
         case .failedCaptcha:
-            titleLabel.text = "Ошибка загрузки капчи"
+            titleLabel.text = Strings.captchaError
             closeButton.setTitle("Попробовать снова", for: .normal)
             closeButton.addTarget(self, action: #selector(closeForm), for: .touchUpInside)
         case .captchaUploaded:
@@ -133,8 +136,8 @@ extension SendFormView {
             closeButton.addTarget(self, action: #selector(sendCaptcha), for: .touchUpInside)
             captchaView.isHidden = false
         case .closeForm:
-            titleLabel.text = "Ваше заявление отправлено!"
-            closeButton.setTitle("Вернуться на главную", for: .normal)
+            titleLabel.text = "Ваше заявление отправлено! Информация о данном обращении на главной странице."
+            closeButton.setTitle("Перейти к списку обращений", for: .normal)
             closeButton.addTarget(self, action: #selector(closeForm), for: .touchUpInside)
         case .uploadImages:
             titleLabel.text = "Фотографии загружаются на сервер, пожалуйста, подождите немного..."
@@ -192,7 +195,8 @@ extension SendFormView {
         switch type {
         case .getCaptcha(let url): getCaptchaFromURL(url)
         case .uploadImages: updateContent(for: .uploadImages)
-        case .sendFullForm: updateContent(for: .closeForm)
+        case .startSendFullForm: updateContent(for: .sendingRequest)
+        case .endSendFullForm: updateContent(for: .closeForm)
         }
     }
     
@@ -238,10 +242,12 @@ extension SendFormView {
     enum Destination {
         case getCaptcha(URL?)
         case uploadImages
-        case sendFullForm
+        case startSendFullForm
+        case endSendFullForm
     }
     
     private enum ContentDestination {
+        case sendingRequest
         case downloadCaptcha
         case failedCaptcha
         case captchaUploaded

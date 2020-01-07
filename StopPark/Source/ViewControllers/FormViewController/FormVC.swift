@@ -276,8 +276,8 @@ extension FormVC: ButtonTableViewCellDelegate {
 
 // MARK: - WebViewDelegate
 extension FormVC: WebViewDelegate {
-    func showError(_ text: String?) {
-        showErrorMessage(text ?? "Ошибка загрузки.")
+    func showWebViewError(_ text: String?) {
+        showErrorMessage(text ?? Strings.cantGetData)
     }
     
     func loading() {

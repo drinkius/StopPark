@@ -8,10 +8,12 @@
 
 import Foundation
 
-struct Appeal {
-    let id: String
-    let code: String
+struct Appeal: Codable {
+    var id: String = ""
+    var code: String = ""
     let time: Double
-    let url: String
-    let status: Int
+    var url: String {
+        return URLs.cheackStatusURL + code
+    }
+    var status: Int = 0
 }

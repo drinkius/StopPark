@@ -14,6 +14,7 @@ struct URLs {
     private static let checkCorrect = mainRequest + "/check_correct_form?ajax=Y"
     private static let fileupload = mainRequest + "/fileupload"
     static let getSubUnit = mainRequest + "/get_subunit_list?code="
+    static let cheackStatusURL = mainRequest + "/check/?status="
     
     static let baseURL = URL(string: base)
     static let mainRequestURL = URL(string: mainRequest)

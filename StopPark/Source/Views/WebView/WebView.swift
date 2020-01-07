@@ -13,13 +13,15 @@ protocol WebViewDelegate: class {
     func loading()
     func done()
     func showCapture(with url: URL?)
-    func showError(_ text: String?)
+    func showWebViewError(_ text: String?)
+    func showFinalBody()
 }
 
 class WebView: BaseView {
         
     public weak var delegate: WebViewDelegate?
     
+    private var currentRequestType: RequestType = .initial
     private var eventInfoForm: [FormData: String]?
     private let config = WKWebViewConfiguration()
     private lazy var web: WKWebView = {
@@ -86,6 +88,50 @@ extension WebView {
             print("log cockie: \(dict)")
         })
     }
+    
+    private func getCaptchaImage() {
+        web.evaluateJavaScript(Scripts.getCaptureImageURL, completionHandler: { resp, error in
+            guard let urlString = resp as? String, let url = URL(string: urlString) else {
+                self.delegate?.showWebViewError(Strings.captchaError)
+                return
+            }
+            self.delegate?.showCapture(with: url)
+        })
+    }
+    
+    private func getFinalAppealData() {
+        var newAppeal = Appeal(time: Date().timeIntervalSince1970)
+        web.evaluateJavaScript(Scripts.getFinalID) { data, error in
+            guard let text = data as? String else {
+                self.delegate?.showWebViewError(Strings.cantGetData)
+                return
+            }
+            
+            newAppeal.id = text
+            
+            if !newAppeal.code.isEmpty {
+                AppealManager.shared.saveNewAppeal(newAppeal)
+                self.delegate?.showFinalBody()
+            }
+            
+            if let error = error { self.delegate?.showWebViewError(error.localizedDescription) }
+        }
+        web.evaluateJavaScript(Scripts.getFinalCode) { data, error in
+            guard let text = data as? String else {
+                self.delegate?.showWebViewError(Strings.cantGetData)
+                return
+            }
+            
+            newAppeal.code = text
+            
+            if !newAppeal.id.isEmpty {
+                AppealManager.shared.saveNewAppeal(newAppeal)
+                self.delegate?.showFinalBody()
+            }
+            
+            if let error = error { self.delegate?.showWebViewError(error.localizedDescription) }
+        }
+    }
 }
 
 // MARK: - Actions
@@ -94,6 +140,7 @@ extension WebView {
         guard let urlRequest = RequestManager.shared.initialRequest() else {
             return
         }
+        currentRequestType = .initial
         
         web.load(urlRequest)
         delegate?.loading()
@@ -105,7 +152,8 @@ extension WebView {
         }
         
         eventInfoForm = data
-        
+        currentRequestType = .preFinal
+
         web.load(urlRequest)
         delegate?.loading()
     }
@@ -114,6 +162,7 @@ extension WebView {
         guard let urlRequest = RequestManager.shared.finalRequest(with: captcha) else {
             return
         }
+        currentRequestType = .final
 
         web.load(urlRequest)
         delegate?.loading()
@@ -124,7 +173,7 @@ extension WebView {
         
         for image in images {
             guard let urlRequest = RequestManager.shared.uploadDataRequest(image: image) else {
-                completion(.failure("Ссылка неверная, напишите в поддержку."))
+                completion(.failure(Strings.wrongURL))
                 return
             }
             
@@ -150,7 +199,7 @@ extension WebView {
     
     public func getSubUnitCode(with code: String, completion: @escaping (Result) -> ()) {
         guard let urlRequest = RequestManager.shared.subUnitRequest(with: code) else {
-            completion(.failure("Ссылка неверная, напишите в поддержку."))
+            completion(.failure(Strings.wrongURL))
             return
         }
         
@@ -191,11 +240,11 @@ extension WebView: WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        web.evaluateJavaScript(Scripts.getCaptureImageURL, completionHandler: { resp, error in
-            if let urlString = resp as? String, let url = URL(string: urlString) {
-                self.delegate?.showCapture(with: url)
-            }
-        })
+        switch currentRequestType {
+        case .preFinal: getCaptchaImage()
+        case .final: getFinalAppealData()
+        default: break
+        }
     }
 }
 
@@ -205,7 +254,15 @@ extension WebView {
         static let submitForm = "$('.u-form__sbt').click();"
         static let setCheckbox = "$('.checkbox').click();"
         static let getCaptureImageURL = "document.querySelector('#request > div.b-form > div:nth-child(3) > div:nth-child(9) > div.img-captcha > div.bc-img > img').src"
-        
+        static let getFinalBody = "document.querySelector('body > div.ln-page > div > div.ln-content.wrapper.clearfix > div:nth-child(4) > div').innerHTML"
+        static let getFinalID = "document.querySelector('body > div.ln-page > div > div.ln-content.wrapper.clearfix > div:nth-child(4) > div > p:nth-child(3) > b').innerHTML"
+        static let getFinalCode = "document.querySelector('body > div.ln-page > div > div.ln-content.wrapper.clearfix > div:nth-child(4) > div > p:nth-child(4) > b').innerHTML"
+    }
+    
+    enum RequestType {
+        case initial
+        case preFinal
+        case final
     }
 }
 
@@ -225,23 +282,8 @@ extension WebView {
 // Final response
 // document.querySelector("body > div.ln-page > div > div.ln-content.wrapper.clearfix > div:nth-child(4) > div")
 
-extension WKWebView {
+// Final ID path
+// document.querySelector("body > div.ln-page > div > div.ln-content.wrapper.clearfix > div:nth-child(4) > div > p:nth-child(3) > b")
 
-    private var httpCookieStore: WKHTTPCookieStore  { return WKWebsiteDataStore.default().httpCookieStore }
-
-    func getCookies(for domain: String? = nil, completion: @escaping ([String : Any])->())  {
-        var cookieDict = [String : AnyObject]()
-        httpCookieStore.getAllCookies { cookies in
-            for cookie in cookies {
-                if let domain = domain {
-                    if cookie.domain.contains(domain) {
-                        cookieDict[cookie.name] = cookie.properties as AnyObject?
-                    }
-                } else {
-                    cookieDict[cookie.name] = cookie.properties as AnyObject?
-                }
-            }
-            completion(cookieDict)
-        }
-    }
-}
+// Final Code path
+// document.querySelector("body > div.ln-page > div > div.ln-content.wrapper.clearfix > div:nth-child(4) > div > p:nth-child(4) > b")
