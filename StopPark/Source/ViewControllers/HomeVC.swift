@@ -60,6 +60,11 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
         setupView()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        data = AppealManager.shared.appeals
+    }
 }
 
 // MARK: - Private Functions
@@ -105,7 +110,13 @@ extension HomeVC {
     }
     
     private func checkTableViewData() {
-        guard data.isEmpty else { return }
+        tableView.reloadData()
+        guard data.isEmpty else {
+            if messageView.isHidden == false {
+                messageView.dismissView()
+            }
+            return
+        }
         messageView.present(with: "У Вас нет пока что обращений, но Вы можете подать его сейчас.")
     }
 }

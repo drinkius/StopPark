@@ -28,6 +28,8 @@ let kCaptureImage: String = "kCaptureImage"
 let kUploadImageIds: String = "kUploadImageIds"
 let kSession: String = "kUploadImageSession"
 
+let kAppeals: String = "kAppeals"
+
 struct UserDefaultsManager {
     
     static func setFormData(_ type: FormData, data: String?) {
@@ -75,5 +77,20 @@ struct UserDefaultsManager {
     
     static func getSession() -> String? {
         return UserDefaults.standard.string(forKey: kSession)
+    }
+    
+    
+    static func setSavedAppeals(_ value: [Appeal]?) {
+        if let encodedData = try? PropertyListEncoder().encode(value) {
+            UserDefaults.standard.set(encodedData, forKey: kAppeals)
+        }
+    }
+    
+    static func getSavedAppeals() -> [Appeal]? {
+        if let decodedData = UserDefaults.standard.object(forKey: kAppeals) as? Data,
+            let decodedAppeals = try? PropertyListDecoder().decode([Appeal].self, from: decodedData) {
+            return decodedAppeals
+        }
+        return nil
     }
 }
