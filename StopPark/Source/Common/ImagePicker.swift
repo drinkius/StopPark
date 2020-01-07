@@ -39,11 +39,7 @@ class ImagePicker: NSObject {
     
     public func present() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
-        if let action = self.action(for: .camera, title: "Сфотографировать") {
-            alertController.addAction(action)
-        }
-        
+                
         if let action = self.action(for: .savedPhotosAlbum, title: "Недавние фото") {
             alertController.addAction(action)
         }
@@ -54,6 +50,7 @@ class ImagePicker: NSObject {
         
         alertController.addAction(UIAlertAction(title: "Отмена", style: .cancel))
         
+        alertController.modalPresentationStyle = .fullScreen
         self.presentationController?.present(alertController, animated: true)
     }
     
