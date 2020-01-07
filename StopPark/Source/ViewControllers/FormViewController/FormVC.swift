@@ -130,6 +130,7 @@ extension FormVC {
     }
     
     private func sendPreFinalRequest(with code: String) {
+        sendFormView.updateView(for: .startSendFullForm)
         webView.getSubUnitCode(with: code) { [unowned self] result in
             DispatchQueue.main.async {
                 switch result {
@@ -293,14 +294,20 @@ extension FormVC: WebViewDelegate {
     func showCapture(with url: URL?) {
         sendFormView.updateView(for: .getCaptcha(url))
     }
+    
+    func showFinalBody() {
+        sendFormView.updateView(for: .endSendFullForm)
+    }
 }
 
 // MARK: - SendFormViewDelegate
 extension FormVC: SendFormViewDelegate {
+    func formVCShouldClose() {
+        closeForm()
+    }
+    
     func formShouldSend(withCaptcha captcha: String) {
         webView.finalLoadData(with: captcha)
-        sendFormView.isHidden = true
-        tableView.isHidden = true
     }
     
     func errorShouldShow(withText text: String) {

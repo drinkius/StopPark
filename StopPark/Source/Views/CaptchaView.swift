@@ -10,7 +10,10 @@ import UIKit
 
 class CaptchaView: BaseView {
     
-    public weak var textFeildDelegate: UITextFieldDelegate?
+    public var changeActionBlock: (() -> ())?
+    public weak var textFeildDelegate: UITextFieldDelegate? {
+        didSet { textField.delegate = textFeildDelegate }
+    }
     public var textFieldText: String? {
         get { return textField.text }
         set { textField.text = newValue }
@@ -33,7 +36,7 @@ class CaptchaView: BaseView {
         image.contentMode = .scaleAspectFill
         image.layer.cornerRadius = .standartCornerRadius
         image.layer.masksToBounds = true
-        image.backgroundColor = .red
+        image.backgroundColor = .white
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -49,7 +52,7 @@ class CaptchaView: BaseView {
     
     private lazy var textField: UITextField = {
         let tf = UITextField()
-        tf.delegate = textFeildDelegate
+        tf.returnKeyType = .send
         tf.placeholder = "Введите капчу"
         tf.textAlignment = .center
         tf.translatesAutoresizingMaskIntoConstraints = false
@@ -100,7 +103,7 @@ extension CaptchaView {
 // MARK: - Actions
 extension CaptchaView {    
     @objc private func change() {
-        print("captcha need to change")
+        changeActionBlock?()
     }
 }
 

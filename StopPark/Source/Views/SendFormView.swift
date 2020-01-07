@@ -52,6 +52,7 @@ class SendFormView: BaseView {
     private lazy var captchaView: CaptchaView = {
         let view = CaptchaView()
         view.textFeildDelegate = self
+        view.changeActionBlock = { print("change") }
         view.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -107,11 +108,13 @@ extension SendFormView {
         UIView.animate(withDuration: 0.3, animations: {
             self.titleLabel.alpha = 0
             self.closeButton.alpha = 0
+            self.captchaView.alpha = 0
         }, completion: { _ in
             self.updateContent(for: type)
             UIView.animate(withDuration: 0.3, animations: {
                 self.titleLabel.alpha = 1
                 self.closeButton.alpha = 1
+                self.captchaView.alpha = 1
             })
         })
     }
@@ -126,6 +129,7 @@ extension SendFormView {
         case .sendingRequest:
             titleLabel.text = "Отправляем запрос на сервер..."
             closeButton.isHidden = true
+            captchaView.imageView.image = nil
         case .failedCaptcha:
             titleLabel.text = Strings.captchaError
             closeButton.setTitle("Попробовать снова", for: .normal)
@@ -151,15 +155,15 @@ extension SendFormView {
     
     private func getCaptchaFromURL(_ url: URL?) {
         guard let url = url else {
-            updateContent(for: .failedCaptcha)
+            updateContentAnimated(for: .failedCaptcha)
             return
         }
-        updateContent(for: .downloadCaptcha)
+        updateContentAnimated(for: .downloadCaptcha)
         captchaView.imageView.downloadCapture(with: url) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
-                case .failure(_): self?.updateContent(for: .failedCaptcha)
-                case .success: self?.updateContent(for: .captchaUploaded)
+                case .failure(_): self?.updateContentAnimated(for: .failedCaptcha)
+                case .success: self?.updateContentAnimated(for: .captchaUploaded)
                 }
             }
         }
@@ -194,9 +198,9 @@ extension SendFormView {
     public func updateView(for type: Destination) {
         switch type {
         case .getCaptcha(let url): getCaptchaFromURL(url)
-        case .uploadImages: updateContent(for: .uploadImages)
-        case .startSendFullForm: updateContent(for: .sendingRequest)
-        case .endSendFullForm: updateContent(for: .closeForm)
+        case .uploadImages: updateContentAnimated(for: .uploadImages)
+        case .startSendFullForm: updateContentAnimated(for: .sendingRequest)
+        case .endSendFullForm: updateContentAnimated(for: .closeForm)
         }
     }
     
@@ -206,16 +210,18 @@ extension SendFormView {
             return
         }
         delegate?.formShouldSend(withCaptcha: text)
+        updateContentAnimated(for: .sendingRequest)
     }
     
     @objc private func closeForm() {
-        
+        delegate?.formVCShouldClose()
     }
 }
 
 // MARK: - UITextFieldDelegate
 extension SendFormView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
         sendCaptcha()
         return true
     }

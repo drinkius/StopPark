@@ -103,6 +103,7 @@ extension WebView {
         var newAppeal = Appeal(time: Date().timeIntervalSince1970)
         web.evaluateJavaScript(Scripts.getFinalID) { data, error in
             guard let text = data as? String else {
+                self.getCaptchaImage()
                 self.delegate?.showWebViewError(Strings.cantGetData)
                 return
             }
@@ -118,6 +119,7 @@ extension WebView {
         }
         web.evaluateJavaScript(Scripts.getFinalCode) { data, error in
             guard let text = data as? String else {
+                self.getCaptchaImage()
                 self.delegate?.showWebViewError(Strings.cantGetData)
                 return
             }
