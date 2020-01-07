@@ -12,8 +12,12 @@ class RequestTableViewCell: BaseGroupedTableViewCell {
     
     public func fill(with data: Appeal) {
         timeLabel.text = "Обращение от " + "\(data.time.toCalendarDate())"
-        idLabel.text = "ID обращения: " + data.id
-        codeLabel.text = "Код проверки статуса обращения: " + data.code
+        idLabel.attributedText = "ID обращения:\n"
+            .attributed
+            .appendBold(data.id, withFontSize: 12)
+        codeLabel.attributedText = "Код проверки статуса обращения:\n"
+            .attributed
+            .appendBold(data.code, withFontSize: 12)
         
         switch data.status {
         case 0:
@@ -53,6 +57,7 @@ class RequestTableViewCell: BaseGroupedTableViewCell {
         let lbl = UILabel()
         lbl.text = "ID обращения: "
         lbl.numberOfLines = 0
+        lbl.font = .systemFont(ofSize: 12)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }()
@@ -61,6 +66,7 @@ class RequestTableViewCell: BaseGroupedTableViewCell {
         let lbl = UILabel()
         lbl.text = "Код проверки статуса обращения: "
         lbl.numberOfLines = 0
+        lbl.font = .systemFont(ofSize: 12)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }()
