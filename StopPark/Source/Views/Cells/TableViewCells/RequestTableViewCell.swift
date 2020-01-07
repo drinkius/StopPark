@@ -71,6 +71,12 @@ class RequestTableViewCell: BaseGroupedTableViewCell {
         configureViews()
         configureConstraints()
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let margins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
+        contentContainer.frame = contentContainer.frame.inset(by: margins)
+    }
 }
 
 // MARK: - Private Functions
