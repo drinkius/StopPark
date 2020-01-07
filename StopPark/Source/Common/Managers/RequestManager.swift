@@ -80,9 +80,9 @@ class RequestManager {
         guard let autoNumber = eventInfoForm[.autoNumber] else { return nil }
         guard let eventAddress = eventInfoForm[.eventAddress] else { return nil }
         guard let photoDate = eventInfoForm[.photoDate] else { return nil }
-        let eventViolation = eventInfoForm[.eventViolation] ?? "" // need to append
+        let eventViolation = eventInfoForm[.eventViolation]
         
-        let message = Strings.generateTemplateText(date: eventDate, auto: autoMark, number: autoNumber, address: eventAddress, photoDate: photoDate)
+        let message = Strings.generateTemplateText(date: eventDate, auto: autoMark, number: autoNumber, address: eventAddress, photoDate: photoDate, eventViolation: eventViolation)
 
         
 //        params["region_code"] = "\(regionCode)"
@@ -222,7 +222,7 @@ extension RequestManager {
     
     
     func finalRequest(with captcha: String) -> URLRequest? {
-        guard let url = URLs.checkCorrectURL else {
+        guard let url = URLs.mainRequestURL else {
             return nil
         }
         
