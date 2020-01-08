@@ -54,7 +54,7 @@ class TextFieldCell: BaseGroupedTableViewCell {
     private lazy var toolBar: UIToolbar = {
         let tb = UIToolbar()
         tb.sizeToFit()
-        tb.backgroundColor = .white
+        tb.backgroundColor = .themePicker
         let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         tb.setItems([cancelButton, space], animated: false)
         return tb
@@ -63,7 +63,7 @@ class TextFieldCell: BaseGroupedTableViewCell {
     private lazy var pickerView: UIPickerView = {
         let view = UIPickerView()
         view.delegate = pickerDelegate
-        view.backgroundColor = .white
+        view.backgroundColor = .themePicker
         return view
     }()
                        
@@ -153,7 +153,7 @@ extension TextFieldCell {
         UIView.animate(withDuration: 0.4) {
             self.layoutIfNeeded()
             if self.textField.isFirstResponder {
-                self.separatorView.backgroundColor = .blue
+                self.separatorView.backgroundColor = .highlited
             } else {
                 self.separatorView.backgroundColor = .lightGray
             }

@@ -24,7 +24,7 @@ class HomeVC: UIViewController {
     private var titleLabel: UILabel = {
         let lbl = UILabel()
         lbl.text = "STOPPARK"
-        lbl.textColor = .black
+        lbl.textColor = .themeMainTitle
         lbl.font = .systemFont(ofSize: 12, weight: .bold)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
@@ -33,7 +33,7 @@ class HomeVC: UIViewController {
     private lazy var profileView: ProfileView = {
         let view = ProfileView()
         view.delegate = self
-        view.backgroundColor = .white
+        view.backgroundColor = .themeContainer
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -43,7 +43,7 @@ class HomeVC: UIViewController {
         tw.delegate = self
         tw.dataSource = self
         tw.separatorStyle = .none
-        tw.backgroundColor = .smokeWhite
+        tw.backgroundColor = .themeBackground
         tw.showsVerticalScrollIndicator = false
         tw.register(RequestTableViewCell.self, forCellReuseIdentifier: RequestTableViewCell.identifier)
         tw.translatesAutoresizingMaskIntoConstraints = false
@@ -105,9 +105,10 @@ extension HomeVC {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
         navigationItem.rightBarButtonItem = profileButton
         navigationController?.navigationBar.prefersLargeTitles = false
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.backgroundColor = .white
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.view.backgroundColor = .themeContainer
         navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
     }
     
     private func checkTableViewData() {

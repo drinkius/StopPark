@@ -27,6 +27,7 @@ extension UIColor {
     static let separator: UIColor = #colorLiteral(red   : 0.9254901961, green   : 0.9098039216, blue   : 0.9098039216, alpha   : 1)
     static let highlited: UIColor = #colorLiteral(red: 0, green: 0.5388351083, blue: 0.9526227117, alpha: 1)
     static let smokeWhite: UIColor = #colorLiteral(red: 0.9458671212, green: 0.9460254312, blue: 0.9458462596, alpha: 1)
+    static let smokeBlack: UIColor = #colorLiteral(red: 0.109914951, green: 0.1096751764, blue: 0.1183810011, alpha: 1)
     
     static var nameEditingColor: UIColor = .highlited
     static var nameDefaultColor: UIColor = .darkGray
@@ -35,6 +36,11 @@ extension UIColor {
     
     static let loaderDoneColor: UIColor = .highlited
     static let loaderLoadingColor: UIColor = .lightGray
+
+    static let themeBackground: UIColor = setColor(light: smokeWhite, dark: black)
+    static let themeContainer: UIColor = setColor(light: white, dark: smokeBlack)
+    static let themeMainTitle: UIColor = setColor(light: black, dark: white)
+    static let themePicker: UIColor = setColor(light: white, dark: black)
 }
 
 extension UIImage {

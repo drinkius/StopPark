@@ -16,7 +16,7 @@ class BaseGroupedTableViewCell: BaseTableViewCell {
     
     var contentContainer: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .themeContainer
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

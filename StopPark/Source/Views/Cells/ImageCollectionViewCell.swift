@@ -35,7 +35,7 @@ class ImageCollectionViewCell: BaseCollectionViewCell {
         let btn = UIButton()
         btn.setImage(.delete, for: .normal)
         btn.tintColor = .white
-        btn.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        btn.backgroundColor = UIColor.themeMainTitle.withAlphaComponent(0.5)
         btn.layer.cornerRadius = Theme.buttonItemCornerRadius
         btn.layer.masksToBounds = true
         btn.addTarget(self, action: #selector(deleteAction), for: .touchUpInside)

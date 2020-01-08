@@ -14,7 +14,7 @@ class RegistrationVC: UIViewController {
         let items = ["Физическое лицо", "Юридическое лицо"]
         let control = UISegmentedControl(items: items)
         control.selectedSegmentIndex = 0
-        control.backgroundColor = .white
+        control.backgroundColor = .clear
         control.addTarget(self, action: #selector(changeForm(_:)), for: .valueChanged)
         control.translatesAutoresizingMaskIntoConstraints = false
         return control
@@ -26,7 +26,7 @@ class RegistrationVC: UIViewController {
         tw.delegate = self
         tw.dataSource = self
         tw.separatorStyle = .none
-        tw.backgroundColor = .smokeWhite
+        tw.backgroundColor = .themeBackground
         tw.showsVerticalScrollIndicator = false
         tw.register(TextFieldCell.self, forCellReuseIdentifier: TextFieldCell.identifier)
         tw.translatesAutoresizingMaskIntoConstraints = false
@@ -53,8 +53,8 @@ class RegistrationVC: UIViewController {
 // MARK: - Private Functions
 extension RegistrationVC {
     private func setupView() {
-        view.backgroundColor = .white
-        title = "Регистрация"
+        view.backgroundColor = .themeBackground
+        configureTitle()
         configureViews()
         configureConstraints()
     }
@@ -80,6 +80,11 @@ extension RegistrationVC {
          submitButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -.nanoPadding),
          submitButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -.nanoPadding)
             ].forEach { $0.isActive = true }
+    }
+    
+    private func configureTitle() {
+        title = "Регистрация"
+        navigationController?.navigationBar.shadowImage = UIImage()
     }
 }
 

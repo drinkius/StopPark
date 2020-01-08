@@ -18,7 +18,7 @@ class ProfileView: BaseView {
     
     private var userLabel: UILabel = {
         let lbl = UILabel()
-        lbl.textColor = .black
+        lbl.textColor = .themeMainTitle
         lbl.numberOfLines = 0
         lbl.font = .systemFont(ofSize: 23, weight: .bold)
         lbl.translatesAutoresizingMaskIntoConstraints = false

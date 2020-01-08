@@ -20,7 +20,7 @@ class FormVC: UIViewController {
         tw.delegate = self
         tw.dataSource = self
         tw.separatorStyle = .none
-        tw.backgroundColor = .smokeWhite
+        tw.backgroundColor = .themeBackground
         tw.showsVerticalScrollIndicator = false
         tw.register(TextFieldCell.self, forCellReuseIdentifier: TextFieldCell.identifier)
         tw.register(ImagesTableViewCell.self, forCellReuseIdentifier: ImagesTableViewCell.identifier)
@@ -87,7 +87,7 @@ class FormVC: UIViewController {
 extension FormVC {
     private func setupView() {
         title = "Форма обращения"
-        view.backgroundColor = .smokeWhite
+        view.backgroundColor = .themeBackground
         navigationItem.rightBarButtonItem = cancelButton
         configureViews()
         configureConstraints()

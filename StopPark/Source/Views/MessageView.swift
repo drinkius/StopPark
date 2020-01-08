@@ -32,7 +32,7 @@ class MessageView: BaseView {
     override func setupView() {
         super.setupView()
         isHidden = true
-        backgroundColor = .smokeWhite
+        backgroundColor = .themeBackground
         configureViews()
         configureConstraints()
     }
