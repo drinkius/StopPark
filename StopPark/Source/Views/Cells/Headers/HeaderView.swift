@@ -16,7 +16,7 @@ class HeaderView: BaseView {
     
     private var titleLabel: UILabel = {
         let lbl = UILabel()
-        lbl.textColor = .darkGray
+        lbl.textColor = .themeDarkGrayText
         lbl.font = .systemFont(ofSize: 12, weight: .medium)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl

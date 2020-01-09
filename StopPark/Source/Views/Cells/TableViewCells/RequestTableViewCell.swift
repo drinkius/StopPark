@@ -33,7 +33,7 @@ class RequestTableViewCell: BaseGroupedTableViewCell {
     private var timeLabel: UILabel = {
         let lbl = UILabel()
         lbl.text = "Обращение от "
-        lbl.textColor = .gray
+        lbl.textColor = .themeGrayText
         lbl.font = .systemFont(ofSize: 10)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl

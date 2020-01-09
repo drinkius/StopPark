@@ -27,7 +27,7 @@ class ProfileView: BaseView {
     
     private var emailLabel: UILabel = {
         let lbl = UILabel()
-        lbl.textColor = .gray
+        lbl.textColor = .themeGrayText
         lbl.numberOfLines = 0
         lbl.font = .systemFont(ofSize: 12)
         lbl.translatesAutoresizingMaskIntoConstraints = false

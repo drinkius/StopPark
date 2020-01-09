@@ -21,7 +21,7 @@ class MessageView: BaseView {
         
     private var titleLabel: UILabel = {
         let lbl = UILabel()
-        lbl.textColor = .darkGray
+        lbl.textColor = .themeDarkGrayText
         lbl.numberOfLines = 0
         lbl.textAlignment = .center
         lbl.font = .systemFont(ofSize: 12, weight: .bold)

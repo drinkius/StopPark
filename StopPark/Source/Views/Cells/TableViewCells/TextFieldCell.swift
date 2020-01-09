@@ -72,7 +72,7 @@ class TextFieldCell: BaseGroupedTableViewCell {
     private var titleLabel: UILabel = {
         let lbl = UILabel()
         lbl.text = "Value"
-        lbl.textColor = .gray
+        lbl.textColor = .themeGrayText
         lbl.font = .systemFont(ofSize: 12)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl

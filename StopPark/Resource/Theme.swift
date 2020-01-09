@@ -41,6 +41,8 @@ extension UIColor {
     static let themeContainer: UIColor = setColor(light: white, dark: smokeBlack)
     static let themeMainTitle: UIColor = setColor(light: black, dark: white)
     static let themePicker: UIColor = setColor(light: white, dark: black)
+    static let themeGrayText: UIColor = setColor(light: gray, dark: lightGray)
+    static let themeDarkGrayText: UIColor = setColor(light: darkGray, dark: gray)
 }
 
 extension UIImage {
