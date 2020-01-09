@@ -21,6 +21,7 @@ class FormVC: UIViewController {
         tw.dataSource = self
         tw.separatorStyle = .none
         tw.backgroundColor = .themeBackground
+        tw.keyboardDismissMode = UIScrollView.KeyboardDismissMode.onDrag
         tw.showsVerticalScrollIndicator = false
         tw.register(TextFieldCell.self, forCellReuseIdentifier: TextFieldCell.identifier)
         tw.register(ImagesTableViewCell.self, forCellReuseIdentifier: ImagesTableViewCell.identifier)
@@ -79,6 +80,8 @@ class FormVC: UIViewController {
     
     deinit {
         UserDefaultsManager.setSession(nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.keyboardWillHideNotification, object: nil)
         print("vc died")
     }
 }
@@ -89,6 +92,7 @@ extension FormVC {
         title = "Форма обращения"
         view.backgroundColor = .themeBackground
         navigationItem.rightBarButtonItem = cancelButton
+        observeKeyboard()
         configureViews()
         configureConstraints()
     }
@@ -147,12 +151,36 @@ extension FormVC {
             }
         }
     }
+    
+    private func observeKeyboard() {
+        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillShow(_:)), name: UIApplication.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillHide(_:)), name: UIApplication.keyboardWillHideNotification, object: nil)
+    }
 }
 
 // MARK: - Actions
 extension FormVC {
     @objc private func closeForm() {
         dismiss(animated: true)
+    }
+    
+    @objc private func onKeyboardWillShow(_ notification: Notification) {
+        guard sendFormView.isHidden else {
+            sendFormView.onKeyboard(notification)
+            return
+        }
+        let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        let height = keyboardFrame?.height ?? 243
+
+        tableView.contentInset = .init(top: 0, left: 0, bottom: height, right: 0)
+    }
+    
+    @objc private func onKeyboardWillHide(_ notification: Notification) {
+        guard sendFormView.isHidden else {
+            sendFormView.onKeyboard(notification)
+            return
+        }
+        tableView.contentInset = .zero
     }
 }
 
@@ -242,6 +270,7 @@ extension FormVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard indexPath.section <= requestForm.data.count - 1 else { return }
         guard let _ = tableView.cellForRow(at: indexPath) as? TextFieldCell else { return }
+        tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
     }
 }
 

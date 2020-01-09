@@ -27,6 +27,7 @@ class RegistrationVC: UIViewController {
         tw.dataSource = self
         tw.separatorStyle = .none
         tw.backgroundColor = .themeBackground
+        tw.keyboardDismissMode = UIScrollView.KeyboardDismissMode.onDrag
         tw.showsVerticalScrollIndicator = false
         tw.register(TextFieldCell.self, forCellReuseIdentifier: TextFieldCell.identifier)
         tw.translatesAutoresizingMaskIntoConstraints = false
@@ -48,12 +49,18 @@ class RegistrationVC: UIViewController {
         super.viewDidLoad()
         setupView()
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIApplication.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.keyboardWillHideNotification, object: nil)
+    }
 }
 
 // MARK: - Private Functions
 extension RegistrationVC {
     private func setupView() {
         view.backgroundColor = .themeBackground
+        observeKeyboard()
         configureTitle()
         configureViews()
         configureConstraints()
@@ -86,6 +93,11 @@ extension RegistrationVC {
         title = "Регистрация"
         navigationController?.navigationBar.shadowImage = UIImage()
     }
+    
+    private func observeKeyboard() {
+        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillShow(_:)), name: UIApplication.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillHide(_:)), name: UIApplication.keyboardWillHideNotification, object: nil)
+    }
 }
 
 // MARK: - Actions
@@ -111,6 +123,17 @@ extension RegistrationVC {
         let nav = UINavigationController(rootViewController: formVC)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)
+    }
+        
+    @objc private func onKeyboardWillShow(_ notification: Notification) {
+        let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        let height = keyboardFrame?.height ?? 243
+
+        tableView.contentInset = .init(top: 0, left: 0, bottom: height, right: 0)
+    }
+    
+    @objc private func onKeyboardWillHide(_ notification: Notification) {
+        tableView.contentInset = .zero
     }
 }
 
@@ -169,6 +192,10 @@ extension RegistrationVC: UITableViewDelegate, UITableViewDataSource {
         let messageFooterView = MessageFooterView()
         messageFooterView.fill(with: "Ваши данные используются только для отправки Ваших обращений в ГИБДД. Мы не отправляем спам и не используем Ваши данные в иных целях.")
         return messageFooterView
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
     }
 }
 

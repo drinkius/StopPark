@@ -82,6 +82,7 @@ class TextFieldCell: BaseGroupedTableViewCell {
     private lazy var textField: UITextField = {
         let tf = UITextField()
         tf.delegate = self
+        tf.autocorrectionType = .no
         tf.returnKeyType = .done
         tf.font = .systemFont(ofSize: 12)
         tf.translatesAutoresizingMaskIntoConstraints = false

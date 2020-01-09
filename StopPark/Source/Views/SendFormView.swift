@@ -29,6 +29,7 @@ class SendFormView: BaseView {
         return view
     }()
     
+    private var stackContainerCenterYAnchor: NSLayoutConstraint!
     private var stackContainer: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -75,6 +76,7 @@ class SendFormView: BaseView {
     override func setupView() {
         super.setupView()
         isHidden = true
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewShouldEndEditing)))
         configureViews()
         configureConstraints()
     }
@@ -92,7 +94,8 @@ extension SendFormView {
     }
     
     private func configureConstraints() {
-        [stackContainer.centerYAnchor.constraint(equalTo: centerYAnchor),
+        stackContainerCenterYAnchor = stackContainer.centerYAnchor.constraint(equalTo: centerYAnchor)
+        [stackContainerCenterYAnchor,
          stackContainer.centerXAnchor.constraint(equalTo: centerXAnchor),
          stackContainer.leftAnchor.constraint(equalTo: leftAnchor, constant: .hugePadding),
          stackContainer.rightAnchor.constraint(equalTo: rightAnchor, constant: -.hugePadding),
@@ -204,8 +207,23 @@ extension SendFormView {
         }
     }
     
+    public func onKeyboard(_ notification: Notification) {
+        stackContainerCenterYAnchor.constant = 0
+
+        if notification.name == UIApplication.keyboardWillShowNotification {
+            let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue
+            let height = keyboardFrame?.height
+            stackContainerCenterYAnchor.constant = -(height ?? 243) / 2
+        }
+        
+        UIView.animate(withDuration: 0.3) {
+            self.layoutIfNeeded()
+        }
+    }
+    
     @objc private func sendCaptcha() {
-        guard let text = captchaView.textFieldText else {
+        viewShouldEndEditing()
+        guard let text = captchaView.textFieldText, text != "" else {
             delegate?.errorShouldShow(withText: "Введите капчу")
             return
         }
@@ -216,12 +234,15 @@ extension SendFormView {
     @objc private func closeForm() {
         delegate?.formVCShouldClose()
     }
+    
+    @objc private func viewShouldEndEditing() {
+        captchaView.endEditing(true)
+    }
 }
 
 // MARK: - UITextFieldDelegate
 extension SendFormView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
         sendCaptcha()
         return true
     }
