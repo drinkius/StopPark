@@ -277,6 +277,11 @@ extension FormVC: UITableViewDelegate, UITableViewDataSource {
 // MARK: - ButtonTableViewCellDelegate
 extension FormVC: ButtonTableViewCellDelegate {
     func send() {
+        guard Reachability.isConnectedToNetwork() else {
+            showErrorMessage(Strings.notConnected)
+            return
+        }
+
         guard let code = eventInfoForm[.district],
             let _ = eventInfoForm[.eventDate],
             let _ = eventInfoForm[.autoMark],

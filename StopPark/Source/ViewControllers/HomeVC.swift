@@ -130,6 +130,10 @@ extension HomeVC {
     }
     
     private func presentFormVC() {
+        guard Reachability.isConnectedToNetwork() else {
+            showErrorMessage(Strings.notConnected)
+            return
+        }
         let formVC = FormVC()
         let nav = UINavigationController(rootViewController: formVC)
         nav.modalPresentationStyle = .fullScreen

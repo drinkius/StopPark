@@ -21,6 +21,7 @@ class WebView: BaseView {
         
     public weak var delegate: WebViewDelegate?
     
+    private var sessionGetItBlock: ((Result) -> ())?
     private var currentRequestType: RequestType = .initial
     private var eventInfoForm: [FormData: String]?
     private let config = WKWebViewConfiguration()
@@ -83,6 +84,7 @@ extension WebView {
                 return
             }
             print("entered")
+            self.sessionGetItBlock?(.success())
             UserDefaultsManager.setSession(newSession)
 
             print("log cockie: \(dict)")
@@ -138,10 +140,11 @@ extension WebView {
 
 // MARK: - Actions
 extension WebView {
-    public func initialRequest() {
+    public func initialRequest(completion: ((Result) -> ())? = nil) {
         guard let urlRequest = RequestManager.shared.initialRequest() else {
             return
         }
+        sessionGetItBlock = completion
         currentRequestType = .initial
         
         web.load(urlRequest)
@@ -205,6 +208,15 @@ extension WebView {
             return
         }
         
+        guard let _ = UserDefaultsManager.getSession() else {
+            initialRequest() { _ in
+                NetworkManager.shared.getSubUnitCode(from: urlRequest) { result in
+                    completion(result)
+                }
+            }
+            return
+        }
+
         NetworkManager.shared.getSubUnitCode(from: urlRequest) { result in
             completion(result)
         }
@@ -231,6 +243,7 @@ extension WebView: WKNavigationDelegate {
                 
         for cookie in cookies {
             if cookie.name == "session" {
+                sessionGetItBlock?(.success())
                 UserDefaultsManager.setSession(cookie.value)
             }
         }
