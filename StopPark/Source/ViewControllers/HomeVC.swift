@@ -134,6 +134,7 @@ extension HomeVC {
             showErrorMessage(Strings.notConnected)
             return
         }
+        Vibration.light.vibrate()
         let formVC = FormVC()
         let nav = UINavigationController(rootViewController: formVC)
         nav.modalPresentationStyle = .fullScreen

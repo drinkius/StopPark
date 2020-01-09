@@ -119,6 +119,7 @@ extension RegistrationVC {
             showErrorMessage("Вы заполнили не все пункты.")
             return
         }
+        Vibration.success.vibrate()
         let formVC = HomeVC()
         let nav = UINavigationController(rootViewController: formVC)
         nav.modalPresentationStyle = .fullScreen

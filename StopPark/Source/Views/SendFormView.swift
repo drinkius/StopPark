@@ -199,6 +199,7 @@ extension SendFormView {
     }
     
     public func updateView(for type: Destination) {
+        Vibration.light.vibrate()
         switch type {
         case .getCaptcha(let url): getCaptchaFromURL(url)
         case .uploadImages: updateContentAnimated(for: .uploadImages)

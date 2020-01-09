@@ -10,6 +10,7 @@ import UIKit
 
 extension UIViewController {
     func showErrorMessage(_ message: String, completion: (() -> ())? = nil) {
+        Vibration.error.vibrate()
         let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "ОК", style: .default, handler: { _ in
             completion?()

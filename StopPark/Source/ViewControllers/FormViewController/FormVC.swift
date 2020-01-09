@@ -161,6 +161,7 @@ extension FormVC {
 // MARK: - Actions
 extension FormVC {
     @objc private func closeForm() {
+        Vibration.light.vibrate()
         dismiss(animated: true)
     }
     
@@ -292,6 +293,7 @@ extension FormVC: ButtonTableViewCellDelegate {
                 return
         }
 
+        Vibration.success.vibrate()
         openSendFormView()
         
         guard !eventImages.isEmpty else {

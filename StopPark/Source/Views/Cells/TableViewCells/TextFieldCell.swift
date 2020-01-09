@@ -144,6 +144,7 @@ extension TextFieldCell {
 extension TextFieldCell {
     private func animateTextCell() {
         if textField.text?.isEmpty == false || textField.isFirstResponder {
+            Vibration.light.vibrate()
             titleLabelTopConstraint.constant = .zero
             titleLabelBottomConstraint.constant = -.extraPadding
         } else {
