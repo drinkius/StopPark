@@ -43,6 +43,9 @@ extension UIColor {
     static let themePicker: UIColor = setColor(light: white, dark: black)
     static let themeGrayText: UIColor = setColor(light: gray, dark: lightGray)
     static let themeDarkGrayText: UIColor = setColor(light: darkGray, dark: gray)
+    static let themeTextViewBackground: UIColor = themeContainer
+    static let themeTextViewText: UIColor = themeMainTitle
+    static let themeBlurBackground: UIColor = themeMainTitle
 }
 
 extension UIImage {

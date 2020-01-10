@@ -25,7 +25,7 @@ enum FormData: String {
     case district = "Регион"
     case subDivision = "Подразделение"
     case rang = "Должность (Опционально)"
-    case policeName = "Ф.И.О. (Опционально)"
+    case policeName = "Ф.И.О. должностного лица (Опционально)"
     case eventPlace = "Место события (регион) (Опционально)"
     case repeatedDivision = "Подразделение (Опционально)"
     case repeatedDate = "Дата (Опционально)"
@@ -35,8 +35,9 @@ enum FormData: String {
     case autoMark = "Марка автомобиля"
     case autoNumber = "Госномер автомобиля"
     case eventAddress = "Адресс, где распологался автомобиль"
-    case photoDate = "Дата сделанного фото"
+    case photoDate = "Дата сделанного фото (Опционально)"
     case eventViolation = "Опишите нарушение (Опционально)"
+    case editedMessage
 }
 
 struct Cell {

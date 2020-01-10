@@ -75,23 +75,21 @@ class RequestManager {
             }
         }
         
-        guard let eventDate = eventInfoForm[.eventDate] else { return nil }
-        guard let autoMark = eventInfoForm[.autoMark] else { return nil }
-        guard let autoNumber = eventInfoForm[.autoNumber] else { return nil }
-        guard let eventAddress = eventInfoForm[.eventAddress] else { return nil }
-        guard let photoDate = eventInfoForm[.photoDate] else { return nil }
-        let eventViolation = eventInfoForm[.eventViolation]
+        var message: String = ""
         
-        let message = Strings.generateTemplateText(date: eventDate, auto: autoMark, number: autoNumber, address: eventAddress, photoDate: photoDate, eventViolation: eventViolation)
+        if let editedMessage = eventInfoForm[.editedMessage] {
+            message = editedMessage
+        } else {
+            guard let eventDate = eventInfoForm[.eventDate] else { return nil }
+            guard let autoMark = eventInfoForm[.autoMark] else { return nil }
+            guard let autoNumber = eventInfoForm[.autoNumber] else { return nil }
+            guard let eventAddress = eventInfoForm[.eventAddress] else { return nil }
+            guard let photoDate = eventInfoForm[.photoDate] else { return nil }
+            let eventViolation = eventInfoForm[.eventViolation]
+            
+            message = Strings.generateTemplateText(date: eventDate, auto: autoMark, number: autoNumber, address: eventAddress, photoDate: photoDate, eventViolation: eventViolation)
+        }
 
-        
-//        params["region_code"] = "\(regionCode)"
-//        params["subunit"] = "\(subUnit)"
-//        params["post"] = "\(post)"
-//        params["fio"] = "\(fio)"
-//        params["event_region"] = "\(eventRegion)"
-//        params["subunit_name"] = "\(rrSubUnitName)"
-//        params["subunit_date"] = "\(rrDate)"
         params["captcha"] = "\(captcha)"
         params["message"] = "\(message)"
         

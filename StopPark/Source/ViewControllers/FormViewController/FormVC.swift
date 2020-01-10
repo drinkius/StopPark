@@ -156,6 +156,27 @@ extension FormVC {
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillShow(_:)), name: UIApplication.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillHide(_:)), name: UIApplication.keyboardWillHideNotification, object: nil)
     }
+    
+    private func showGeneratedMessage() {
+        guard let date = eventInfoForm[.eventDate],
+            let auto = eventInfoForm[.autoMark],
+            let num = eventInfoForm[.autoNumber],
+            let addr = eventInfoForm[.eventAddress] else {
+                showErrorMessage("Вы заполнили не все пункты.")
+                return
+        }
+        let photoDate = eventInfoForm[.photoDate]
+        let event = eventInfoForm[.eventViolation]
+        let template = Strings.generateTemplateText(date: date, auto: auto, number: num, address: addr, photoDate: photoDate, eventViolation: event, imageCount: eventImages.count)
+        let generatedMessage = eventInfoForm[.editedMessage] ?? template
+
+        let vc = EditorVC()
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.modalTransitionStyle = .crossDissolve
+        vc.actionBlock = { [weak self] text in self?.eventInfoForm[.editedMessage] = text }
+        vc.generatedMessage = generatedMessage
+        present(vc, animated: true)
+    }
 }
 
 // MARK: - Actions
@@ -232,7 +253,10 @@ extension FormVC: UITableViewDelegate, UITableViewDataSource {
                 let name = requestForm.data[indexPath.section].cells[indexPath.row].name
                 textFieldCell.pickerDelegate = self
                 textFieldCell.fill(with: name) { [unowned self] text in
-                    guard let text = text, !text.isEmpty else { return }
+                    guard let text = text, !text.isEmpty else {
+                        self.eventInfoForm[name] = nil
+                        return
+                    }
                     
                     if name == .district {
                         self.eventInfoForm[name] = String(text.dropLast(text.count - 2))
@@ -273,6 +297,15 @@ extension FormVC: UITableViewDelegate, UITableViewDataSource {
         guard let _ = tableView.cellForRow(at: indexPath) as? TextFieldCell else { return }
         tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        guard section == requestForm.data.count - 1 else { return nil }
+        let footerView = ButtonFooterView()
+        footerView.fill(buttonName: "Отредактировать сообщение") { [weak self] in
+            self?.showGeneratedMessage()
+        }
+        return footerView
+    }
 }
 
 // MARK: - ButtonTableViewCellDelegate
@@ -287,8 +320,7 @@ extension FormVC: ButtonTableViewCellDelegate {
             let _ = eventInfoForm[.eventDate],
             let _ = eventInfoForm[.autoMark],
             let _ = eventInfoForm[.autoNumber],
-            let _ = eventInfoForm[.eventAddress],
-            let _ = eventInfoForm[.photoDate] else {
+            let _ = eventInfoForm[.eventAddress] else {
                 showErrorMessage("Вы заполнили не все пункты.")
                 return
         }
