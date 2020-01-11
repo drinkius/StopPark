@@ -168,9 +168,13 @@ extension RegistrationVC: UITableViewDelegate, UITableViewDataSource {
             
             let name = cells[indexPath.row].name
             textFieldCell.fill(with: name) { text in
-                
+                guard let text = text, !text.isEmpty else {
+                    UserDefaultsManager.setFormData(name, data: nil)
+                    return
+                }
+
                 if name == .userEmail {
-                    let email = text?.lowercased()
+                    let email = text.lowercased()
                     UserDefaultsManager.setFormData(name, data: email)
                     return
                 }
