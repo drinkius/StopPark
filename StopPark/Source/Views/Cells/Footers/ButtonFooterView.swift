@@ -44,7 +44,7 @@ extension ButtonFooterView {
     private func configureConstraints() {
         [button.topAnchor.constraint(equalTo: topAnchor),
          button.rightAnchor.constraint(equalTo: rightAnchor, constant: -.hugePadding),
-         button.centerYAnchor.constraint(equalTo: centerYAnchor),
+         button.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: .hugePadding),
          button.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.padding)
             ].forEach { $0.isActive = true }
     }
