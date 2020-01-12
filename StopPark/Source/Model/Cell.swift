@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum FormData: String {
+enum FormData: String, CaseIterable {
 
 // MARK: - Registration Info
     case userName = "Имя"

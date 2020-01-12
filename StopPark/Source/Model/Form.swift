@@ -31,7 +31,7 @@ class Form {
                                     Cell(name: .userSurname),
                                     Cell(name: .userFatherName),
                                     Cell(name: .userOrganizationName),
-                                    Cell(name: .userOrganizationLetter),
+                                    Cell(name: .userOrganizationNumber),
                                     Cell(name: .userOrganizationDate),
                                     Cell(name: .userOrganizationLetter)]
     private let userContactInformation = [Cell(name: .userEmail),
@@ -45,6 +45,20 @@ class Form {
                           Cell(name: .photoDate),
                           Cell(name: .eventViolation)]
     
+    
+    private func userInformation() -> [Cell] {
+
+        var cells: [Cell] = []
+                
+        for formData in FormData.allCases {
+            if let _ = UserDefaultsManager.getFormData(formData) {
+                cells.append(Cell(name: formData))
+            }
+        }
+
+        return cells
+    }
+    
     private func fillForm(_ destination: Destination) {
         let toSomeoneSection = Section(name: "Куда адресовано", cells: toSomeone)
         let atUserSection = Section(name: "Заявитель", cells: userData)
@@ -53,13 +67,15 @@ class Form {
         let repeatedRequestSection = Section(name: "Уже обращались по данному вопросу?", cells: repeatedRequest)
         let appealSection = Section(name: "Генерация текста обращения", cells: appeal)
         
+        let userInformationSection = Section(name: "Ваши данные", cells: userInformation())
+        
         switch destination {
         case .registrationUser:
             data = [atUserSection, responceAddressSection]
         case .registrationOrganization:
             data = [atOrganizationSection, responceAddressSection]
         case .requestToServer:
-            data = [toSomeoneSection, repeatedRequestSection, appealSection]
+            data = [userInformationSection, toSomeoneSection, repeatedRequestSection, appealSection]
         }
     }
     

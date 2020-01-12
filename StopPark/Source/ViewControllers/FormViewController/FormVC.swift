@@ -24,6 +24,7 @@ class FormVC: UIViewController {
         tw.keyboardDismissMode = UIScrollView.KeyboardDismissMode.onDrag
         tw.showsVerticalScrollIndicator = false
         tw.register(TextFieldCell.self, forCellReuseIdentifier: TextFieldCell.identifier)
+        tw.register(ClosedTableViewCell.self, forCellReuseIdentifier: ClosedTableViewCell.identifier)
         tw.register(ImagesTableViewCell.self, forCellReuseIdentifier: ImagesTableViewCell.identifier)
         tw.register(ButtonTableViewCell.self, forCellReuseIdentifier: ButtonTableViewCell.identifier)
         tw.translatesAutoresizingMaskIntoConstraints = false
@@ -232,6 +233,14 @@ extension FormVC: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: ButtonTableViewCell.identifier, for: indexPath)
             if let buttonCell = cell as? ButtonTableViewCell {
                 buttonCell.delegate = self
+            }
+            return cell
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: ClosedTableViewCell.identifier, for: indexPath)
+            if let closedCell = cell as? ClosedTableViewCell {
+                let formData = requestForm.data[indexPath.section].cells[indexPath.row].name
+                let dataCount = requestForm.data[indexPath.section].cells.count
+                closedCell.fill(with: formData, dataCount: dataCount, cellIndex: indexPath.row)
             }
             return cell
         default:
