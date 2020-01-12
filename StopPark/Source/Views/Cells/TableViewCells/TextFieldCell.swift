@@ -14,6 +14,7 @@ class TextFieldCell: BaseGroupedTableViewCell {
     public func fill(with data: FormData, block: @escaping (String?) -> ()) {
         titleLabel.text = data.rawValue
         actionBlock = block
+        textField.text = nil
         
         switch data {
         case .userPhone, .userOrganizationNumber, .userOrganizationLetter:
