@@ -21,7 +21,7 @@
                                 <attributedString key="attributedText">
                                     <fragment content="STOP">
                                         <attributes>
-                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <color key="NSColor" red="0.2335572243" green="0.52792358399999995" blue="0.92161160710000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <font key="NSFont" size="36" name="Helvetica"/>
                                             <font key="NSOriginalFont" metaFont="system" size="26"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
@@ -29,7 +29,7 @@
                                     </fragment>
                                     <fragment content="PARK">
                                         <attributes>
-                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <color key="NSColor" red="0.2335572243" green="0.52792358399999995" blue="0.92161160710000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <font key="NSFont" size="36" name="Helvetica-Bold"/>
                                             <font key="NSOriginalFont" size="36" name="Helvetica-Bold"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
