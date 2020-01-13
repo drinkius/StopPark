@@ -136,7 +136,7 @@ extension HomeVC {
         }
         Vibration.light.vibrate()
         let formVC = FormVC()
-        let nav = UINavigationController(rootViewController: formVC)
+        let nav = CustomNavigationController(rootViewController: formVC)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)
     }

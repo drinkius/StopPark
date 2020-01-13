@@ -19,11 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if AuthorizationManager.authorized {
             let vc = HomeVC()
-            let nav = UINavigationController(rootViewController: vc)
+            let nav = CustomNavigationController(rootViewController: vc)
             window?.rootViewController = nav
         } else {
             let vc = RegistrationVC()
-            let nav = UINavigationController(rootViewController: vc)
+            let nav = CustomNavigationController(rootViewController: vc)
+            vc.title = "Регистрация"
             nav.navigationBar.prefersLargeTitles = true
             window?.rootViewController = nav
         }
