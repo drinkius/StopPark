@@ -155,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				C27228BD23C8484900D9077B /* ButtonFooterView.swift */,
+				C21D268023BFA72F0057CC17 /* MessageFooterView.swift */,
 			);
 			path = Footers;
 			sourceTree = "<group>";
@@ -224,7 +225,6 @@
 				C2AFBF7923BF3F8E00209F31 /* RequestTableViewCell.swift */,
 				C242FB8E23BD203900C3B16C /* ButtonTableViewCell.swift */,
 				C242FB8C23BD0B1D00C3B16C /* ImagesTableViewCell.swift */,
-				C21D268023BFA72F0057CC17 /* MessageFooterView.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
