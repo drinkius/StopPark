@@ -8,17 +8,17 @@
 
 import UIKit
 
-class InformationViewController: UIViewController {
+class InfoVC: UIViewController {
     
     private lazy var informationView: InformationView = {
         let view = InformationView()
-        view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .themeBackground
         setupView()
     }
     
@@ -29,7 +29,7 @@ class InformationViewController: UIViewController {
 }
 
 // MARK: - Private Functions
-extension InformationViewController {
+extension InfoVC {
     private func configureViews() {
         [informationView].forEach {
             view.addSubview($0)
@@ -42,12 +42,5 @@ extension InformationViewController {
          informationView.rightAnchor.constraint(equalTo: view.rightAnchor),
          informationView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ].forEach { $0.isActive = true }
-    }
-}
-
-// MARK: - InformationViewDelegate
-extension InformationViewController: InformationViewDelegate {
-    func submit() {
-        dismiss(animated: true)
     }
 }

@@ -38,6 +38,8 @@ enum FormData: String, CaseIterable {
     case photoDate = "Дата сделанного фото (Опционально)"
     case eventViolation = "Опишите нарушение (Опционально)"
     case editedMessage
+    
+    static var userPrivacyData: [FormData] = [.userName, .userSurname, .userFatherName, .userEmail, .userPhone, .userOrganizationName, .userOrganizationDate, .userOrganizationLetter, .userOrganizationNumber]
 }
 
 struct Cell {

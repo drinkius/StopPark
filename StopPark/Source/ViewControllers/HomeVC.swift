@@ -16,7 +16,7 @@ class HomeVC: UIViewController {
     }
 
     private lazy var profileButton: UIBarButtonItem = {
-        let btn = UIBarButtonItem(image: .profile, style: .plain, target: self, action: #selector(presentProfileVC))
+        let btn = UIBarButtonItem(image: .settings, style: .plain, target: self, action: #selector(presentProfileVC))
         btn.tintColor = .highlited
         return btn
     }()
@@ -65,13 +65,14 @@ class HomeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         data = AppealManager.shared.appeals
+        configureTitle()
+        profileView.updateValues()
     }
 }
 
 // MARK: - Private Functions
 extension HomeVC {
     private func setupView() {
-        configureTitle()
         configureViews()
         configureConstraints()
         checkTableViewData()
@@ -126,7 +127,8 @@ extension HomeVC {
 // MARK: - Actions
 extension HomeVC {
     @objc private func presentProfileVC() {
-        
+        let vc = SettingsVC()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func presentFormVC() {

@@ -93,6 +93,9 @@ extension FormVC {
         title = "Форма обращения"
         view.backgroundColor = .themeBackground
         navigationItem.rightBarButtonItem = cancelButton
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.barTintColor = .themeContainer
+        
         observeKeyboard()
         configureViews()
         configureConstraints()
@@ -320,6 +323,7 @@ extension FormVC: UITableViewDelegate, UITableViewDataSource {
 // MARK: - ButtonTableViewCellDelegate
 extension FormVC: ButtonTableViewCellDelegate {
     func send() {
+        view.endEditing(true)
         guard Reachability.isConnectedToNetwork() else {
             showErrorMessage(Strings.notConnected)
             return
@@ -441,7 +445,7 @@ extension FormVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TextFieldCell else { return }
+        guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? TextFieldCell else { return }
         cell.textFieldText = districtData[row].rawValue
     }
 }

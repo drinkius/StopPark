@@ -63,7 +63,6 @@ class ClosedTableViewCell: BaseGroupedTableViewCell {
 
     override func setupView() {
         super.setupView()
-        selectionStyle = .none
         contentContainer.backgroundColor = .themeDarkSmokeBackground
         configureViews()
         configureConstraints()
@@ -73,6 +72,14 @@ class ClosedTableViewCell: BaseGroupedTableViewCell {
         super.layoutSubviews()
         let margins = UIEdgeInsets(top: 0, left: Theme.contentContainerMargin, bottom: 0, right: Theme.contentContainerMargin)
         contentContainer.frame = contentContainer.frame.inset(by: margins)
+    }
+    
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        return
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        return
     }
 }
 

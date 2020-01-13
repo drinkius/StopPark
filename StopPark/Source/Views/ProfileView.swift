@@ -16,6 +16,10 @@ class ProfileView: BaseView {
     
     public weak var delegate: ProfileViewDelegate?
     
+    public func updateValues() {
+        configureTitles()
+    }
+    
     private var userLabel: UILabel = {
         let lbl = UILabel()
         lbl.textColor = .themeMainTitle

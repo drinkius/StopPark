@@ -10,6 +10,12 @@ import UIKit
 
 class RegistrationVC: UIViewController {
         
+    public var destination: Destination = .registration {
+        didSet {
+            title = "Ваш профиль"
+        }
+    }
+    
     private lazy var segmentedControl: UISegmentedControl = {
         let items = ["Физическое лицо", "Юридическое лицо"]
         let control = UISegmentedControl(items: items)
@@ -61,7 +67,6 @@ extension RegistrationVC {
     private func setupView() {
         view.backgroundColor = .themeBackground
         observeKeyboard()
-        configureTitle()
         configureViews()
         configureConstraints()
     }
@@ -88,12 +93,7 @@ extension RegistrationVC {
          submitButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -.nanoPadding)
             ].forEach { $0.isActive = true }
     }
-    
-    private func configureTitle() {
-        title = "Регистрация"
-        navigationController?.navigationBar.shadowImage = UIImage()
-    }
-    
+
     private func observeKeyboard() {
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillShow(_:)), name: UIApplication.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillHide(_:)), name: UIApplication.keyboardWillHideNotification, object: nil)
@@ -115,15 +115,21 @@ extension RegistrationVC {
     }
     
     @objc private func submit() {
+        view.endEditing(true)
         guard AuthorizationManager.authorized else {
             showErrorMessage("Вы заполнили не все пункты.")
             return
         }
         Vibration.success.vibrate()
-        let formVC = HomeVC()
-        let nav = UINavigationController(rootViewController: formVC)
-        nav.modalPresentationStyle = .fullScreen
-        present(nav, animated: true)
+        switch destination {
+        case .registration:
+            let formVC = HomeVC()
+            let nav = CustomNavigationController(rootViewController: formVC)
+            nav.modalPresentationStyle = .fullScreen
+            present(nav, animated: true)
+        case .settings:
+            dismiss(animated: true)
+        }
     }
         
     @objc private func onKeyboardWillShow(_ notification: Notification) {
@@ -208,5 +214,10 @@ extension RegistrationVC: UITableViewDelegate, UITableViewDataSource {
 extension RegistrationVC {
     enum Theme {
         static let buttonItemHeight: CGFloat = 44.0
+    }
+    
+    enum Destination {
+        case registration
+        case settings
     }
 }

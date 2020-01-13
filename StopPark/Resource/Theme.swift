@@ -29,6 +29,7 @@ extension UIColor {
     static let smokeWhite: UIColor = #colorLiteral(red: 0.9458671212, green: 0.9460254312, blue: 0.9458462596, alpha: 1)
     static let darkSmokeWhite: UIColor = #colorLiteral(red: 0.8354733586, green: 0.8305075765, blue: 0.8392909169, alpha: 1)
     static let smokeBlack: UIColor = #colorLiteral(red: 0.109914951, green: 0.1096751764, blue: 0.1183810011, alpha: 1)
+    static let lightBlack: UIColor = #colorLiteral(red: 0.1800150275, green: 0.1819972694, blue: 0.1984114647, alpha: 1)
     static let darkSmokeBlack: UIColor = #colorLiteral(red: 0.05661133677, green: 0.05660288781, blue: 0.06190235168, alpha: 1)
     
     static var nameEditingColor: UIColor = .highlited
@@ -50,6 +51,7 @@ extension UIColor {
     static let themeBlurBackground: UIColor = themeMainTitle
     static let themeDarkSmokeBackground: UIColor = setColor(light: darkSmokeWhite, dark: darkSmokeBlack)
     static let themeDiffrentImageTint: UIColor = setColor(light: lightGray, dark: darkGray)
+    static let themeGroupCellHighlight: UIColor = setColor(light: darkSmokeWhite, dark: lightBlack)
 }
 
 extension UIImage {
@@ -62,4 +64,5 @@ extension UIImage {
     static let waiting  = UIImage(named: "waiting")?.withRenderingMode(.alwaysTemplate)
     static let consider = UIImage(named: "consider")?.withRenderingMode(.alwaysTemplate)
     static let lock     = UIImage(named: "lock")?.withRenderingMode(.alwaysTemplate)
+    static let settings = UIImage(named: "settings")?.withRenderingMode(.alwaysTemplate)
 }

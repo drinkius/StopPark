@@ -14,7 +14,7 @@ class TextFieldCell: BaseGroupedTableViewCell {
     public func fill(with data: FormData, block: @escaping (String?) -> ()) {
         titleLabel.text = data.rawValue
         actionBlock = block
-        textField.text = nil
+        checkSavedData(for: data)
         
         switch data {
         case .userPhone, .userOrganizationNumber, .userOrganizationLetter:
@@ -31,14 +31,7 @@ class TextFieldCell: BaseGroupedTableViewCell {
         get { return textField.text }
         set { textField.text = newValue }
     }
-        
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        switch selected {
-        case true: textField.becomeFirstResponder()
-        case false: textField.resignFirstResponder()
-        }
-    }
-    
+                
     private lazy var cancelButton: UIBarButtonItem = {
         let btn = UIButton()
         btn.setTitle("Готово", for: .normal)
@@ -109,6 +102,14 @@ class TextFieldCell: BaseGroupedTableViewCell {
         super.prepareForReuse()
         textField.resignFirstResponder()
     }
+    
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        return
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        return
+    }
 }
 
 // MARK: - Private Functions
@@ -138,6 +139,21 @@ extension TextFieldCell {
          separatorView.rightAnchor.constraint(equalTo: contentContainer.rightAnchor, constant: -.extraPadding),
          separatorView.heightAnchor.constraint(equalToConstant: .separatorHeight)
             ].forEach { $0.isActive = true }
+    }
+    
+    
+    private func checkSavedData(for data: FormData) {
+        guard FormData.userPrivacyData.contains(data) else { return }
+        guard let text = UserDefaultsManager.getFormData(data) else {
+            textField.text = nil
+            titleLabelTopConstraint.constant = .extraPadding
+            titleLabelBottomConstraint.constant = .zero
+            return
+        }
+
+        textField.text = text
+        titleLabelTopConstraint.constant = .zero
+        titleLabelBottomConstraint.constant = -.extraPadding
     }
 }
 

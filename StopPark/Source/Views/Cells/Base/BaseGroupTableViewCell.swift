@@ -26,6 +26,22 @@ class BaseGroupedTableViewCell: BaseTableViewCell {
         configureViews()
         configureConstraints()
     }
+        
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        if selected {
+            contentContainer.backgroundColor = .themeGroupCellHighlight
+        } else {
+            contentContainer.backgroundColor = .themeContainer
+        }
+    }
+    
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        if highlighted {
+            contentContainer.backgroundColor = .themeGroupCellHighlight
+        } else {
+            contentContainer.backgroundColor = .themeContainer
+        }
+    }
 }
 
 // MARK: - Private Functions
