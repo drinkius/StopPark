@@ -26,11 +26,10 @@ struct Strings {
     Информация о персональных данных, направленных в электронном виде, хранится и обрабатывается с соблюдением требований российского законодательства о персональных данных.
     """
     
-    static func generateTemplateText(date: String, auto: String, number: String, address: String, photoDate: String?, eventViolation: String?, imageCount: Int = 0) -> String {
+    static func generateTemplateText(date: String, auto: String, number: String, address: String, photoDate: String, eventViolation: String?, imageCount: Int = 0) -> String {
         let count = UserDefaultsManager.getUploadImagesIds()?.count ?? imageCount
         
         var violation: String = ""
-        var photoDescribe: String = ""
         
         if let event = eventViolation {
             if event.last == "." {
@@ -45,21 +44,14 @@ struct Strings {
                 violation = String(event.prefix(event.count - 1)) + ". "
             }
         }
-        
-        if count > 0 {
-            photoDescribe = "\nПрилагаю фотографии машины (\(count))"
-            if let photoDate = photoDate {
-                photoDescribe.append(", сделанные мной в \(photoDate).")
-            } else {
-                photoDescribe.append(".\n")
-            }
-        }
-        
+                
         let templateText: String =
         """
         Заявление
         \(date) я увидел автомобиль \(auto) с госномером \(number), расположенный на \(address). \(violation)Водителя в салоне либо рядом не было. С водителем либо собственником автомобиля я не знаком.
-        \(photoDescribe)
+        
+        Прилагаю фотографии машины (\(count)), сделанные мной в \(photoDate).
+
         На основании изложенных в заявлении сведений прошу:
 
         1. Привлечь лицо, допустившее стоянку автомобиля на тротуаре, к административной ответственности согласно ч. 3 ст. 12.19 КоАП.

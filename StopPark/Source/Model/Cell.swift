@@ -35,7 +35,7 @@ enum FormData: String, CaseIterable {
     case autoMark = "Марка автомобиля"
     case autoNumber = "Госномер автомобиля"
     case eventAddress = "Адресс, где распологался автомобиль"
-    case photoDate = "Дата сделанного фото (Опционально)"
+    case photoDate = "Дата сделанного фото"
     case eventViolation = "Опишите нарушение (Опционально)"
     case editedMessage
     

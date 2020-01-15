@@ -162,14 +162,19 @@ extension FormVC {
     }
     
     private func showGeneratedMessage() {
+        view.endEditing(true)
+        guard eventImages.count > 0 else {
+            showErrorMessage("Загрузите сначала фотографии.")
+            return
+        }
         guard let date = eventInfoForm[.eventDate],
             let auto = eventInfoForm[.autoMark],
             let num = eventInfoForm[.autoNumber],
-            let addr = eventInfoForm[.eventAddress] else {
+            let addr = eventInfoForm[.eventAddress],
+            let photoDate = eventInfoForm[.photoDate] else {
                 showErrorMessage("Вы заполнили не все пункты.")
                 return
         }
-        let photoDate = eventInfoForm[.photoDate]
         let event = eventInfoForm[.eventViolation]
         let template = Strings.generateTemplateText(date: date, auto: auto, number: num, address: addr, photoDate: photoDate, eventViolation: event, imageCount: eventImages.count)
         let generatedMessage = eventInfoForm[.editedMessage] ?? template
@@ -328,24 +333,41 @@ extension FormVC: ButtonTableViewCellDelegate {
             showErrorMessage(Strings.notConnected)
             return
         }
-
-        guard let code = eventInfoForm[.district],
-            let _ = eventInfoForm[.eventDate],
-            let _ = eventInfoForm[.autoMark],
-            let _ = eventInfoForm[.autoNumber],
-            let _ = eventInfoForm[.eventAddress] else {
-                showErrorMessage("Вы заполнили не все пункты.")
-                return
-        }
-
-        Vibration.success.vibrate()
-        openSendFormView()
         
-        guard !eventImages.isEmpty else {
-            sendPreFinalRequest(with: code)
+        guard eventImages.count > 0 else {
+            showErrorMessage("Загрузите сначала фотографии.")
             return
         }
         
+        guard let code = eventInfoForm[.district] else {
+            showErrorMessage("Вы не заполнили пункт: \"\(FormData.district.rawValue)\"")
+            return
+        }
+
+        guard let _ = eventInfoForm[.eventDate],
+            let _ = eventInfoForm[.autoMark],
+            let _ = eventInfoForm[.autoNumber],
+            let _ = eventInfoForm[.eventAddress],
+            let _ = eventInfoForm[.photoDate] else {
+                showErrorMessage("Заполните все не опциональные пункты для генерации текста обращения.")
+                return
+        }
+        
+        if eventImages.count < 5 {
+            let continueAction = UIAlertAction(title: "Продолжить", style: .destructive, handler: { _ in
+                self.continueSend(code: code)
+            })
+            let addMoreImagesAction = UIAlertAction(title: "Добавить еще фотографий", style: .default)
+            showMessage("Рекомендуем добавлять как минимум 5 фото для успешного рассмотрения вашего дела.", addAction: [continueAction, addMoreImagesAction])
+        } else {
+            continueSend(code: code)
+        }
+    }
+    
+    private func continueSend(code: String) {
+        Vibration.success.vibrate()
+        openSendFormView()
+                
         sendFormView.updateView(for: .uploadImages)
         webView.sendImageToServer(images: eventImages) { [unowned self] result in
             switch result {
