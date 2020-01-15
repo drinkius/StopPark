@@ -55,6 +55,8 @@ class CaptchaView: BaseView {
         tf.returnKeyType = .send
         tf.placeholder = "Введите капчу"
         tf.textAlignment = .center
+        tf.autocapitalizationType = .allCharacters
+        tf.autocorrectionType = .no
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
     }()
