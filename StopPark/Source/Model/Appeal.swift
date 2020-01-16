@@ -15,5 +15,5 @@ struct Appeal: Codable {
     var url: String {
         return URLs.cheackStatusURL + code
     }
-    var status: Int = 0
+    var status: Bool = false
 }

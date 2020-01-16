@@ -19,14 +19,12 @@ class RequestTableViewCell: BaseGroupedTableViewCell {
             .attributed
             .appendBold(data.code, withFontSize: 12)
         
-        switch data.status {
-        case 0:
-            statusImage.image = .waiting
-            statusImage.tintColor = .gray
-        case 1:
+        if data.status == true {
             statusImage.image = .consider
             statusImage.tintColor = .green
-        default: break
+        } else {
+            statusImage.image = .waiting
+            statusImage.tintColor = .gray
         }
     }
         
@@ -83,13 +81,21 @@ class RequestTableViewCell: BaseGroupedTableViewCell {
         let margins = UIEdgeInsets(top: 2, left: 0, bottom: 2, right: 0)
         contentContainer.frame = contentContainer.frame.inset(by: margins)
     }
+    
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        return
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        return
+    }
 }
 
 // MARK: - Private Functions
 extension RequestTableViewCell {
     private func configureViews() {
         [timeLabel, statusImage, separatorView, idLabel, codeLabel].forEach {
-            addSubview($0)
+            contentContainer.addSubview($0)
         }
     }
     
