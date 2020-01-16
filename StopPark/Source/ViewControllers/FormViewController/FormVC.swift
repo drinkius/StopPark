@@ -38,8 +38,9 @@ class FormVC: UIViewController {
         return w
     }()
     
-    private var loader: Loader = {
+    private lazy var loader: Loader = {
         let view = Loader()
+        view.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(showWeb)))
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -102,7 +103,7 @@ extension FormVC {
     }
     
     private func configureViews() {
-        [webView, tableView, loader, sendFormView].forEach {
+        [webView, tableView, sendFormView, loader].forEach {
             view.addSubview($0)
         }
     }
@@ -216,6 +217,10 @@ extension FormVC {
             return
         }
         tableView.contentInset = .zero
+    }
+    
+    @objc private func showWeb() {
+        view.bringSubviewToFront(webView)
     }
 }
 
