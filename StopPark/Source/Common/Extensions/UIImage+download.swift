@@ -24,9 +24,10 @@ extension UIImageView {
                         self.image = image
                     }
                 }
-            }
-            if let error = error {
+            } else if let error = error {
                 completion?(.failure(error.localizedDescription))
+            } else {
+                completion?(.failure("Неизвестная ошибка."))
             }
         }.resume()
     }
