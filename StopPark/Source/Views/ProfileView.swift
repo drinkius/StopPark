@@ -93,7 +93,7 @@ extension ProfileView {
             return
         }
         userLabel.text = name + " " + surname
-        emailLabel.text = "Email: " + email
+        emailLabel.text = "email: " + email
     }
 }
 

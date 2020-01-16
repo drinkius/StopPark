@@ -31,7 +31,7 @@ enum FormData: String, CaseIterable {
     case repeatedDate = "Дата (Опционально)"
     
 // MARK: - Message Info
-    case eventDate = "Дата произошедшего"
+    case eventDate = "Дата и время произошедшего"
     case autoMark = "Марка автомобиля"
     case autoNumber = "Госномер автомобиля"
     case eventAddress = "Адресс, где распологался автомобиль"

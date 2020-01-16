@@ -17,10 +17,13 @@ class TextFieldCell: BaseGroupedTableViewCell {
         checkSavedData(for: data)
         
         switch data {
-        case .userPhone, .userOrganizationNumber, .userOrganizationLetter:
+        case .userPhone:
+            textField.keyboardType = .phonePad
+        case .userOrganizationNumber, .userOrganizationLetter:
             textField.keyboardType = .numberPad
         case .userEmail:
             textField.keyboardType = .emailAddress
+            textField.autocapitalizationType = .none
         case .district:
             textField.inputView = pickerView
             textField.inputAccessoryView = toolBar
@@ -169,7 +172,7 @@ extension TextFieldCell {
             titleLabelBottomConstraint.constant = .zero
         }
                 
-        UIView.animate(withDuration: 0.4) {
+        UIView.animate(withDuration: 0.2) {
             self.layoutIfNeeded()
             if self.textField.isFirstResponder {
                 self.separatorView.backgroundColor = .highlited
