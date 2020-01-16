@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>813958813765-8o3anj8qmt5iqqkcun2332292p6v3cuf.apps.googleusercontent.com</string>
+	<string>813958813765-ul2urtvc2pjmc1p9n7r8blnqklc80opk.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.813958813765-8o3anj8qmt5iqqkcun2332292p6v3cuf</string>
+	<string>com.googleusercontent.apps.813958813765-ul2urtvc2pjmc1p9n7r8blnqklc80opk</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDNI14-cSfIzdxiD3-tdAMWXRBwwPIKf5s</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>tech.telegin.stoppark</string>
+	<string>tech.stoppark</string>
 	<key>PROJECT_ID</key>
 	<string>stopparkrus</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +29,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:813958813765:ios:97fd4b290c59fffd9e2b2c</string>
+	<string>1:813958813765:ios:4d2723533b9b38559e2b2c</string>
 	<key>DATABASE_URL</key>
 	<string>https://stopparkrus.firebaseio.com</string>
 </dict>
