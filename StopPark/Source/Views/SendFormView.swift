@@ -12,6 +12,7 @@ protocol SendFormViewDelegate: class {
     func formShouldSend(withCaptcha captcha: String)
     func errorShouldShow(withText text: String)
     func formVCShouldClose()
+    func requestShouldCancel()
 }
 
 class SendFormView: BaseView {
@@ -77,6 +78,22 @@ class SendFormView: BaseView {
         return btn
     }()
     
+    private lazy var cancelButton: UIButton = {
+        let btn = UIButton()
+        btn.setTitle("Отменить", for: .normal)
+        btn.setTitleColor(.highlited, for: .normal)
+        btn.titleLabel?.numberOfLines = 0
+        btn.layer.cornerRadius = Theme.buttonItemCornerRadius
+        btn.layer.masksToBounds = true
+        btn.backgroundColor = .white
+        btn.isHidden = true
+        btn.contentEdgeInsets = Theme.buttonItemContentInset
+        btn.titleLabel?.font = .systemFont(ofSize: 12)
+        btn.addTarget(self, action: #selector(cancelRequest), for: .touchUpInside)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        return btn
+    }()
+    
     override func setupView() {
         super.setupView()
         isHidden = true
@@ -89,7 +106,7 @@ class SendFormView: BaseView {
 // MARK: - Private Functions
 extension SendFormView {
     private func configureViews() {
-        [stackContainer, closeButton, fillView].forEach {
+        [stackContainer, closeButton, fillView, cancelButton].forEach {
             addSubview($0)
         }
         [titleLabel, captchaView].forEach {
@@ -103,6 +120,11 @@ extension SendFormView {
          stackContainer.centerXAnchor.constraint(equalTo: centerXAnchor),
          stackContainer.leftAnchor.constraint(equalTo: leftAnchor, constant: .hugePadding),
          stackContainer.rightAnchor.constraint(equalTo: rightAnchor, constant: -.hugePadding),
+         
+         cancelButton.topAnchor.constraint(equalTo: topAnchor, constant: .hugePadding),
+         cancelButton.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: .hugePadding),
+         cancelButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -.padding),
+         cancelButton.heightAnchor.constraint(equalToConstant: Theme.buttonItemHeight),
                  
          closeButton.topAnchor.constraint(equalTo: stackContainer.bottomAnchor, constant: .hugePadding),
          closeButton.leftAnchor.constraint(equalTo: leftAnchor, constant: .hugePadding),
@@ -193,10 +215,14 @@ extension SendFormView {
                 self.fillView.frame = .init(origin: .zero, size: self.bounds.size)
             }, completion: { _ in
                 self.backgroundColor = .highlited
+                self.cancelButton.alpha = 0
+                self.cancelButton.isHidden = false
                 UIView.animate(withDuration: 0.4, animations: {
                     self.fillView.alpha = 0
+                    self.cancelButton.alpha = 1.0
                 }, completion: { _ in
                     self.fillView.alpha = 0
+                    self.cancelButton.alpha = 1.0
                 })
             })
         })
@@ -243,6 +269,10 @@ extension SendFormView {
     @objc private func viewShouldEndEditing() {
         captchaView.endEditing(true)
     }
+    
+    @objc private func cancelRequest() {
+        delegate?.requestShouldCancel()
+    }
 }
 
 // MARK: - UITextFieldDelegate
@@ -269,6 +299,7 @@ extension SendFormView {
     enum Theme {
         static let buttonItemCornerRadius: CGFloat = 5.0
         static let buttonItemContentInset: UIEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
+        static let buttonItemHeight: CGFloat = 25.0
     }
     
     enum Destination {

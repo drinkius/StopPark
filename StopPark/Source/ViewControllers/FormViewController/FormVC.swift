@@ -387,10 +387,10 @@ extension FormVC: ButtonTableViewCellDelegate {
         openSendFormView()
                 
         sendFormView.updateView(for: .uploadImages)
-        webView.sendImageToServer(images: eventImages) { [unowned self] result in
+        webView.sendImageToServer(images: eventImages) { [weak self] result in
             switch result {
-            case .failure(let text): self.showErrorMessage(text)
-            case .success(_): self.sendPreFinalRequest(with: code)
+            case .failure(let text): self?.showErrorMessage(text)
+            case .success(_): self?.sendPreFinalRequest(with: code)
             }
         }
     }
@@ -435,6 +435,10 @@ extension FormVC: SendFormViewDelegate {
     
     func errorShouldShow(withText text: String) {
         showErrorMessage(text)
+    }
+    
+    func requestShouldCancel() {
+        closeForm()
     }
 }
 
