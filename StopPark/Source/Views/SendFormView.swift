@@ -128,7 +128,7 @@ extension SendFormView {
     
     private func updateContent(for type: ContentDestination) {
         if type == .downloadCaptcha {
-            guard titleLabel.text != "Подтвердите, что Вы не робот" else { return }
+            guard titleLabel.text != "Подтвердите, что вы не робот" else { return }
         }
         closeButton.isHidden = false
         captchaView.isHidden = true
