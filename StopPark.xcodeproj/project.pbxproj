@@ -3,13 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		C21D267D23BF918B0057CC17 /* Appeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21D267C23BF918B0057CC17 /* Appeal.swift */; };
 		C21D267F23BF9E990057CC17 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21D267E23BF9E990057CC17 /* ProfileView.swift */; };
 		C21D268123BFA72F0057CC17 /* MessageFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21D268023BFA72F0057CC17 /* MessageFooterView.swift */; };
+		C21D8ED523CF2D4300BAE165 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C21D8ED423CF2D4300BAE165 /* GoogleService-Info.plist */; };
 		C21E71DB23A6806C002BC191 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E71DA23A6806C002BC191 /* Loader.swift */; };
 		C22C153C23C6075C00C5749D /* UIColor+TraitCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22C153B23C6075C00C5749D /* UIColor+TraitCollection.swift */; };
 		C22D19C223B5291100378E21 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22D19C123B5291100378E21 /* BaseCollectionViewCell.swift */; };
@@ -41,6 +42,7 @@
 		C27F626123A7ED93002D55EB /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27F626023A7ED93002D55EB /* AuthorizationManager.swift */; };
 		C27F626323A8010E002D55EB /* CaptchaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27F626223A8010E002D55EB /* CaptchaView.swift */; };
 		C281DB7E23A93C7B00D2AC0D /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C281DB7D23A93C7B00D2AC0D /* ImagePicker.swift */; };
+		C2898BF023CF37EB008C2908 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2898BEF23CF37EB008C2908 /* Analytics.swift */; };
 		C292910523BFBF050015DB5A /* DistrictData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C292910423BFBF050015DB5A /* DistrictData.swift */; };
 		C2963EEF239FAD590020A2DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2963EEE239FAD590020A2DD /* AppDelegate.swift */; };
 		C2963EF8239FAD5B0020A2DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2963EF7239FAD5B0020A2DD /* Assets.xcassets */; };
@@ -66,12 +68,16 @@
 		C2E1572823A4C05700105763 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E1572723A4C05700105763 /* Cell.swift */; };
 		C2E1572C23A4C27200105763 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E1572B23A4C27200105763 /* UserDefaultsManager.swift */; };
 		C2E1572E23A4C81E00105763 /* Display.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E1572D23A4C81E00105763 /* Display.swift */; };
+		E3D27D65E73B944D8ACF18C3 /* Pods_StopPark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F72FF626E0065B00DB49660 /* Pods_StopPark.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F72FF626E0065B00DB49660 /* Pods_StopPark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StopPark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E1851CA4048BC9F370FA800 /* Pods-StopPark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StopPark.debug.xcconfig"; path = "Target Support Files/Pods-StopPark/Pods-StopPark.debug.xcconfig"; sourceTree = "<group>"; };
 		C21D267C23BF918B0057CC17 /* Appeal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appeal.swift; sourceTree = "<group>"; };
 		C21D267E23BF9E990057CC17 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		C21D268023BFA72F0057CC17 /* MessageFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageFooterView.swift; sourceTree = "<group>"; };
+		C21D8ED423CF2D4300BAE165 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C21E71DA23A6806C002BC191 /* Loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
 		C22C153B23C6075C00C5749D /* UIColor+TraitCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+TraitCollection.swift"; sourceTree = "<group>"; };
 		C22D19C123B5291100378E21 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -103,6 +109,7 @@
 		C27F626023A7ED93002D55EB /* AuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
 		C27F626223A8010E002D55EB /* CaptchaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptchaView.swift; sourceTree = "<group>"; };
 		C281DB7D23A93C7B00D2AC0D /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		C2898BEF23CF37EB008C2908 /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
 		C292910423BFBF050015DB5A /* DistrictData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistrictData.swift; sourceTree = "<group>"; };
 		C2963EEB239FAD590020A2DD /* StopPark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StopPark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2963EEE239FAD590020A2DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -130,6 +137,7 @@
 		C2E1572723A4C05700105763 /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		C2E1572B23A4C27200105763 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		C2E1572D23A4C81E00105763 /* Display.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Display.swift; sourceTree = "<group>"; };
+		DD68897A28419CC4BCDCE004 /* Pods-StopPark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StopPark.release.xcconfig"; path = "Target Support Files/Pods-StopPark/Pods-StopPark.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,16 +145,35 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3D27D65E73B944D8ACF18C3 /* Pods_StopPark.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2EBE473262FCD924D6B3931A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2F72FF626E0065B00DB49660 /* Pods_StopPark.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6C201951B74B728D1A568213 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5E1851CA4048BC9F370FA800 /* Pods-StopPark.debug.xcconfig */,
+				DD68897A28419CC4BCDCE004 /* Pods-StopPark.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		C21D268223BFB0100057CC17 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
 				C2E1572B23A4C27200105763 /* UserDefaultsManager.swift */,
+				C2898BEF23CF37EB008C2908 /* Analytics.swift */,
 				C2DD38CB23C47254005B474D /* AppealManager.swift */,
 				C27F626023A7ED93002D55EB /* AuthorizationManager.swift */,
 				C27F625C23A7C60C002D55EB /* RequestManager.swift */,
@@ -185,6 +212,8 @@
 			children = (
 				C2963EED239FAD590020A2DD /* StopPark */,
 				C2963EEC239FAD590020A2DD /* Products */,
+				6C201951B74B728D1A568213 /* Pods */,
+				2EBE473262FCD924D6B3931A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -202,6 +231,7 @@
 				C2E1572423A3A70E00105763 /* Source */,
 				C2E1571A23A3A66000105763 /* Resource */,
 				C2963EFC239FAD5B0020A2DD /* Info.plist */,
+				C21D8ED423CF2D4300BAE165 /* GoogleService-Info.plist */,
 			);
 			path = StopPark;
 			sourceTree = "<group>";
@@ -377,9 +407,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C2963EFF239FAD5B0020A2DD /* Build configuration list for PBXNativeTarget "StopPark" */;
 			buildPhases = (
+				059F77F70ACDFDE06D0D7C2D /* [CP] Check Pods Manifest.lock */,
 				C2963EE7239FAD590020A2DD /* Sources */,
 				C2963EE8239FAD590020A2DD /* Frameworks */,
 				C2963EE9239FAD590020A2DD /* Resources */,
+				7A59AA0C6FCDB33A0C19130F /* [CP] Embed Pods Frameworks */,
+				C2FD8AD923CF95B3004A261C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -430,10 +463,70 @@
 			files = (
 				C2963EFB239FAD5B0020A2DD /* LaunchScreen.storyboard in Resources */,
 				C2963EF8239FAD5B0020A2DD /* Assets.xcassets in Resources */,
+				C21D8ED523CF2D4300BAE165 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		059F77F70ACDFDE06D0D7C2D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-StopPark-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7A59AA0C6FCDB33A0C19130F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-StopPark/Pods-StopPark-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-StopPark/Pods-StopPark-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-StopPark/Pods-StopPark-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C2FD8AD923CF95B3004A261C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C2963EE7239FAD590020A2DD /* Sources */ = {
@@ -478,6 +571,7 @@
 				C2E1572823A4C05700105763 /* Cell.swift in Sources */,
 				C23018A823CC6C4500174752 /* CustomNavigationController.swift in Sources */,
 				C21D267D23BF918B0057CC17 /* Appeal.swift in Sources */,
+				C2898BF023CF37EB008C2908 /* Analytics.swift in Sources */,
 				C23C1D5923B638E7006D270B /* BaseCollectionReusableView.swift in Sources */,
 				C2974EEB23C4AB3A007CD2BB /* String+Attributed.swift in Sources */,
 				C242FB8F23BD203900C3B16C /* ButtonTableViewCell.swift in Sources */,
@@ -547,7 +641,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -564,7 +658,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -618,7 +712,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -630,9 +724,11 @@
 		};
 		C2963F00239FAD5B0020A2DD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5E1851CA4048BC9F370FA800 /* Pods-StopPark.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 7UVUKQP8WG;
 				INFOPLIST_FILE = StopPark/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -649,6 +745,7 @@
 		};
 		C2963F01239FAD5B0020A2DD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DD68897A28419CC4BCDCE004 /* Pods-StopPark.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

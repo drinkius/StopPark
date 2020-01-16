@@ -58,6 +58,7 @@ class HomeVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        InvAnalytics.shared.sendEvent(event: .appOpens)
         UserDefaultsManager.setSession(nil)
         setupView()
     }
@@ -127,6 +128,7 @@ extension HomeVC {
 // MARK: - Actions
 extension HomeVC {
     @objc private func presentProfileVC() {
+        InvAnalytics.shared.sendEvent(event: .homeClickSettings)
         let vc = SettingsVC()
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -136,6 +138,7 @@ extension HomeVC {
             showErrorMessage(Strings.notConnected)
             return
         }
+        InvAnalytics.shared.sendEvent(event: .homeClickForm)
         Vibration.light.vibrate()
         let formVC = FormVC()
         let nav = CustomNavigationController(rootViewController: formVC)

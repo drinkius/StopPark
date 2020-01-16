@@ -53,6 +53,7 @@ class RegistrationVC: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        InvAnalytics.shared.sendEvent(event: .loginPageOpened)
         setupView()
     }
     
@@ -115,14 +116,17 @@ extension RegistrationVC {
     }
     
     @objc private func submit() {
+        InvAnalytics.shared.sendEvent(event: .loginClickButton)
         view.endEditing(true)
         guard AuthorizationManager.authorized else {
             showErrorMessage("Вы заполнили не все пункты.")
+            InvAnalytics.shared.sendEvent(event: .loginFail)
             return
         }
         Vibration.success.vibrate()
         switch destination {
         case .registration:
+            InvAnalytics.shared.sendEvent(event: .loginSuccess)
             let formVC = HomeVC()
             let nav = CustomNavigationController(rootViewController: formVC)
             nav.modalPresentationStyle = .fullScreen

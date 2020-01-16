@@ -53,7 +53,11 @@ class SendFormView: BaseView {
     private lazy var captchaView: CaptchaView = {
         let view = CaptchaView()
         view.textFeildDelegate = self
-        view.changeActionBlock = { print("change") }
+        view.changeActionBlock = { [weak self] in
+            InvAnalytics.shared.sendEvent(event: .formClickRefreshCaptcha)
+            self?.delegate?.formShouldSend(withCaptcha: " ")
+            self?.updateContentAnimated(for: .downloadCaptcha)
+        }
         view.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -138,12 +142,12 @@ extension SendFormView {
             closeButton.setTitle("Попробовать снова", for: .normal)
             closeButton.addTarget(self, action: #selector(closeForm), for: .touchUpInside)
         case .captchaUploaded:
-            titleLabel.text = "Подтвердите, что Вы не робот"
+            titleLabel.text = "Подтвердите, что вы не робот"
             closeButton.setTitle("Отправить на проверку", for: .normal)
             closeButton.addTarget(self, action: #selector(sendCaptcha), for: .touchUpInside)
             captchaView.isHidden = false
         case .closeForm:
-            titleLabel.text = "Ваше заявление отправлено! Информация о данном обращении на главной странице."
+            titleLabel.text = "Ваше заявление отправлено! Подтверждение выслано вам на почту. Информация о данном обращении на главной странице."
             closeButton.setTitle("Перейти к списку обращений", for: .normal)
             closeButton.addTarget(self, action: #selector(closeForm), for: .touchUpInside)
         case .uploadImages:

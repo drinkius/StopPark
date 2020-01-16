@@ -143,8 +143,13 @@ extension EditorVC {
 extension EditorVC {
     @objc private func onAction(_ sender: UIButton) {
         Vibration.light.vibrate()
-        let text = sender.backgroundColor == .red ? nil : textView.text
-        actionBlock?(text)
+        if sender.backgroundColor == .red {
+            InvAnalytics.shared.sendEvent(event: .editorClickCancel)
+            actionBlock?(nil)
+        } else {
+            InvAnalytics.shared.sendEvent(event: .editorClickCancel)
+            actionBlock?(textView.text)
+        }
         dismiss(animated: true)
     }
 }

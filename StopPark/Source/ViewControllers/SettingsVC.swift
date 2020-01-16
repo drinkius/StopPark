@@ -116,6 +116,7 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
+            InvAnalytics.shared.sendEvent(event: .settingsClickChangeProfile)
             let registrationVC = RegistrationVC()
             registrationVC.destination = .settings
             registrationVC.title = settingsData[indexPath.section].name
@@ -123,6 +124,7 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
             nav.modalPresentationStyle = .fullScreen
             present(nav, animated: true)
         } else if indexPath.section == 1 {
+            InvAnalytics.shared.sendEvent(event: .settingsClickInfo)
             let infoVC = InfoVC()
             infoVC.title = "Информация"
             navigationController?.pushViewController(infoVC, animated: true)

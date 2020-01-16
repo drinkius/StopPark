@@ -164,6 +164,7 @@ extension FormVC {
     private func showGeneratedMessage() {
         view.endEditing(true)
         guard eventImages.count > 0 else {
+            InvAnalytics.shared.sendEvent(event: .formEditMessageRejectNoImage)
             showErrorMessage("Загрузите сначала фотографии.")
             return
         }
@@ -172,9 +173,11 @@ extension FormVC {
             let num = eventInfoForm[.autoNumber],
             let addr = eventInfoForm[.eventAddress],
             let photoDate = eventInfoForm[.photoDate] else {
+                InvAnalytics.shared.sendEvent(event: .formEditMessageRejectNotFilled)
                 showErrorMessage("Вы заполнили не все пункты.")
                 return
         }
+        InvAnalytics.shared.sendEvent(event: .formClickEditMessage)
         let event = eventInfoForm[.eventViolation]
         let template = Strings.generateTemplateText(date: date, auto: auto, number: num, address: addr, photoDate: photoDate, eventViolation: event, imageCount: eventImages.count)
         let generatedMessage = eventInfoForm[.editedMessage] ?? template
@@ -191,6 +194,7 @@ extension FormVC {
 // MARK: - Actions
 extension FormVC {
     @objc private func closeForm() {
+        InvAnalytics.shared.sendEvent(event: .formClickCancel)
         Vibration.light.vibrate()
         dismiss(animated: true)
     }
@@ -275,6 +279,7 @@ extension FormVC: UITableViewDelegate, UITableViewDataSource {
                         return
                     }
                     
+                    InvAnalytics.shared.sendEvent(fillFormData: name)
                     if name == .district {
                         self.eventInfoForm[name] = String(text.dropLast(text.count - 2))
                         return
@@ -335,11 +340,13 @@ extension FormVC: ButtonTableViewCellDelegate {
         }
         
         guard eventImages.count > 0 else {
+            InvAnalytics.shared.sendEvent(event: .formSendFormRejectNoImage)
             showErrorMessage("Загрузите сначала фотографии.")
             return
         }
         
         guard let code = eventInfoForm[.district] else {
+            InvAnalytics.shared.sendEvent(event: .formSendFormRejectNotFilled)
             showErrorMessage("Вы не заполнили пункт: \"\(FormData.district.rawValue)\"")
             return
         }
@@ -349,15 +356,20 @@ extension FormVC: ButtonTableViewCellDelegate {
             let _ = eventInfoForm[.autoNumber],
             let _ = eventInfoForm[.eventAddress],
             let _ = eventInfoForm[.photoDate] else {
+                InvAnalytics.shared.sendEvent(event: .formSendFormRejectNotFilled)
                 showErrorMessage("Заполните все не опциональные пункты для генерации текста обращения.")
                 return
         }
         
         if eventImages.count < 5 {
+            InvAnalytics.shared.sendEvent(event: .formSendFormImageNotify)
             let continueAction = UIAlertAction(title: "Продолжить", style: .destructive, handler: { _ in
+                InvAnalytics.shared.sendEvent(event: .formClickIgnoreImageNotify)
                 self.continueSend(code: code)
             })
-            let addMoreImagesAction = UIAlertAction(title: "Добавить еще фотографий", style: .default)
+            let addMoreImagesAction = UIAlertAction(title: "Добавить еще фотографий", style: .default) { _ in
+                InvAnalytics.shared.sendEvent(event: .formClickAcceptImageNotify)
+            }
             showMessage("Рекомендуем добавлять как минимум 5 фото для успешного рассмотрения вашего дела.", addAction: [continueAction, addMoreImagesAction])
         } else {
             continueSend(code: code)
@@ -365,6 +377,7 @@ extension FormVC: ButtonTableViewCellDelegate {
     }
     
     private func continueSend(code: String) {
+        InvAnalytics.shared.sendEvent(event: .formClickSendForm)
         Vibration.success.vibrate()
         openSendFormView()
                 
@@ -399,6 +412,7 @@ extension FormVC: WebViewDelegate {
     }
     
     func showFinalBody() {
+        InvAnalytics.shared.sendEvent(event: .formSuccessSend)
         sendFormView.updateView(for: .endSendFullForm)
     }
 }
@@ -410,6 +424,7 @@ extension FormVC: SendFormViewDelegate {
     }
     
     func formShouldSend(withCaptcha captcha: String) {
+        InvAnalytics.shared.sendEvent(event: .formClickSendCaptcha)
         webView.finalLoadData(with: captcha)
     }
     
@@ -433,6 +448,7 @@ extension FormVC: ImagePickerDelegate {
 // MARK: - ImageCollectionViewCellDelegate
 extension FormVC: ImagesTableViewCellDelegate, ImageCollectionViewCellDelegate {
     func addImage() {
+        InvAnalytics.shared.sendEvent(event: .formClickAddImage)
         imagePicker.present()
     }
 
@@ -444,7 +460,7 @@ extension FormVC: ImagesTableViewCellDelegate, ImageCollectionViewCellDelegate {
         guard let index = eventImages.firstIndex(of: image) else {
             return
         }
-        
+        InvAnalytics.shared.sendEvent(event: .formClickDeleteImage)
         eventImages.remove(at: index)
         
         let indexSet = IndexSet(integer: requestForm.data.count)
