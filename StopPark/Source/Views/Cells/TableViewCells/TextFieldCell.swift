@@ -27,6 +27,12 @@ class TextFieldCell: BaseGroupedTableViewCell {
         case .district:
             textField.inputView = pickerView
             textField.inputAccessoryView = toolBar
+        case .autoNumber:
+            textField.autocapitalizationType = .allCharacters
+        case .eventAddress:
+            textField.autocapitalizationType = .none
+        case .eventViolation:
+            placeholderText = "Парковка на тротуаре, мешал прохожим."
         default: textField.keyboardType = .default
         }
     }
@@ -75,6 +81,7 @@ class TextFieldCell: BaseGroupedTableViewCell {
         return lbl
     }()
     
+    private var placeholderText: String = ""
     private var actionBlock: ((String?) -> ())?
     private lazy var textField: UITextField = {
         let tf = UITextField()
@@ -167,9 +174,11 @@ extension TextFieldCell {
             Vibration.light.vibrate()
             titleLabelTopConstraint.constant = .zero
             titleLabelBottomConstraint.constant = -.extraPadding
+            textField.placeholder = placeholderText
         } else {
             titleLabelTopConstraint.constant = .extraPadding
             titleLabelBottomConstraint.constant = .zero
+            textField.placeholder = nil
         }
                 
         UIView.animate(withDuration: 0.2) {
