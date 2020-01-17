@@ -53,7 +53,8 @@ class CaptchaView: BaseView {
     private lazy var textField: UITextField = {
         let tf = UITextField()
         tf.returnKeyType = .send
-        tf.placeholder = "Введите капчу"
+        tf.textColor = .black
+        tf.attributedPlaceholder = NSAttributedString(string: "Введите капчу", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
         tf.textAlignment = .center
         tf.autocapitalizationType = .allCharacters
         tf.autocorrectionType = .no
