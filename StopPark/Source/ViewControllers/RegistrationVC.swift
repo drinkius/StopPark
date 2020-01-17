@@ -118,11 +118,19 @@ extension RegistrationVC {
     @objc private func submit() {
         InvAnalytics.shared.sendEvent(event: .loginClickButton)
         view.endEditing(true)
+        
         guard AuthorizationManager.authorized else {
             showErrorMessage("Вы заполнили не все пункты.")
             InvAnalytics.shared.sendEvent(event: .loginFail)
             return
         }
+        
+        guard let email = UserDefaultsManager.getFormData(.userEmail), email.isEmail() else {
+            showErrorMessage("Вы ввели не правильную электронную почту.")
+            InvAnalytics.shared.sendEvent(event: .loginFail)
+            return
+        }
+
         Vibration.success.vibrate()
         switch destination {
         case .registration:
