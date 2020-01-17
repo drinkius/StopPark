@@ -33,6 +33,7 @@ class EditorVC: UIViewController {
         return view
     }()
     
+    private var textViewBottomAnchor: NSLayoutConstraint!
     private lazy var textView: UITextView = {
         let tv = UITextView()
         tv.delegate = self
@@ -78,12 +79,20 @@ class EditorVC: UIViewController {
         super.viewDidLoad()
         setupView()
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIApplication.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.keyboardWillHideNotification, object: nil)
+        print("vc died")
+    }
 }
 
 // MARK: - Private Functions
 extension EditorVC {
     private func setupView() {
         view.backgroundColor = UIColor.themeBlurBackground.withAlphaComponent(0.3)
+        hideKeyboardWhenTappedAround()
+        observeKeyboard()
         configureViews()
         configureConstraints()
         updateButtonIfNeeded()
@@ -100,6 +109,7 @@ extension EditorVC {
     
     private func configureConstraints() {
         confirmButtonBottomAnchor = confirmButton.bottomAnchor.constraint(equalTo: contentContainer.topAnchor, constant: -.nanoPadding)
+        textViewBottomAnchor = textView.bottomAnchor.constraint(equalTo: contentContainer.bottomAnchor, constant: -.padding)
 
         [blur.topAnchor.constraint(equalTo: view.topAnchor),
          blur.leftAnchor.constraint(equalTo: view.leftAnchor),
@@ -114,7 +124,7 @@ extension EditorVC {
          textView.topAnchor.constraint(equalTo: contentContainer.topAnchor, constant: .padding),
          textView.leftAnchor.constraint(equalTo: contentContainer.leftAnchor, constant: .padding),
          textView.rightAnchor.constraint(equalTo: contentContainer.rightAnchor, constant: -.padding),
-         textView.bottomAnchor.constraint(equalTo: contentContainer.bottomAnchor, constant: -.padding),
+         textViewBottomAnchor,
          
          confirmButton.heightAnchor.constraint(equalToConstant: Theme.buttonItemHeight),
          confirmButton.rightAnchor.constraint(equalTo: contentContainer.rightAnchor),
@@ -137,6 +147,11 @@ extension EditorVC {
             self.view.layoutIfNeeded()
         }
     }
+    
+    private func observeKeyboard() {
+        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillShow(_:)), name: UIApplication.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillHide(_:)), name: UIApplication.keyboardWillHideNotification, object: nil)
+    }
 }
 
 // MARK: - Actions
@@ -151,6 +166,21 @@ extension EditorVC {
             actionBlock?(textView.text)
         }
         dismiss(animated: true)
+    }
+    
+    @objc private func onKeyboardWillShow(_ notification: Notification) {
+        let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        let height = keyboardFrame?.height ?? 243
+        
+        let padding = abs(((Display.height - Theme.contentContainerItemHeight) / 2) - height)
+        textViewBottomAnchor.constant = -padding
+        
+        self.view.layoutIfNeeded()
+    }
+    
+    @objc private func onKeyboardWillHide(_ notification: Notification) {
+        textViewBottomAnchor.constant = -.padding
+        self.view.layoutIfNeeded()
     }
 }
 
