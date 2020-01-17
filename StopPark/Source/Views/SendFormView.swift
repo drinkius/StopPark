@@ -121,7 +121,7 @@ extension SendFormView {
          stackContainer.leftAnchor.constraint(equalTo: leftAnchor, constant: .hugePadding),
          stackContainer.rightAnchor.constraint(equalTo: rightAnchor, constant: -.hugePadding),
          
-         cancelButton.topAnchor.constraint(equalTo: topAnchor, constant: .hugePadding),
+         cancelButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: .padding),
          cancelButton.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: .hugePadding),
          cancelButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -.padding),
          cancelButton.heightAnchor.constraint(equalToConstant: Theme.buttonItemHeight),
