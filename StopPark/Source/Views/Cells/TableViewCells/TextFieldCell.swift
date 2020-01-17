@@ -15,6 +15,7 @@ class TextFieldCell: BaseGroupedTableViewCell {
         titleLabel.text = data.rawValue
         actionBlock = block
         checkSavedData(for: data)
+        placeholderText = ""
         
         switch data {
         case .userPhone:
@@ -104,8 +105,10 @@ class TextFieldCell: BaseGroupedTableViewCell {
         super.setupView()
         backgroundColor = .clear
         selectionStyle = .none
+        
         configureViews()
         configureConstraints()
+        configureContentContainer()
     }
     
     override func prepareForReuse() {
@@ -165,6 +168,11 @@ extension TextFieldCell {
         titleLabelTopConstraint.constant = .zero
         titleLabelBottomConstraint.constant = -.extraPadding
     }
+    
+    private func configureContentContainer() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(becomeTextFieldFirstResponder))
+        contentContainer.addGestureRecognizer(tap)
+    }
 }
 
 // MARK: - Actions
@@ -194,6 +202,10 @@ extension TextFieldCell {
     @objc private func textFieldEndEditing() {
         textField.resignFirstResponder()
         animateTextCell()
+    }
+    
+    @objc private func becomeTextFieldFirstResponder() {
+        textField.becomeFirstResponder()
     }
 }
 
