@@ -67,6 +67,7 @@ class RegistrationVC: UIViewController {
 extension RegistrationVC {
     private func setupView() {
         view.backgroundColor = .themeBackground
+        hideKeyboardWhenTappedAround()
         observeKeyboard()
         configureViews()
         configureConstraints()

@@ -97,6 +97,7 @@ extension FormVC {
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.barTintColor = .themeContainer
         
+        hideKeyboardWhenTappedAround()
         observeKeyboard()
         configureViews()
         configureConstraints()
