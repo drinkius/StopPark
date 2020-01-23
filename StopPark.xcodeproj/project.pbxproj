@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C20C978D23D462FF00B6DAF6 /* PayDescribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20C978C23D462FF00B6DAF6 /* PayDescribeView.swift */; };
+		C20C979123D4857600B6DAF6 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C20C979023D4857600B6DAF6 /* StoreKit.framework */; };
 		C21D267D23BF918B0057CC17 /* Appeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21D267C23BF918B0057CC17 /* Appeal.swift */; };
 		C21D267F23BF9E990057CC17 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21D267E23BF9E990057CC17 /* ProfileView.swift */; };
 		C21D268123BFA72F0057CC17 /* MessageFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21D268023BFA72F0057CC17 /* MessageFooterView.swift */; };
@@ -80,6 +81,7 @@
 		2F72FF626E0065B00DB49660 /* Pods_StopPark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StopPark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E1851CA4048BC9F370FA800 /* Pods-StopPark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StopPark.debug.xcconfig"; path = "Target Support Files/Pods-StopPark/Pods-StopPark.debug.xcconfig"; sourceTree = "<group>"; };
 		C20C978C23D462FF00B6DAF6 /* PayDescribeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayDescribeView.swift; sourceTree = "<group>"; };
+		C20C979023D4857600B6DAF6 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C21D267C23BF918B0057CC17 /* Appeal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appeal.swift; sourceTree = "<group>"; };
 		C21D267E23BF9E990057CC17 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		C21D268023BFA72F0057CC17 /* MessageFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageFooterView.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3D27D65E73B944D8ACF18C3 /* Pods_StopPark.framework in Frameworks */,
+				C20C979123D4857600B6DAF6 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,6 +168,7 @@
 		2EBE473262FCD924D6B3931A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C20C979023D4857600B6DAF6 /* StoreKit.framework */,
 				2F72FF626E0065B00DB49660 /* Pods_StopPark.framework */,
 			);
 			name = Frameworks;
@@ -748,6 +752,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 56FW88WGZ7;
 				INFOPLIST_FILE = StopPark/Info.plist;
@@ -756,6 +761,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = tech.stoppark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -769,6 +775,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 56FW88WGZ7;
 				INFOPLIST_FILE = StopPark/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -776,6 +783,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = tech.stoppark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
