@@ -32,6 +32,11 @@ extension UIColor {
     static let lightBlack: UIColor = #colorLiteral(red: 0.1800150275, green: 0.1819972694, blue: 0.1984114647, alpha: 1)
     static let darkSmokeBlack: UIColor = #colorLiteral(red: 0.05661133677, green: 0.05660288781, blue: 0.06190235168, alpha: 1)
     
+    static let donateHighlited: UIColor = #colorLiteral(red: 0, green: 0.5388351083, blue: 0.9526227117, alpha: 1)
+    static let donatePurple: UIColor = #colorLiteral(red: 0.5314916372, green: 0.2076499164, blue: 0.9585089087, alpha: 1)
+    static let donatePink: UIColor = #colorLiteral(red: 0.607652843, green: 0, blue: 0.5416814089, alpha: 1)
+    static let donateRed: UIColor = #colorLiteral(red: 0.456125617, green: 0, blue: 0, alpha: 1)
+
     static var nameEditingColor: UIColor = .highlited
     static var nameDefaultColor: UIColor = .darkGray
     static var submitTitleColor: UIColor = .white
@@ -52,6 +57,8 @@ extension UIColor {
     static let themeDarkSmokeBackground: UIColor = setColor(light: darkSmokeWhite, dark: darkSmokeBlack)
     static let themeDiffrentImageTint: UIColor = setColor(light: lightGray, dark: darkGray)
     static let themeGroupCellHighlight: UIColor = setColor(light: darkSmokeWhite, dark: lightBlack)
+    static let themePayText: UIColor = setColor(light: darkGray, dark: lightText)
+    static let themeButtonTint: UIColor = themeMainTitle
 }
 
 extension UIImage {
@@ -65,4 +72,10 @@ extension UIImage {
     static let consider = UIImage(named: "consider")?.withRenderingMode(.alwaysTemplate)
     static let lock     = UIImage(named: "lock")?.withRenderingMode(.alwaysTemplate)
     static let settings = UIImage(named: "settings")?.withRenderingMode(.alwaysTemplate)
+    
+    static let payBackground     = UIImage(named: "payBackground")
+}
+
+extension UIEdgeInsets {
+    static let buttonItemContentInset: UIEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
 }

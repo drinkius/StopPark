@@ -17,7 +17,7 @@ class CustomNavigationController: UINavigationController, UIGestureRecognizerDel
         btn.layer.cornerRadius = Theme.buttonItemCornerRadius
         btn.layer.masksToBounds = true
         btn.backgroundColor = .highlited
-        btn.contentEdgeInsets = Theme.buttonItemContentInset
+        btn.contentEdgeInsets = .buttonItemContentInset
         btn.titleLabel?.font = .systemFont(ofSize: 12)
         btn.addTarget(self, action: #selector(close), for: .touchUpInside)
         return UIBarButtonItem(customView: btn)
@@ -48,6 +48,5 @@ extension CustomNavigationController {
 extension CustomNavigationController {
     enum Theme {
         static let buttonItemCornerRadius: CGFloat = 5.0
-        static let buttonItemContentInset: UIEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
     }
 }

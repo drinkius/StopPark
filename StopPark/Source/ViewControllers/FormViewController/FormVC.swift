@@ -57,7 +57,7 @@ class FormVC: UIViewController {
         btn.layer.cornerRadius = Theme.buttonItemCornerRadius
         btn.layer.masksToBounds = true
         btn.backgroundColor = .highlited
-        btn.contentEdgeInsets = Theme.buttonItemContentInset
+        btn.contentEdgeInsets = .buttonItemContentInset
         btn.titleLabel?.font = .systemFont(ofSize: 12)
         btn.addTarget(self, action: #selector(closeForm), for: .touchUpInside)
         return UIBarButtonItem(customView: btn)
@@ -189,6 +189,14 @@ extension FormVC {
         vc.modalTransitionStyle = .crossDissolve
         vc.actionBlock = { [weak self] text in self?.eventInfoForm[.editedMessage] = text }
         vc.generatedMessage = generatedMessage
+        present(vc, animated: true)
+    }
+    
+    private func openPayVC() {
+        let presenter = PayPresenter()
+        presenter.destination = .pay
+        let vc = PayVC(with: presenter)
+        vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
     }
 }
@@ -329,9 +337,12 @@ extension FormVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         guard section == requestForm.data.count - 1 else { return nil }
         let footerView = ButtonFooterView()
-        footerView.fill(buttonName: "Отредактировать сообщение") { [weak self] in
-            self?.showGeneratedMessage()
-        }
+        footerView.fill(buttonName: "Отредактировать сообщение",
+                        editAction: { [weak self] in
+                            self?.showGeneratedMessage()},
+                        activateAction: { [weak self] in
+                            self?.openPayVC()
+        })
         return footerView
     }
 }
@@ -502,6 +513,5 @@ extension FormVC: UIPickerViewDelegate, UIPickerViewDataSource {
 extension FormVC {
     enum Theme {
         static let buttonItemCornerRadius: CGFloat = 5.0
-        static let buttonItemContentInset: UIEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
     }
 }
