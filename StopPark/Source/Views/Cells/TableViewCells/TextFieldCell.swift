@@ -49,7 +49,7 @@ class TextFieldCell: BaseGroupedTableViewCell {
         btn.layer.cornerRadius = Theme.buttonItemCornerRadius
         btn.layer.masksToBounds = true
         btn.backgroundColor = .highlited
-        btn.contentEdgeInsets = Theme.buttonItemContentInset
+        btn.contentEdgeInsets = .buttonItemContentInset
         btn.titleLabel?.font = .systemFont(ofSize: 12)
         btn.addTarget(self, action: #selector(textFieldEndEditing), for: .touchUpInside)
         return UIBarButtonItem(customView: btn)
@@ -94,13 +94,6 @@ class TextFieldCell: BaseGroupedTableViewCell {
         return tf
     }()
     
-    private var separatorView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     override func setupView() {
         super.setupView()
         backgroundColor = .clear
@@ -128,13 +121,13 @@ class TextFieldCell: BaseGroupedTableViewCell {
 // MARK: - Private Functions
 extension TextFieldCell {
     private func configureViews() {
-        [titleLabel, textField, separatorView].forEach {
+        [titleLabel, textField].forEach {
             contentContainer.addSubview($0)
         }
     }
     
     private func configureConstraints() {
-        titleLabelTopConstraint = titleLabel.topAnchor.constraint(equalTo: contentContainer.topAnchor, constant: .extraPadding)
+        titleLabelTopConstraint = titleLabel.topAnchor.constraint(equalTo: contentContainer.topAnchor, constant: Theme.textFieldItemPadding)
         titleLabelBottomConstraint = titleLabel.bottomAnchor.constraint(equalTo: textField.bottomAnchor)
         
         [titleLabelTopConstraint,
@@ -142,15 +135,10 @@ extension TextFieldCell {
          titleLabel.rightAnchor.constraint(equalTo: textField.rightAnchor),
          titleLabelBottomConstraint,
          
-         textField.topAnchor.constraint(equalTo: contentContainer.topAnchor, constant: .extraPadding),
-         textField.leftAnchor.constraint(equalTo: contentContainer.leftAnchor, constant: .hugePadding),
-         textField.rightAnchor.constraint(equalTo: contentContainer.rightAnchor, constant: -.hugePadding),
-         textField.bottomAnchor.constraint(equalTo: separatorView.topAnchor, constant: -.nanoPadding),
-        
-         separatorView.bottomAnchor.constraint(equalTo: contentContainer.bottomAnchor, constant: -.nanoPadding),
-         separatorView.leftAnchor.constraint(equalTo: contentContainer.leftAnchor, constant: .extraPadding),
-         separatorView.rightAnchor.constraint(equalTo: contentContainer.rightAnchor, constant: -.extraPadding),
-         separatorView.heightAnchor.constraint(equalToConstant: .separatorHeight)
+         textField.topAnchor.constraint(equalTo: contentContainer.topAnchor, constant: Theme.textFieldItemPadding),
+         textField.leftAnchor.constraint(equalTo: contentContainer.leftAnchor, constant: .extraPadding),
+         textField.rightAnchor.constraint(equalTo: contentContainer.rightAnchor, constant: -.extraPadding),
+         textField.bottomAnchor.constraint(equalTo: contentContainer.bottomAnchor, constant: -Theme.textFieldItemPadding)
             ].forEach { $0.isActive = true }
     }
     
@@ -159,14 +147,14 @@ extension TextFieldCell {
         guard FormData.userPrivacyData.contains(data) else { return }
         guard let text = UserDefaultsManager.getFormData(data) else {
             textField.text = nil
-            titleLabelTopConstraint.constant = .extraPadding
+            titleLabelTopConstraint.constant = Theme.textFieldItemPadding
             titleLabelBottomConstraint.constant = .zero
             return
         }
 
         textField.text = text
         titleLabelTopConstraint.constant = .zero
-        titleLabelBottomConstraint.constant = -.extraPadding
+        titleLabelBottomConstraint.constant = -Theme.textFieldItemPadding
     }
     
     private func configureContentContainer() {
@@ -181,21 +169,18 @@ extension TextFieldCell {
         if textField.text?.isEmpty == false || textField.isFirstResponder {
             Vibration.light.vibrate()
             titleLabelTopConstraint.constant = .zero
-            titleLabelBottomConstraint.constant = -.extraPadding
+            titleLabelBottomConstraint.constant = -Theme.textFieldItemPadding
             textField.placeholder = placeholderText
+            titleLabel.textColor = .highlited
         } else {
-            titleLabelTopConstraint.constant = .extraPadding
+            titleLabelTopConstraint.constant = Theme.textFieldItemPadding
             titleLabelBottomConstraint.constant = .zero
             textField.placeholder = nil
+            titleLabel.textColor = .themeGrayText
         }
-                
+        
         UIView.animate(withDuration: 0.2) {
             self.layoutIfNeeded()
-            if self.textField.isFirstResponder {
-                self.separatorView.backgroundColor = .highlited
-            } else {
-                self.separatorView.backgroundColor = .lightGray
-            }
         }
     }
     
@@ -231,7 +216,7 @@ extension TextFieldCell: UITextFieldDelegate {
 extension TextFieldCell {
     enum Theme {
         static let buttonItemCornerRadius: CGFloat = 5.0
-        static let buttonItemContentInset: UIEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
+        static let textFieldItemPadding: CGFloat = 14.0
     }
     
     static let identifier: String = "textFieldCellID"
