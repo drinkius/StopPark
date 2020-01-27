@@ -98,8 +98,3 @@ extension ImagesTableViewCell: UICollectionViewDelegate, UICollectionViewDataSou
         delegate?.addImage()
     }
 }
-
-// MARK: - Support
-extension ImagesTableViewCell {
-    static let identifier: String = "imagesTableViewCellID"
-}

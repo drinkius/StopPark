@@ -23,10 +23,10 @@ class FormVC: UIViewController {
         tw.backgroundColor = .themeBackground
         tw.keyboardDismissMode = UIScrollView.KeyboardDismissMode.onDrag
         tw.showsVerticalScrollIndicator = false
-        tw.register(TextFieldCell.self, forCellReuseIdentifier: TextFieldCell.identifier)
-        tw.register(ClosedTableViewCell.self, forCellReuseIdentifier: ClosedTableViewCell.identifier)
-        tw.register(ImagesTableViewCell.self, forCellReuseIdentifier: ImagesTableViewCell.identifier)
-        tw.register(ButtonTableViewCell.self, forCellReuseIdentifier: ButtonTableViewCell.identifier)
+        tw.register(TextFieldCell.self)
+        tw.register(ClosedTableViewCell.self)
+        tw.register(ImagesTableViewCell.self)
+        tw.register(ButtonTableViewCell.self)
         tw.translatesAutoresizingMaskIntoConstraints = false
         return tw
     }()
@@ -248,62 +248,41 @@ extension FormVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case requestForm.data.count:
-            let cell = tableView.dequeueReusableCell(withIdentifier: ImagesTableViewCell.identifier, for: indexPath)
-            if let imagesCell = cell as? ImagesTableViewCell {
-                imagesCell.images = eventImages
-                imagesCell.destination = .single
-                imagesCell.delegate = self
-            }
+            let cell: ImagesTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            cell.images = eventImages
+            cell.destination = .single
+            cell.delegate = self
             return cell
         case requestForm.data.count + 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: ButtonTableViewCell.identifier, for: indexPath)
-            if let buttonCell = cell as? ButtonTableViewCell {
-                buttonCell.delegate = self
-            }
+            let cell: ButtonTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            cell.delegate = self
             return cell
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: ClosedTableViewCell.identifier, for: indexPath)
-            if let closedCell = cell as? ClosedTableViewCell {
-                let formData = requestForm.data[indexPath.section].cells[indexPath.row].name
-                let dataCount = requestForm.data[indexPath.section].cells.count
-                closedCell.fill(with: formData, dataCount: dataCount, cellIndex: indexPath.row)
-            }
+            let cell: ClosedTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            let formData = requestForm.data[indexPath.section].cells[indexPath.row].name
+            let dataCount = requestForm.data[indexPath.section].cells.count
+            cell.fill(with: formData, dataCount: dataCount, cellIndex: indexPath.row)
             return cell
         default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.identifier, for: indexPath)
-            if let textFieldCell = cell as? TextFieldCell {
-                
-                if requestForm.data[indexPath.section].cells.count == 1 {
-                    textFieldCell.destination = .single
-                }
-
-                if indexPath.row == 0 {
-                    textFieldCell.destination = .top
-                } else if indexPath.row == requestForm.data[indexPath.section].cells.count - 1 {
-                    textFieldCell.destination = .bottom
-                } else {
-                    textFieldCell.destination = .middle
+            let cell: TextFieldCell = tableView.dequeueReusableCell(for: indexPath)            
+            let formData = requestForm.data[indexPath.section].cells[indexPath.row].name
+            let dataCount = requestForm.data[indexPath.section].cells.count
+            cell.pickerDelegate = self
+            cell.fill(with: formData, dataCount: dataCount, cellIndex: indexPath.row) { [unowned self] text in
+                guard let text = text, !text.isEmpty else {
+                    self.eventInfoForm[formData] = nil
+                    return
                 }
                 
-                let name = requestForm.data[indexPath.section].cells[indexPath.row].name
-                textFieldCell.pickerDelegate = self
-                textFieldCell.fill(with: name) { [unowned self] text in
-                    guard let text = text, !text.isEmpty else {
-                        self.eventInfoForm[name] = nil
-                        return
-                    }
-                    
-                    InvAnalytics.shared.sendEvent(fillFormData: name)
-                    if name == .district {
-                        self.eventInfoForm[name] = String(text.dropLast(text.count - 2))
-                        return
-                    }
-                    
-                    self.eventInfoForm[name] = text
+                InvAnalytics.shared.sendEvent(fillFormData: formData)
+                if formData == .district {
+                    self.eventInfoForm[formData] = String(text.dropLast(text.count - 2))
+                    return
                 }
+                
+                self.eventInfoForm[formData] = text
             }
             return cell
-
         }
     }
     

@@ -35,7 +35,7 @@ class RegistrationVC: UIViewController {
         tw.backgroundColor = .themeBackground
         tw.keyboardDismissMode = UIScrollView.KeyboardDismissMode.onDrag
         tw.showsVerticalScrollIndicator = false
-        tw.register(TextFieldCell.self, forCellReuseIdentifier: TextFieldCell.identifier)
+        tw.register(TextFieldCell.self)
         tw.translatesAutoresizingMaskIntoConstraints = false
         return tw
     }()
@@ -169,37 +169,23 @@ extension RegistrationVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.identifier, for: indexPath)
+        let cell: TextFieldCell = tableView.dequeueReusableCell(for: indexPath)
         let cells = registrationForm.data[indexPath.section].cells
-        if let textFieldCell = cell as? TextFieldCell {
-            
-            if cells.count == 1 {
-                textFieldCell.destination = .single
+        let formData = cells[indexPath.row].name
+        let dataCount = cells.count
+        cell.fill(with: formData, dataCount: dataCount, cellIndex: indexPath.row) { text in
+            guard let text = text, !text.isEmpty else {
+                UserDefaultsManager.setFormData(formData, data: nil)
+                return
             }
 
-            if indexPath.row == 0 {
-                textFieldCell.destination = .top
-            } else if indexPath.row == cells.count - 1 {
-                textFieldCell.destination = .bottom
-            } else {
-                textFieldCell.destination = .middle
+            if formData == .userEmail {
+                let email = text.lowercased()
+                UserDefaultsManager.setFormData(formData, data: email)
+                return
             }
             
-            let name = cells[indexPath.row].name
-            textFieldCell.fill(with: name) { text in
-                guard let text = text, !text.isEmpty else {
-                    UserDefaultsManager.setFormData(name, data: nil)
-                    return
-                }
-
-                if name == .userEmail {
-                    let email = text.lowercased()
-                    UserDefaultsManager.setFormData(name, data: email)
-                    return
-                }
-                
-                UserDefaultsManager.setFormData(name, data: text)
-            }
+            UserDefaultsManager.setFormData(formData, data: text)
         }
         return cell
     }

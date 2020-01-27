@@ -11,7 +11,7 @@ import UIKit
 class TextFieldCell: BaseGroupedTableViewCell {
     
     public weak var pickerDelegate: (UIPickerViewDelegate & UIPickerViewDataSource)?
-    public func fill(with data: FormData, block: @escaping (String?) -> ()) {
+    public func fill(with data: FormData, dataCount: Int, cellIndex: Int, block: @escaping (String?) -> ()) {
         titleLabel.text = data.rawValue
         actionBlock = block
         checkSavedData(for: data)
@@ -35,6 +35,18 @@ class TextFieldCell: BaseGroupedTableViewCell {
         case .eventViolation:
             placeholderText = "Парковка на тротуаре, мешал прохожим."
         default: textField.keyboardType = .default
+        }
+        
+        if dataCount == 1 {
+            destination = .single
+        }
+
+        if cellIndex == 0 {
+            destination = .top
+        } else if cellIndex == dataCount - 1 {
+            destination = .bottom
+        } else {
+            destination = .middle
         }
     }
     public var textFieldText: String? {
@@ -218,6 +230,4 @@ extension TextFieldCell {
         static let buttonItemCornerRadius: CGFloat = 5.0
         static let textFieldItemPadding: CGFloat = 14.0
     }
-    
-    static let identifier: String = "textFieldCellID"
 }

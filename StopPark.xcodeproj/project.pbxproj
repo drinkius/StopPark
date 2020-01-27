@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C20C978D23D462FF00B6DAF6 /* PayDescribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20C978C23D462FF00B6DAF6 /* PayDescribeView.swift */; };
 		C20C979123D4857600B6DAF6 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C20C979023D4857600B6DAF6 /* StoreKit.framework */; };
+		C2151C2523DF2EB10062764D /* UITableView+SimpleDequeueReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2151C2423DF2EB10062764D /* UITableView+SimpleDequeueReusableCell.swift */; };
 		C21D267D23BF918B0057CC17 /* Appeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21D267C23BF918B0057CC17 /* Appeal.swift */; };
 		C21D267F23BF9E990057CC17 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21D267E23BF9E990057CC17 /* ProfileView.swift */; };
 		C21D268123BFA72F0057CC17 /* MessageFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21D268023BFA72F0057CC17 /* MessageFooterView.swift */; };
@@ -82,6 +83,7 @@
 		5E1851CA4048BC9F370FA800 /* Pods-StopPark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StopPark.debug.xcconfig"; path = "Target Support Files/Pods-StopPark/Pods-StopPark.debug.xcconfig"; sourceTree = "<group>"; };
 		C20C978C23D462FF00B6DAF6 /* PayDescribeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayDescribeView.swift; sourceTree = "<group>"; };
 		C20C979023D4857600B6DAF6 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		C2151C2423DF2EB10062764D /* UITableView+SimpleDequeueReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+SimpleDequeueReusableCell.swift"; sourceTree = "<group>"; };
 		C21D267C23BF918B0057CC17 /* Appeal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appeal.swift; sourceTree = "<group>"; };
 		C21D267E23BF9E990057CC17 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		C21D268023BFA72F0057CC17 /* MessageFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageFooterView.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				C2974EE823C4A0FD007CD2BB /* Double+CalendarDate.swift */,
 				C25A836823D1DACA0007848E /* String+EmailValidation.swift */,
 				C2326F8723D21FD7007F6E7B /* UIViewController+Keyboard.swift */,
+				C2151C2423DF2EB10062764D /* UITableView+SimpleDequeueReusableCell.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -613,6 +616,7 @@
 				C2326F8823D21FD7007F6E7B /* UIViewController+Keyboard.swift in Sources */,
 				C2AB640C23A6694B007379DA /* InfoVC.swift in Sources */,
 				C23AAEB223C7426C00066676 /* Reachability.swift in Sources */,
+				C2151C2523DF2EB10062764D /* UITableView+SimpleDequeueReusableCell.swift in Sources */,
 				C242FB8D23BD0B1D00C3B16C /* ImagesTableViewCell.swift in Sources */,
 				C27228BE23C8484900D9077B /* ButtonFooterView.swift in Sources */,
 			);

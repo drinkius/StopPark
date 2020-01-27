@@ -58,8 +58,3 @@ extension ButtonTableViewCell {
         delegate?.send()
     }
 }
-
-// MARK: - Support
-extension ButtonTableViewCell {
-    static let identifier: String = "buttonTableViewCellID"
-}

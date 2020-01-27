@@ -114,5 +114,4 @@ extension ClosedTableViewCell {
         static let contentContainerMargin: CGFloat = 10.0
         static let imageItemWidth: CGFloat = 20.0
     }
-    static let identifier: String = "closedTableViewCellID"
 }
