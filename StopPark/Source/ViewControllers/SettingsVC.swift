@@ -23,8 +23,7 @@ class SettingsVC: UIViewController {
         tw.dataSource = self
         tw.separatorStyle = .none
         tw.backgroundColor = .clear
-        tw.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.identifier)
-        tw.register(UITableViewCell.self, forCellReuseIdentifier: "tableViewCellID")
+        [ProfileTableViewCell.self, SettingCell.self].forEach { tw.register($0) }
         tw.translatesAutoresizingMaskIntoConstraints = false
         return tw
     }()
@@ -87,13 +86,11 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: ProfileTableViewCell.identifier, for: indexPath)
-            if let profileCell = cell as? ProfileTableViewCell {
-                profileCell.updateValues()
-            }
+            let cell: ProfileTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            cell.updateValues()
             return cell
         } else {
-            let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "tableViewCellID")
+            let cell: SettingCell = tableView.dequeueReusableCell(for: indexPath)
             cell.textLabel?.text = settingsData[indexPath.section].cells[indexPath.row]
             cell.textLabel?.font = .systemFont(ofSize: 14)
             return cell

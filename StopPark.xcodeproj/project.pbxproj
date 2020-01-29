@@ -14,6 +14,7 @@
 		C21D267F23BF9E990057CC17 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21D267E23BF9E990057CC17 /* ProfileView.swift */; };
 		C21D268123BFA72F0057CC17 /* MessageFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21D268023BFA72F0057CC17 /* MessageFooterView.swift */; };
 		C21E71DB23A6806C002BC191 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E71DA23A6806C002BC191 /* Loader.swift */; };
+		C226B31823E1F84C00DBA616 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C226B31723E1F84C00DBA616 /* SettingCell.swift */; };
 		C22C153C23C6075C00C5749D /* UIColor+TraitCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22C153B23C6075C00C5749D /* UIColor+TraitCollection.swift */; };
 		C22D19C223B5291100378E21 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22D19C123B5291100378E21 /* BaseCollectionViewCell.swift */; };
 		C23018A823CC6C4500174752 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23018A723CC6C4500174752 /* CustomNavigationController.swift */; };
@@ -88,6 +89,7 @@
 		C21D267E23BF9E990057CC17 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		C21D268023BFA72F0057CC17 /* MessageFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageFooterView.swift; sourceTree = "<group>"; };
 		C21E71DA23A6806C002BC191 /* Loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
+		C226B31723E1F84C00DBA616 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		C22C153B23C6075C00C5749D /* UIColor+TraitCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+TraitCollection.swift"; sourceTree = "<group>"; };
 		C22D19C123B5291100378E21 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		C23018A723CC6C4500174752 /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 			children = (
 				C246AC2323BB82FA00B1C7C0 /* TextFieldCell.swift */,
 				C25823DD23CA42BA00F6C594 /* ClosedTableViewCell.swift */,
+				C226B31723E1F84C00DBA616 /* SettingCell.swift */,
 				C2AFBF7923BF3F8E00209F31 /* RequestTableViewCell.swift */,
 				C242FB8E23BD203900C3B16C /* ButtonTableViewCell.swift */,
 				C242FB8C23BD0B1D00C3B16C /* ImagesTableViewCell.swift */,
@@ -581,6 +584,7 @@
 				C2BCAD9D23A5496E0008D492 /* Form.swift in Sources */,
 				C2AFBF7023BF0AF300209F31 /* UIViewController+Alert.swift in Sources */,
 				C2D9BA0223C1A7370077DE46 /* SendFormView.swift in Sources */,
+				C226B31823E1F84C00DBA616 /* SettingCell.swift in Sources */,
 				C246AC2623BB974300B1C7C0 /* BaseGroupTableViewCell.swift in Sources */,
 				C27F625D23A7C60C002D55EB /* RequestManager.swift in Sources */,
 				C2BCAD9A23A52FEB0008D492 /* Section.swift in Sources */,

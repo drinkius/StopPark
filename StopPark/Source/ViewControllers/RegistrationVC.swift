@@ -35,7 +35,7 @@ class RegistrationVC: UIViewController {
         tw.backgroundColor = .themeBackground
         tw.keyboardDismissMode = UIScrollView.KeyboardDismissMode.onDrag
         tw.showsVerticalScrollIndicator = false
-        tw.register(TextFieldCell.self)
+        [TextFieldCell.self].forEach { tw.register($0) }
         tw.translatesAutoresizingMaskIntoConstraints = false
         return tw
     }()

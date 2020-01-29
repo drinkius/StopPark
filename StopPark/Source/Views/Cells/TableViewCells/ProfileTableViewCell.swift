@@ -98,6 +98,4 @@ extension ProfileTableViewCell {
     enum Theme {
         static let imageViewItemWidth: CGFloat = 40.0
     }
-    
-    static let identifier: String = "profileTableViewCellID"
 }

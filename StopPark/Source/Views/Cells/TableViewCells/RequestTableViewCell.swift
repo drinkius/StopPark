@@ -137,6 +137,4 @@ extension RequestTableViewCell {
         case waiting
         case consider
     }
-    
-    static let identifier: String = "requestTableViewCellID"
 }

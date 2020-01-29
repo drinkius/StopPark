@@ -45,7 +45,7 @@ class HomeVC: UIViewController {
         tw.separatorStyle = .none
         tw.backgroundColor = .themeBackground
         tw.showsVerticalScrollIndicator = false
-        tw.register(RequestTableViewCell.self, forCellReuseIdentifier: RequestTableViewCell.identifier)
+        [RequestTableViewCell.self].forEach { tw.register($0) }
         tw.translatesAutoresizingMaskIntoConstraints = false
         return tw
     }()
@@ -154,10 +154,8 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: RequestTableViewCell.identifier, for: indexPath)
-        if let requestCell = cell as? RequestTableViewCell {
-            requestCell.fill(with: data[indexPath.row])
-        }
+        let cell: RequestTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+        cell.fill(with: data[indexPath.row])
         return cell
     }
     

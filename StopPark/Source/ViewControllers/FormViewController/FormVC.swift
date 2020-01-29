@@ -23,10 +23,7 @@ class FormVC: UIViewController {
         tw.backgroundColor = .themeBackground
         tw.keyboardDismissMode = UIScrollView.KeyboardDismissMode.onDrag
         tw.showsVerticalScrollIndicator = false
-        tw.register(TextFieldCell.self)
-        tw.register(ClosedTableViewCell.self)
-        tw.register(ImagesTableViewCell.self)
-        tw.register(ButtonTableViewCell.self)
+        [TextFieldCell.self, ClosedTableViewCell.self, ImagesTableViewCell.self, ButtonTableViewCell.self].forEach { tw.register($0)}
         tw.translatesAutoresizingMaskIntoConstraints = false
         return tw
     }()
