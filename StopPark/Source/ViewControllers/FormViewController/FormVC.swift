@@ -386,10 +386,6 @@ extension FormVC: ButtonTableViewCellDelegate {
 
 // MARK: - WebViewDelegate
 extension FormVC: WebViewDelegate {
-    func showWebViewError(_ text: String?) {
-        showErrorMessage(text ?? Strings.cantGetData)
-    }
-    
     func loading() {
         loader.status = .loading
         print("start")
@@ -400,8 +396,12 @@ extension FormVC: WebViewDelegate {
         print("loaded")
     }
     
-    func showCapture(with url: URL?) {
+    func webView(_ webView: WebView, didReceiveCaptchaURL url: URL) {
         sendFormView.updateView(for: .getCaptcha(url))
+    }
+    
+    func webView(_ webView: WebView, didReceiveError error: String) {
+        showErrorMessage(error)
     }
     
     func showFinalBody() {
@@ -412,21 +412,25 @@ extension FormVC: WebViewDelegate {
 
 // MARK: - SendFormViewDelegate
 extension FormVC: SendFormViewDelegate {
-    func formVCShouldClose() {
-        closeForm()
-    }
-    
-    func formShouldSend(withCaptcha captcha: String) {
+    func view(_ view: SendFormView, didSendCaptcha captcha: String) {
         InvAnalytics.shared.sendEvent(event: .formClickSendCaptcha)
         webView.finalLoadData(with: captcha)
     }
     
-    func errorShouldShow(withText text: String) {
-        showErrorMessage(text)
+    func view(_ view: SendFormView, didReceiveError error: String) {
+        showErrorMessage(error)
     }
     
-    func requestShouldCancel() {
+    func view(_ view: SendFormView, closeButtonTouchUpInside button: UIButton) {
         closeForm()
+    }
+    
+    func view(_ view: SendFormView, cancelButtonTouchUpInside button: UIButton) {
+        closeForm()
+    }
+    
+    func view(_ view: SendFormView, changeCaptchaOn captchaView: CaptchaView) {
+        webView.refreshCaptchaLoadData()
     }
 }
 

@@ -12,9 +12,10 @@ import WebKit
 protocol WebViewDelegate: class {
     func loading()
     func done()
-    func showCapture(with url: URL?)
-    func showWebViewError(_ text: String?)
     func showFinalBody()
+    
+    func webView(_ webView: WebView, didReceiveCaptchaURL url: URL)
+    func webView(_ webView: WebView, didReceiveError error: String)
 }
 
 class WebView: BaseView {
@@ -94,10 +95,10 @@ extension WebView {
     private func getCaptchaImage() {
         web.evaluateJavaScript(Scripts.getCaptureImageURL, completionHandler: { resp, error in
             guard let urlString = resp as? String, let url = URL(string: urlString) else {
-                self.delegate?.showWebViewError(Strings.captchaError)
+                self.delegate?.webView(self, didReceiveError: Strings.captchaError)
                 return
             }
-            self.delegate?.showCapture(with: url)
+            self.delegate?.webView(self, didReceiveCaptchaURL: url)
         })
     }
     
@@ -106,7 +107,7 @@ extension WebView {
         web.evaluateJavaScript(Scripts.getFinalID) { data, error in
             guard let text = data as? String else {
                 self.getCaptchaImage()
-                self.delegate?.showWebViewError(Strings.cantGetData)
+                self.delegate?.webView(self, didReceiveError: Strings.cantGetData)
                 return
             }
             
@@ -117,12 +118,12 @@ extension WebView {
                 self.delegate?.showFinalBody()
             }
             
-            if let error = error { self.delegate?.showWebViewError(error.localizedDescription) }
+            if let error = error { self.delegate?.webView(self, didReceiveError: error.localizedDescription) }
         }
         web.evaluateJavaScript(Scripts.getFinalCode) { data, error in
             guard let text = data as? String else {
                 self.getCaptchaImage()
-                self.delegate?.showWebViewError(Strings.cantGetData)
+                self.delegate?.webView(self, didReceiveError: Strings.cantGetData)
                 return
             }
             
@@ -133,7 +134,7 @@ extension WebView {
                 self.delegate?.showFinalBody()
             }
             
-            if let error = error { self.delegate?.showWebViewError(error.localizedDescription) }
+            if let error = error { self.delegate?.webView(self, didReceiveError: error.localizedDescription) }
         }
     }
 }
@@ -169,6 +170,17 @@ extension WebView {
         }
         currentRequestType = .final
 
+        web.load(urlRequest)
+        delegate?.loading()
+    }
+    
+    public func refreshCaptchaLoadData() {
+        guard let urlRequest = RequestManager.shared.finalRequest(with: " ") else {
+            return
+        }
+        
+        currentRequestType = .preFinal
+        
         web.load(urlRequest)
         delegate?.loading()
     }

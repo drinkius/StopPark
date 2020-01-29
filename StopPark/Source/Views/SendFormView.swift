@@ -9,10 +9,11 @@
 import UIKit
 
 protocol SendFormViewDelegate: class {
-    func formShouldSend(withCaptcha captcha: String)
-    func errorShouldShow(withText text: String)
-    func formVCShouldClose()
-    func requestShouldCancel()
+    func view(_ view: SendFormView, didSendCaptcha captcha: String)
+    func view(_ view: SendFormView, didReceiveError error: String)
+    func view(_ view: SendFormView, closeButtonTouchUpInside button: UIButton)
+    func view(_ view: SendFormView, cancelButtonTouchUpInside button: UIButton)
+    func view(_ view: SendFormView, changeCaptchaOn captchaView: CaptchaView)
 }
 
 class SendFormView: BaseView {
@@ -54,11 +55,7 @@ class SendFormView: BaseView {
     private lazy var captchaView: CaptchaView = {
         let view = CaptchaView()
         view.textFeildDelegate = self
-        view.changeActionBlock = { [weak self] in
-            InvAnalytics.shared.sendEvent(event: .formClickRefreshCaptcha)
-            self?.delegate?.formShouldSend(withCaptcha: " ")
-            self?.updateContentAnimated(for: .downloadCaptcha)
-        }
+        view.changeActionBlock = { [weak self] in self?.refreshCaptcha() }
         view.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -162,7 +159,7 @@ extension SendFormView {
         case .failedCaptcha:
             titleLabel.text = Strings.captchaError
             closeButton.setTitle("Попробовать снова", for: .normal)
-            closeButton.addTarget(self, action: #selector(closeForm), for: .touchUpInside)
+            closeButton.addTarget(self, action: #selector(closeForm(_:)), for: .touchUpInside)
         case .captchaUploaded:
             titleLabel.text = "Подтвердите, что вы не робот"
             closeButton.setTitle("Отправить на проверку", for: .normal)
@@ -177,6 +174,10 @@ extension SendFormView {
             closeButton.isHidden = true
         case .downloadCaptcha:
             titleLabel.text = "Загружаем капчу..."
+            closeButton.setTitle("", for: .normal)
+            closeButton.isHidden = true
+        case .refreshCaptcha:
+            titleLabel.text = "Обновляем капчу..."
             closeButton.setTitle("", for: .normal)
             closeButton.isHidden = true
         }
@@ -196,6 +197,12 @@ extension SendFormView {
                 }
             }
         }
+    }
+    
+    private func refreshCaptcha() {
+        InvAnalytics.shared.sendEvent(event: .formClickRefreshCaptcha)
+        delegate?.view(self, changeCaptchaOn: captchaView)
+        updateContentAnimated(for: .refreshCaptcha)
     }
 }
 
@@ -255,23 +262,23 @@ extension SendFormView {
     @objc private func sendCaptcha() {
         viewShouldEndEditing()
         guard let text = captchaView.textFieldText, text != "" else {
-            delegate?.errorShouldShow(withText: "Введите капчу")
+            delegate?.view(self, didReceiveError: "Введите капчу")
             return
         }
-        delegate?.formShouldSend(withCaptcha: text)
+        delegate?.view(self, didSendCaptcha: text)
         updateContentAnimated(for: .sendingRequest)
     }
     
-    @objc private func closeForm() {
-        delegate?.formVCShouldClose()
+    @objc private func closeForm(_ sender: UIButton) {
+        delegate?.view(self, closeButtonTouchUpInside: sender)
     }
     
     @objc private func viewShouldEndEditing() {
         captchaView.endEditing(true)
     }
     
-    @objc private func cancelRequest() {
-        delegate?.requestShouldCancel()
+    @objc private func cancelRequest(_ sender: UIButton) {
+        delegate?.view(self, cancelButtonTouchUpInside: sender)
     }
 }
 
@@ -316,5 +323,6 @@ extension SendFormView {
         case captchaUploaded
         case uploadImages
         case closeForm
+        case refreshCaptcha
     }
 }
