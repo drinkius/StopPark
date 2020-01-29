@@ -75,6 +75,7 @@ class FormVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         webView.initialRequest()
+        updateTemplates()
     }
     
     deinit {
@@ -101,7 +102,7 @@ extension FormVC {
     }
     
     private func configureViews() {
-        [webView, tableView, sendFormView, loader].forEach {
+        [webView, loader, tableView, sendFormView].forEach {
             view.addSubview($0)
         }
     }
@@ -195,6 +196,10 @@ extension FormVC {
         let vc = PayVC(with: presenter)
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
+    }
+    
+    private func updateTemplates() {
+        tableView.reloadData()
     }
 }
 

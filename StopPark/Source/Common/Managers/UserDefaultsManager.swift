@@ -30,6 +30,8 @@ let kSession: String = "kUploadImageSession"
 
 let kAppeals: String = "kAppeals"
 
+let kIAPTransactionHashValue: String = "kIAPTransactionHashValue"
+
 struct UserDefaultsManager {
     
     static func setFormData(_ type: FormData, data: String?) {
@@ -92,5 +94,13 @@ struct UserDefaultsManager {
             return decodedAppeals
         }
         return nil
+    }
+    
+    static func setIAPTransactionHashValue(_ value: Int) {
+        UserDefaults.standard.set(value, forKey: kIAPTransactionHashValue)
+    }
+    
+    static func getIAPTransactionHashValue() -> Int {
+        return UserDefaults.standard.integer(forKey: kIAPTransactionHashValue)
     }
 }

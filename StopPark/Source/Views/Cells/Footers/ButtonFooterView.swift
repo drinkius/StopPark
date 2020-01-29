@@ -97,6 +97,7 @@ class ButtonFooterView: BaseView {
         configureViews()
         configureConstraints()
         configureTemplateButtons()
+        configureActivation()
     }
     
     override func layoutSubviews() {
@@ -144,6 +145,17 @@ extension ButtonFooterView {
             button.setTitle(title, for: .normal)
         }
     }
+    
+    private func configureActivation() {
+        guard UserDefaultsManager.getIAPTransactionHashValue() > 0 else { return }
+        UIView.animate(withDuration: 0.3, animations: {
+            self.blur.alpha = 0
+            self.activateButton.alpha = 0
+        }, completion: { _ in
+            self.blur.isHidden = true
+            self.activateButton.isHidden = true
+        })
+    }
 }
 
 // MARK: - Actions
@@ -164,12 +176,5 @@ extension ButtonFooterView {
     
     @objc private func onActivate(_ sender: UIButton) {
         activateActionBlock?()
-//        UIView.animate(withDuration: 0.3, animations: {
-//            self.blur.alpha = 0
-//            sender.alpha = 0
-//        }, completion: { _ in
-//            self.blur.isHidden = true
-//            sender.isHidden = true
-//        })
     }
 }

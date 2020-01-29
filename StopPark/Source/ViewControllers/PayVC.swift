@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import StoreKit
 
 class PayVC: UIViewController {
     
     private let presenter: PayPresenter!
+    private var products: [SKProduct] = []
     
     private lazy var backgroundImage: UIImageView = {
         let image = UIImageView()
@@ -83,10 +85,18 @@ class PayVC: UIViewController {
             btn.backgroundColor = presenter.donateButtons[i].color
             btn.layer.cornerRadius = .standartCornerRadius
             btn.layer.masksToBounds = true
+            btn.addTarget(self, action: #selector(onPay(_:)), for: .touchUpInside)
             btn.translatesAutoresizingMaskIntoConstraints = false
             array.append(btn)
         }
         return array
+    }()
+    
+    private lazy var activity: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView(style: .white)
+        activity.hidesWhenStopped = true
+        activity.translatesAutoresizingMaskIntoConstraints = false
+        return activity
     }()
     
     private lazy var payButton: UIButton = {
@@ -98,6 +108,7 @@ class PayVC: UIViewController {
         btn.layer.cornerRadius = .standartCornerRadius
         btn.layer.masksToBounds = true
         btn.isHidden = presenter.payButtonIsHidden
+        btn.addTarget(self, action: #selector(onPay(_:)), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -129,6 +140,10 @@ class PayVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        IAPManager.shared.fetchAvailableProduct() { [weak self] products in
+            guard let `self` = self else { return }
+            self.products = products
+        }
     }
     
     deinit {
@@ -145,7 +160,7 @@ extension PayVC {
     }
     
     private func configureViews() {
-        [backgroundImage, closeButton, titleLabel, buttonsVerticalStack, termsTextView].forEach {
+        [backgroundImage, closeButton, titleLabel, buttonsVerticalStack, termsTextView, activity].forEach {
             view.addSubview($0)
         }
         describeViews.forEach {
@@ -184,11 +199,30 @@ extension PayVC {
          buttonsVerticalStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -.hugePadding),
          buttonsVerticalStack.heightAnchor.constraint(equalToConstant: Theme.buttonItemHeight),
          
+         activity.topAnchor.constraint(equalTo: payButton.topAnchor),
+         activity.leftAnchor.constraint(equalTo: payButton.leftAnchor),
+         activity.rightAnchor.constraint(equalTo: payButton.rightAnchor),
+         activity.bottomAnchor.constraint(equalTo: payButton.bottomAnchor),
+         
          termsTextView.topAnchor.constraint(equalTo: buttonsVerticalStack.bottomAnchor, constant: .padding),
          termsTextView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: .padding),
          termsTextView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -.padding),
          termsTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -.nanoPadding)
             ].forEach { $0.isActive = true }
+    }
+    
+    private func updateActivityIndicator(animated: Bool) {
+        if animated {
+            payButton.setTitle("", for: .normal)
+            payButton.isEnabled = false
+            payButton.alpha = 0.7
+            activity.startAnimating()
+        } else {
+            payButton.setTitle("ВСЕГО ЗА 229 ₽", for: .normal)
+            payButton.isEnabled = true
+            payButton.alpha = 1.0
+            activity.stopAnimating()
+        }
     }
 }
 
@@ -196,6 +230,27 @@ extension PayVC {
 extension PayVC {
     @objc private func onClose() {
         dismiss(animated: true)
+    }
+    @objc private func onPay(_ sender: UIButton) {
+        guard sender.titleLabel?.text == "ВСЕГО ЗА 229 ₽" else { return }
+        guard let product = products.first else { return }
+        updateActivityIndicator(animated: true)
+        
+        IAPManager.shared.purchase(product: product) { [weak self] message, product, transaction in
+            self?.updateActivityIndicator(animated: false)
+            
+            switch message {
+            case .purchased:
+                UserDefaultsManager.setIAPTransactionHashValue(transaction.hashValue)
+                self?.onClose()
+            case .restored:
+                UserDefaultsManager.setIAPTransactionHashValue(transaction.hashValue)
+                let ok = UIAlertAction(title: "OK", style: .default, handler: { _ in self?.onClose() })
+                self?.showMessage(message.errorDescription, addAction: [ok])
+            case .noProductIDsFound, .noProductsFound, .paymentWasCancelled, .productRequestFailed:
+                self?.showErrorMessage(message.errorDescription)
+            }
+        }
     }
 }
 

@@ -10,6 +10,8 @@
 		C20C978D23D462FF00B6DAF6 /* PayDescribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20C978C23D462FF00B6DAF6 /* PayDescribeView.swift */; };
 		C20C979123D4857600B6DAF6 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C20C979023D4857600B6DAF6 /* StoreKit.framework */; };
 		C2151C2523DF2EB10062764D /* UITableView+SimpleDequeueReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2151C2423DF2EB10062764D /* UITableView+SimpleDequeueReusableCell.swift */; };
+		C2151C2723DF3AE60062764D /* IAPProductIDs.plist in Resources */ = {isa = PBXBuildFile; fileRef = C2151C2623DF3AE60062764D /* IAPProductIDs.plist */; };
+		C2151C2923DF3B7F0062764D /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2151C2823DF3B7F0062764D /* IAPManager.swift */; };
 		C21D267D23BF918B0057CC17 /* Appeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21D267C23BF918B0057CC17 /* Appeal.swift */; };
 		C21D267F23BF9E990057CC17 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21D267E23BF9E990057CC17 /* ProfileView.swift */; };
 		C21D268123BFA72F0057CC17 /* MessageFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21D268023BFA72F0057CC17 /* MessageFooterView.swift */; };
@@ -85,6 +87,8 @@
 		C20C978C23D462FF00B6DAF6 /* PayDescribeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayDescribeView.swift; sourceTree = "<group>"; };
 		C20C979023D4857600B6DAF6 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C2151C2423DF2EB10062764D /* UITableView+SimpleDequeueReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+SimpleDequeueReusableCell.swift"; sourceTree = "<group>"; };
+		C2151C2623DF3AE60062764D /* IAPProductIDs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = IAPProductIDs.plist; sourceTree = "<group>"; };
+		C2151C2823DF3B7F0062764D /* IAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
 		C21D267C23BF918B0057CC17 /* Appeal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appeal.swift; sourceTree = "<group>"; };
 		C21D267E23BF9E990057CC17 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		C21D268023BFA72F0057CC17 /* MessageFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageFooterView.swift; sourceTree = "<group>"; };
@@ -191,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				C2E1572B23A4C27200105763 /* UserDefaultsManager.swift */,
+				C2151C2823DF3B7F0062764D /* IAPManager.swift */,
 				C2898BEF23CF37EB008C2908 /* Analytics.swift */,
 				C2DD38CB23C47254005B474D /* AppealManager.swift */,
 				C27F626023A7ED93002D55EB /* AuthorizationManager.swift */,
@@ -252,6 +257,7 @@
 				C2E1572423A3A70E00105763 /* Source */,
 				C2E1571A23A3A66000105763 /* Resource */,
 				C2963EFC239FAD5B0020A2DD /* Info.plist */,
+				C2151C2623DF3AE60062764D /* IAPProductIDs.plist */,
 				C2ACE8B623D09B2F001CBADC /* GoogleService-Info.plist */,
 			);
 			path = StopPark;
@@ -486,6 +492,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2151C2723DF3AE60062764D /* IAPProductIDs.plist in Resources */,
 				C2963EFB239FAD5B0020A2DD /* LaunchScreen.storyboard in Resources */,
 				C2963EF8239FAD5B0020A2DD /* Assets.xcassets in Resources */,
 				C2ACE8B723D09B2F001CBADC /* GoogleService-Info.plist in Resources */,
@@ -605,6 +612,7 @@
 				C242FB8F23BD203900C3B16C /* ButtonTableViewCell.swift in Sources */,
 				C2974EE923C4A0FD007CD2BB /* Double+CalendarDate.swift in Sources */,
 				C2974EE723C49E63007CD2BB /* WKWebView+Cookie.swift in Sources */,
+				C2151C2923DF3B7F0062764D /* IAPManager.swift in Sources */,
 				C2AFBF7623BF1BF400209F31 /* HomeVC.swift in Sources */,
 				C2AFBF7C23BF41D100209F31 /* MessageView.swift in Sources */,
 				C25A836923D1DACA0007848E /* String+EmailValidation.swift in Sources */,
@@ -762,6 +770,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_ASSET_PATHS = StopPark/IAPProductIDs.plist;
 				DEVELOPMENT_TEAM = 56FW88WGZ7;
 				INFOPLIST_FILE = StopPark/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -784,6 +793,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_ASSET_PATHS = StopPark/IAPProductIDs.plist;
 				DEVELOPMENT_TEAM = 56FW88WGZ7;
 				INFOPLIST_FILE = StopPark/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
