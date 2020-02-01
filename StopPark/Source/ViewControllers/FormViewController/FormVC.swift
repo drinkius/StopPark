@@ -37,7 +37,7 @@ class FormVC: UIViewController {
     
     private lazy var loader: Loader = {
         let view = Loader()
-        view.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(showWeb)))
+        view.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(onShowWeb)))
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -56,7 +56,7 @@ class FormVC: UIViewController {
         btn.backgroundColor = .highlited
         btn.contentEdgeInsets = .buttonItemContentInset
         btn.titleLabel?.font = .systemFont(ofSize: 12)
-        btn.addTarget(self, action: #selector(closeForm), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(onCloseForm), for: .touchUpInside)
         return UIBarButtonItem(customView: btn)
     }()
         
@@ -205,7 +205,7 @@ extension FormVC {
 
 // MARK: - Actions
 extension FormVC {
-    @objc private func closeForm() {
+    @objc private func onCloseForm() {
         InvAnalytics.shared.sendEvent(event: .formClickCancel)
         Vibration.light.vibrate()
         dismiss(animated: true)
@@ -230,8 +230,18 @@ extension FormVC {
         tableView.contentInset = .zero
     }
     
-    @objc private func showWeb() {
+    @objc private func onShowWeb() {
         view.bringSubviewToFront(webView)
+    }
+    
+    private func setTemplate(on tag: Int) {
+        let cells = tableView.visibleCells
+        cells.forEach {
+            guard let textFieldCell = $0 as? TextFieldCell else { return }
+            guard textFieldCell.titleText == FormData.eventViolation.rawValue else { return }
+            textFieldCell.textFieldText = Template(rawValue: tag)?.description
+        }
+        eventInfoForm[.eventViolation] = Template(rawValue: tag)?.description
     }
 }
 
@@ -318,11 +328,14 @@ extension FormVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         guard section == requestForm.data.count - 1 else { return nil }
         let footerView = ButtonFooterView()
-        footerView.fill(buttonName: "Отредактировать сообщение",
-                        editAction: { [weak self] in
-                            self?.showGeneratedMessage()},
-                        activateAction: { [weak self] in
-                            self?.openPayVC()
+        footerView.fill(
+            buttonName: "Отредактировать сообщение",
+            editAction: { [weak self] in
+                self?.showGeneratedMessage()},
+            activateAction: { [weak self] in
+                self?.openPayVC() },
+            templateAction: { [weak self] button in
+                self?.setTemplate(on: button.tag)
         })
         return footerView
     }
@@ -427,11 +440,11 @@ extension FormVC: SendFormViewDelegate {
     }
     
     func view(_ view: SendFormView, closeButtonTouchUpInside button: UIButton) {
-        closeForm()
+        onCloseForm()
     }
     
     func view(_ view: SendFormView, cancelButtonTouchUpInside button: UIButton) {
-        closeForm()
+        onCloseForm()
     }
     
     func view(_ view: SendFormView, changeCaptchaOn captchaView: CaptchaView) {

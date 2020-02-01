@@ -51,7 +51,15 @@ class TextFieldCell: BaseGroupedTableViewCell {
     }
     public var textFieldText: String? {
         get { return textField.text }
-        set { textField.text = newValue }
+        set {
+            textField.text = newValue
+            animateTextCell()
+        }
+    }
+    
+    public var titleText: String? {
+        get { return titleLabel.text }
+        set { titleLabel.text = newValue }
     }
                 
     private lazy var cancelButton: UIBarButtonItem = {

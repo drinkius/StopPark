@@ -63,6 +63,7 @@
 		C2AB640A23A6671F007379DA /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AB640923A6671F007379DA /* Strings.swift */; };
 		C2AB640C23A6694B007379DA /* InfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AB640B23A6694B007379DA /* InfoVC.swift */; };
 		C2ACE8B723D09B2F001CBADC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C2ACE8B623D09B2F001CBADC /* GoogleService-Info.plist */; };
+		C2AE25AA23E5B8330012D481 /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AE25A923E5B8330012D481 /* Template.swift */; };
 		C2AFBF7023BF0AF300209F31 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AFBF6F23BF0AF300209F31 /* UIViewController+Alert.swift */; };
 		C2AFBF7623BF1BF400209F31 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AFBF7523BF1BF400209F31 /* HomeVC.swift */; };
 		C2AFBF7A23BF3F8E00209F31 /* RequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AFBF7923BF3F8E00209F31 /* RequestTableViewCell.swift */; };
@@ -142,6 +143,7 @@
 		C2AB640923A6671F007379DA /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		C2AB640B23A6694B007379DA /* InfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoVC.swift; sourceTree = "<group>"; };
 		C2ACE8B623D09B2F001CBADC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C2AE25A923E5B8330012D481 /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
 		C2AFBF6F23BF0AF300209F31 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		C2AFBF7523BF1BF400209F31 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		C2AFBF7923BF3F8E00209F31 /* RequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTableViewCell.swift; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 				C2BCAD9923A52FEB0008D492 /* Section.swift */,
 				C2BCAD9C23A5496E0008D492 /* Form.swift */,
 				C292910423BFBF050015DB5A /* DistrictData.swift */,
+				C2AE25A923E5B8330012D481 /* Template.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -566,6 +569,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C246AC2023BB6D1200B1C7C0 /* NetworkManager.swift in Sources */,
+				C2AE25AA23E5B8330012D481 /* Template.swift in Sources */,
 				C258916B23CB66E300C940DB /* ProfileTableViewCell.swift in Sources */,
 				C2AB640823A6652D007379DA /* InformationView.swift in Sources */,
 				C22C153C23C6075C00C5749D /* UIColor+TraitCollection.swift in Sources */,

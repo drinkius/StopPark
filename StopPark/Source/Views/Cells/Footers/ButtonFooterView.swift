@@ -10,10 +10,11 @@ import UIKit
 
 class ButtonFooterView: BaseView {
     
-    public func fill(buttonName name: String, editAction: (() -> Void)?, activateAction: (() -> Void)?) {
+    public func fill(buttonName name: String, editAction: (() -> Void)?, activateAction: (() -> Void)?, templateAction: ((UIButton) -> Void)?) {
         editButton.setTitle(name, for: .normal)
         editActionBlock = editAction
         activateActionBlock = activateAction
+        templateActionBlock = templateAction
     }
     
     private var editActionBlock: (() -> Void)?
@@ -51,16 +52,18 @@ class ButtonFooterView: BaseView {
         return array
     }()
     
-    private let buttonNames: [String] = ["Тротуар", "Пешеходный переход", "Пешеходная зона", "Неположенное место"]
+    private var templateActionBlock: ((UIButton) -> Void)?
     private lazy var templateButtons: [UIButton] = {
         var array: [UIButton] = []
         for i in 0..<4 {
             let btn = UIButton()
+            btn.setTitle(Template(rawValue: i)?.title, for: .normal)
             btn.titleLabel?.font = .systemFont(ofSize: 12)
             btn.titleLabel?.numberOfLines = 0
             btn.layer.cornerRadius = .standartCornerRadius
             btn.backgroundColor = .highlited
             btn.addTarget(self, action: #selector(onSetTemplate), for: .touchUpInside)
+            btn.tag = i
             btn.translatesAutoresizingMaskIntoConstraints = false
             array.append(btn)
         }
@@ -96,7 +99,6 @@ class ButtonFooterView: BaseView {
         super.setupView()
         configureViews()
         configureConstraints()
-        configureTemplateButtons()
         configureActivation()
     }
     
@@ -138,14 +140,7 @@ extension ButtonFooterView {
          editButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.padding)
             ].forEach { $0.isActive = true }
     }
-    
-    private func configureTemplateButtons() {
-        for (i, button) in templateButtons.enumerated() {
-            let title = buttonNames[i]
-            button.setTitle(title, for: .normal)
-        }
-    }
-    
+        
     private func configureActivation() {
         guard UserDefaultsManager.getIAPTransactionHashValue() > 0 else { return }
         UIView.animate(withDuration: 0.3, animations: {
@@ -171,6 +166,7 @@ extension ButtonFooterView {
             }
             sender.backgroundColor = #colorLiteral(red: 0.0267679859, green: 0.3765846789, blue: 0.6633296609, alpha: 1)
         }
+        templateActionBlock?(sender)
         print("template button clicked")
     }
     
