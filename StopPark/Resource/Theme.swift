@@ -72,6 +72,7 @@ extension UIImage {
     static let consider = UIImage(named: "consider")?.withRenderingMode(.alwaysTemplate)
     static let lock     = UIImage(named: "lock")?.withRenderingMode(.alwaysTemplate)
     static let settings = UIImage(named: "settings")?.withRenderingMode(.alwaysTemplate)
+    static let gift     = UIImage(named: "gift")?.withRenderingMode(.alwaysTemplate)
     
     static let payBackground     = UIImage(named: "payBackground")
 }

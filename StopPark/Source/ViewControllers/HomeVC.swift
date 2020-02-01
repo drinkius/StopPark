@@ -15,9 +15,15 @@ class HomeVC: UIViewController {
         didSet { checkTableViewData() }
     }
 
-    private lazy var profileButton: UIBarButtonItem = {
-        let btn = UIBarButtonItem(image: .settings, style: .plain, target: self, action: #selector(presentProfileVC))
+    private lazy var settingsButton: UIBarButtonItem = {
+        let btn = UIBarButtonItem(image: .settings, style: .plain, target: self, action: #selector(onSettings))
         btn.tintColor = .highlited
+        return btn
+    }()
+    
+    private lazy var giftButton: UIBarButtonItem = {
+        let btn = UIBarButtonItem(image: .gift, style: .plain, target: self, action: #selector(onGift))
+        btn.tintColor = .red
         return btn
     }()
         
@@ -105,7 +111,7 @@ extension HomeVC {
     
     private func configureTitle() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
-        navigationItem.rightBarButtonItem = profileButton
+        navigationItem.rightBarButtonItems = [settingsButton, giftButton]
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.view.backgroundColor = .themeContainer
@@ -127,13 +133,22 @@ extension HomeVC {
 
 // MARK: - Actions
 extension HomeVC {
-    @objc private func presentProfileVC() {
+    @objc private func onSettings() {
         InvAnalytics.shared.sendEvent(event: .homeClickSettings)
         let vc = SettingsVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    private func presentFormVC() {
+    @objc private func onGift() {
+        InvAnalytics.shared.sendEvent(event: .homeClickGift)
+        let presenter = PayPresenter()
+        presenter.destination = .donate
+        let vc = PayVC(with: presenter)
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
+    }
+    
+    private func onForm() {
         guard Reachability.isConnectedToNetwork() else {
             showErrorMessage(Strings.notConnected)
             return
@@ -169,7 +184,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
 // MARK: - ProfileViewDelegate
 extension HomeVC: ProfileViewDelegate {
     func openForm() {
-        presentFormVC()
+        onForm()
     }
 }
 

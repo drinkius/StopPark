@@ -18,6 +18,7 @@ enum InvEvent {
     case loginFail
 
     case homeClickSettings
+    case homeClickGift
     case homeClickForm
     
     case settingsClickChangeProfile
@@ -67,6 +68,7 @@ enum GAAction: String {
     case loginFail = "Login Fail"
     
     case clickSettings = "Click Settings"
+    case clickGift = "Click Gift"
     case clickForm = "Click Form"
     
     case clickChangeProfile = "Click Change Profile"
@@ -194,6 +196,10 @@ class InvAnalytics {
             
         case .homeClickSettings:
             let action = GAAction.clickSettings.rawValue
+            let category = GACategory.home.rawValue
+            sendGoogleAnalytics(category: category, event: action, label: InvAnalytics.uuid)
+        case .homeClickGift:
+            let action = GAAction.clickGift.rawValue
             let category = GACategory.home.rawValue
             sendGoogleAnalytics(category: category, event: action, label: InvAnalytics.uuid)
         case .homeClickForm:
