@@ -74,10 +74,10 @@ class PayVC: UIViewController {
         return stack
     }()
     
-    private lazy var donateButtons: [UIButton] = {
-        var array: [UIButton] = []
+    private lazy var donateButtons: [LoadingButton] = {
+        var array: [LoadingButton] = []
         for i in 0..<presenter.donateButtons.count {
-            let btn = UIButton()
+            let btn = LoadingButton()
             btn.setTitle(presenter.donateButtons[i].text, for: .normal)
             btn.titleLabel?.font = .systemFont(ofSize: 12, weight: .medium)
             btn.titleLabel?.numberOfLines = 0
@@ -99,8 +99,8 @@ class PayVC: UIViewController {
         return activity
     }()
     
-    private lazy var payButton: UIButton = {
-        let btn = UIButton()
+    private lazy var payButton: LoadingButton = {
+        let btn = LoadingButton()
         btn.setTitle("ВСЕГО ЗА 229 ₽", for: .normal)
         btn.titleLabel?.font = .systemFont(ofSize: 12, weight: .medium)
         btn.titleLabel?.numberOfLines = 0
@@ -141,8 +141,8 @@ class PayVC: UIViewController {
         super.viewDidLoad()
         setupView()
         IAPManager.shared.fetchAvailableProduct() { [weak self] products in
-            guard let `self` = self else { return }
-            self.products = products
+//            guard let `self` = self else { return }
+            self?.products = products
         }
     }
     
@@ -210,20 +210,6 @@ extension PayVC {
          termsTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -.nanoPadding)
             ].forEach { $0.isActive = true }
     }
-    
-    private func updateActivityIndicator(animated: Bool) {
-        if animated {
-            payButton.setTitle("", for: .normal)
-            payButton.isEnabled = false
-            payButton.alpha = 0.7
-            activity.startAnimating()
-        } else {
-            payButton.setTitle("ВСЕГО ЗА 229 ₽", for: .normal)
-            payButton.isEnabled = true
-            payButton.alpha = 1.0
-            activity.stopAnimating()
-        }
-    }
 }
 
 // MARK: - Actions
@@ -234,10 +220,9 @@ extension PayVC {
     @objc private func onPay(_ sender: UIButton) {
         guard sender.titleLabel?.text == "ВСЕГО ЗА 229 ₽" else { return }
         guard let product = products.first else { return }
-        updateActivityIndicator(animated: true)
         
         IAPManager.shared.purchase(product: product) { [weak self] message, product, transaction in
-            self?.updateActivityIndicator(animated: false)
+            self?.payButton.stopAnimating()
             
             switch message {
             case .purchased:

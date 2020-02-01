@@ -63,6 +63,7 @@
 		C2AB640A23A6671F007379DA /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AB640923A6671F007379DA /* Strings.swift */; };
 		C2AB640C23A6694B007379DA /* InfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AB640B23A6694B007379DA /* InfoVC.swift */; };
 		C2ACE8B723D09B2F001CBADC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C2ACE8B623D09B2F001CBADC /* GoogleService-Info.plist */; };
+		C2AE25A823E576960012D481 /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AE25A723E576960012D481 /* LoadingButton.swift */; };
 		C2AE25AA23E5B8330012D481 /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AE25A923E5B8330012D481 /* Template.swift */; };
 		C2AFBF7023BF0AF300209F31 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AFBF6F23BF0AF300209F31 /* UIViewController+Alert.swift */; };
 		C2AFBF7623BF1BF400209F31 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AFBF7523BF1BF400209F31 /* HomeVC.swift */; };
@@ -143,6 +144,7 @@
 		C2AB640923A6671F007379DA /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		C2AB640B23A6694B007379DA /* InfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoVC.swift; sourceTree = "<group>"; };
 		C2ACE8B623D09B2F001CBADC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C2AE25A723E576960012D481 /* LoadingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
 		C2AE25A923E5B8330012D481 /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
 		C2AFBF6F23BF0AF300209F31 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		C2AFBF7523BF1BF400209F31 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
@@ -365,6 +367,7 @@
 				C21D268223BFB0100057CC17 /* Managers */,
 				C281DB7D23A93C7B00D2AC0D /* ImagePicker.swift */,
 				C21E71DA23A6806C002BC191 /* Loader.swift */,
+				C2AE25A723E576960012D481 /* LoadingButton.swift */,
 				C281DB7C23A8FCF600D2AC0D /* Extensions */,
 			);
 			path = Common;
@@ -580,6 +583,7 @@
 				C27F626123A7ED93002D55EB /* AuthorizationManager.swift in Sources */,
 				C23AAEB423C7516200066676 /* Vibration.swift in Sources */,
 				C23C1D5723B63824006D270B /* TitleHeaderView.swift in Sources */,
+				C2AE25A823E576960012D481 /* LoadingButton.swift in Sources */,
 				C239B6E623AD5438007F1949 /* ImageCollectionViewCell.swift in Sources */,
 				C27F626323A8010E002D55EB /* CaptchaView.swift in Sources */,
 				C246AC2423BB82FA00B1C7C0 /* TextFieldCell.swift in Sources */,
