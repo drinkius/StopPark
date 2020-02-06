@@ -8,6 +8,19 @@
 
 import StoreKit
 
+enum IAPKey: Int, CaseIterable {
+    case lowPrice = 0, preMiddlePrice, middlePrice, highPrice
+    
+    var identifier: String {
+        switch self {
+        case .lowPrice: return "tech.stoppark.donateshowlowprice"
+        case .preMiddlePrice: return "tech.stoppark.donateshoppremiddleprice"
+        case .middlePrice: return "tech.stoppark.donateshopmiddleprice"
+        case .highPrice: return "tech.stoppark.donateshophighprice"
+        }
+    }
+}
+
 class IAPManager: NSObject {
     static let shared = IAPManager()
     
@@ -15,23 +28,14 @@ class IAPManager: NSObject {
         super.init()
     }
     
-    fileprivate var productIds: [String]? {
-        guard let url = Bundle.main.url(forResource: "IAPProductIDs", withExtension: "plist") else {
-            return nil
-        }
-        do  {
-            let data = try Data(contentsOf: url)
-            let productIDs = try PropertyListSerialization.propertyList(from: data, options: .mutableContainersAndLeaves, format: nil) as? [String] ?? []
-            return productIDs
-        } catch {
-            print(error.localizedDescription)
-            return nil
-        }
+    fileprivate var productIds: [String] {
+        return IAPKey.allCases.map { $0.identifier }
     }
+    fileprivate var products: [SKProduct] = []
     
     fileprivate var productId = ""
     fileprivate var productRequest = SKProductsRequest()
-    fileprivate var fetchProductCompletion: (([SKProduct]) -> Void)?
+    fileprivate var fetchProductCompletion: ((Result) -> Void)?
     
     fileprivate var productToPurchase: SKProduct?
     fileprivate var purchaseProductCompletion: ((IAPManagerError, SKProduct?, SKPaymentTransaction?) -> Void)?
@@ -40,7 +44,16 @@ class IAPManager: NSObject {
     
     func canMakePurchase() -> Bool { return SKPaymentQueue.canMakePayments() }
     
-    func purchase(product: SKProduct, completion: @escaping (IAPManagerError, SKProduct?, SKPaymentTransaction?) -> Void) {
+    func purchase(on key: IAPKey, completion: @escaping (IAPManagerError, SKProduct?, SKPaymentTransaction?) -> Void) {
+        guard let product = products.filter( { $0.productIdentifier == key.identifier }).first else {
+            completion(IAPManagerError.noProductIDsFound, nil, nil)
+            return
+        }
+        
+        purchase(product: product, completion: completion)
+    }
+    
+    private func purchase(product: SKProduct, completion: @escaping (IAPManagerError, SKProduct?, SKPaymentTransaction?) -> Void) {
         self.purchaseProductCompletion = completion
         self.productToPurchase = product
         
@@ -60,11 +73,7 @@ class IAPManager: NSObject {
         SKPaymentQueue.default().restoreCompletedTransactions()
     }
     
-    func fetchAvailableProduct(completion: @escaping ([SKProduct]) -> Void) {
-        guard let productIds = self.productIds, !productIds.isEmpty else {
-            fatalError(IAPManagerError.noProductIDsFound.errorDescription)
-        }
-        
+    func fetchAvailableProduct(completion: @escaping (Result) -> Void) {
         self.fetchProductCompletion = completion
         
         productRequest = SKProductsRequest(productIdentifiers: Set(productIds))
@@ -73,13 +82,17 @@ class IAPManager: NSObject {
     }
 }
 
+// MARK: - SKProductsRequestDelegate, SKPaymentTransactionObserver
 extension IAPManager: SKProductsRequestDelegate, SKPaymentTransactionObserver {
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        if response.products.count > 0 {
-            if let completion = self.fetchProductCompletion {
-                completion(response.products)
-            }
+        
+        if response.products.isEmpty {
+            fetchProductCompletion?(.failure("Не смогли получить данные, попробуйте позже."))
+            return
         }
+        
+        products = response.products
+        fetchProductCompletion?(.success(nil))
     }
     
     func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {

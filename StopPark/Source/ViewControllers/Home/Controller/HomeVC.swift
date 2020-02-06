@@ -14,6 +14,8 @@ class HomeVC: UIViewController {
     private var data: [Appeal] = [] {
         didSet { checkTableViewData() }
     }
+    
+    let router: RouterProtocol
 
     private lazy var settingsButton: UIBarButtonItem = {
         let btn = UIBarButtonItem(image: .settings, style: .plain, target: self, action: #selector(onSettings))
@@ -75,6 +77,15 @@ class HomeVC: UIViewController {
         configureTitle()
         profileView.updateValues()
     }
+    
+    init(router: RouterProtocol) {
+        self.router = router
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        return nil
+    }
 }
 
 // MARK: - Private Functions
@@ -135,17 +146,13 @@ extension HomeVC {
 extension HomeVC {
     @objc private func onSettings() {
         InvAnalytics.shared.sendEvent(event: .homeClickSettings)
-        let vc = SettingsVC()
-        navigationController?.pushViewController(vc, animated: true)
+        let context = HomeRouter.RouteContext.settings
+        router.enqueueRoute(with: context)
     }
     
     @objc private func onGift() {
-        InvAnalytics.shared.sendEvent(event: .homeClickGift)
-        let presenter = PayPresenter()
-        presenter.destination = .donate
-        let vc = PayVC(with: presenter)
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+        let context = HomeRouter.RouteContext.donate
+        router.enqueueRoute(with: context)
     }
     
     private func onForm() {
@@ -155,10 +162,8 @@ extension HomeVC {
         }
         InvAnalytics.shared.sendEvent(event: .homeClickForm)
         Vibration.light.vibrate()
-        let formVC = FormVC()
-        let nav = CustomNavigationController(rootViewController: formVC)
-        nav.modalPresentationStyle = .fullScreen
-        present(nav, animated: true)
+        let context = HomeRouter.RouteContext.form
+        router.enqueueRoute(with: context)
     }
 }
 

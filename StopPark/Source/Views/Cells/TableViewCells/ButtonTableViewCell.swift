@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ButtonTableViewCellDelegate: class {
-    func send()
+    func cell(_ cell: ButtonTableViewCell, buttonTouchUpInside button: UIButton)
 }
 
 class ButtonTableViewCell: BaseTableViewCell {
@@ -23,7 +23,7 @@ class ButtonTableViewCell: BaseTableViewCell {
         btn.backgroundColor = .highlited
         btn.layer.cornerRadius = .standartCornerRadius
         btn.layer.masksToBounds = true
-        btn.addTarget(self, action: #selector(sendForm), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(sendForm(_:)), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -54,7 +54,7 @@ extension ButtonTableViewCell {
 
 // MARK: - Actions
 extension ButtonTableViewCell {
-    @objc private func sendForm() {
-        delegate?.send()
+    @objc private func sendForm(_ sender: UIButton) {
+        delegate?.cell(self, buttonTouchUpInside: sender)
     }
 }

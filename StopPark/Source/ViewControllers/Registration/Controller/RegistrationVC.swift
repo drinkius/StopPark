@@ -9,6 +9,12 @@
 import UIKit
 
 class RegistrationVC: UIViewController {
+            
+    var sections: [Section] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
         
     public var destination: Destination = .registration {
         didSet {
@@ -17,7 +23,7 @@ class RegistrationVC: UIViewController {
     }
     
     private lazy var segmentedControl: UISegmentedControl = {
-        let items = ["Физическое лицо", "Юридическое лицо"]
+        let items = [RegistrationType.user.title, RegistrationType.organization.title]
         let control = UISegmentedControl(items: items)
         control.selectedSegmentIndex = 0
         control.backgroundColor = .clear
@@ -71,6 +77,7 @@ extension RegistrationVC {
         observeKeyboard()
         configureViews()
         configureConstraints()
+        configureSections(for: .user)
     }
 
     private func configureViews() {
@@ -100,18 +107,26 @@ extension RegistrationVC {
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillShow(_:)), name: UIApplication.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillHide(_:)), name: UIApplication.keyboardWillHideNotification, object: nil)
     }
+    
+    private func configureSections(for type: RegistrationType) {
+        var sections: [Section] = []
+
+        switch type {
+        case .user: sections.append(Section(type: .privacy("Заявитель"), rows: FormData.userData.map { Section.RowType.form($0)}))
+        case .organization: sections.append(Section(type: .privacy("Заявитель"), rows: FormData.orgData.map { Section.RowType.form($0)}))
+        }
+        sections.append(Section(type: .contacts("Адрес для ответа"), rows: FormData.contactInfo.map { Section.RowType.form($0)}))
+
+        self.sections = sections
+    }
 }
 
 // MARK: - Actions
 extension RegistrationVC {
     @objc private func changeForm(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
-        case 0:
-            registrationForm = .init(.registrationUser)
-            tableView.reloadData()
-        case 1:
-            registrationForm = .init(.registrationOrganization)
-            tableView.reloadData()
+        case 0: configureSections(for: .user)
+        case 1: configureSections(for: .organization)
         default: break
         }
     }
@@ -136,8 +151,11 @@ extension RegistrationVC {
         switch destination {
         case .registration:
             InvAnalytics.shared.sendEvent(event: .loginSuccess)
-            let formVC = HomeVC()
+            
+            let router = HomeRouter()
+            let formVC = HomeVC(router: router)
             let nav = CustomNavigationController(rootViewController: formVC)
+            router.baseViewController = nav
             nav.modalPresentationStyle = .fullScreen
             present(nav, animated: true)
         case .settings:
@@ -157,58 +175,6 @@ extension RegistrationVC {
     }
 }
 
-// MARK: - UITableView
-extension RegistrationVC: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        let sections = registrationForm.data.count
-        return sections
-    }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let cells = registrationForm.data[section].cells.count
-        return cells
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: TextFieldCell = tableView.dequeueReusableCell(for: indexPath)
-        let cells = registrationForm.data[indexPath.section].cells
-        let formData = cells[indexPath.row].name
-        let dataCount = cells.count
-        cell.fill(with: formData, dataCount: dataCount, cellIndex: indexPath.row) { text in
-            guard let text = text, !text.isEmpty else {
-                UserDefaultsManager.setFormData(formData, data: nil)
-                return
-            }
-
-            if formData == .userEmail {
-                let email = text.lowercased()
-                UserDefaultsManager.setFormData(formData, data: email)
-                return
-            }
-            
-            UserDefaultsManager.setFormData(formData, data: text)
-        }
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let sections = registrationForm.data
-        let headerView = HeaderView()
-        headerView.fill(with: sections[section].name)
-        return headerView
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        guard section == registrationForm.data.count - 1 else { return UIView() }
-        let messageFooterView = MessageFooterView()
-        messageFooterView.fill(with: "Ваши данные используются только для отправки Ваших обращений в ГИБДД. Мы не отправляем спам и не используем Ваши данные в иных целях.")
-        return messageFooterView
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
-    }
-}
-
 // MARK: - Support
 extension RegistrationVC {
     enum Theme {
@@ -218,5 +184,29 @@ extension RegistrationVC {
     enum Destination {
         case registration
         case settings
+    }
+    
+    enum RegistrationType {
+        case user
+        case organization
+        
+        var title: String {
+            switch self {
+            case .user: return "Физическое лицо"
+            case .organization: return "Юридическое лицо"
+            }
+        }
+    }
+    
+    struct Section {
+        enum SectionType {
+            case privacy(String), contacts(String)
+        }
+        enum RowType {
+            case form(FormData)
+        }
+        
+        let type: SectionType
+        var rows: [RowType]
     }
 }

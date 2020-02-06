@@ -8,13 +8,20 @@
 
 import UIKit
 
+protocol TextFieldCellDelegate: class {
+    func cell(_ cell: TextFieldCell, formData data: FormData?, didChangedTo text: String?)
+}
+
 class TextFieldCell: BaseGroupedTableViewCell {
     
+    private weak var delegate: TextFieldCellDelegate?
+    private var formData: FormData?
     public weak var pickerDelegate: (UIPickerViewDelegate & UIPickerViewDataSource)?
-    public func fill(with data: FormData, dataCount: Int, cellIndex: Int, block: @escaping (String?) -> ()) {
+    public func fill(with data: FormData, dataCount: Int, cellIndex: Int, delegate: TextFieldCellDelegate) {
+        self.delegate = delegate
+        self.formData = data    
         titleLabel.text = data.rawValue
-        actionBlock = block
-        checkSavedData(for: data)
+//        checkSavedData(for: data)
         placeholderText = ""
         
         switch data {
@@ -103,7 +110,6 @@ class TextFieldCell: BaseGroupedTableViewCell {
     }()
     
     private var placeholderText: String = ""
-    private var actionBlock: ((String?) -> ())?
     private lazy var textField: UITextField = {
         let tf = UITextField()
         tf.delegate = self
@@ -217,7 +223,7 @@ extension TextFieldCell {
 // MARK: - UITextFieldDelegate
 extension TextFieldCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        actionBlock?(textField.text)
+        delegate?.cell(self, formData: formData, didChangedTo: textField.text)
         textField.resignFirstResponder()
         return true
     }
@@ -227,7 +233,7 @@ extension TextFieldCell: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        actionBlock?(textField.text)
+        delegate?.cell(self, formData: formData, didChangedTo: textField.text)
         animateTextCell()
     }
 }

@@ -9,17 +9,23 @@
 import UIKit
 
 protocol ImagesTableViewCellDelegate: ImageCollectionViewCellDelegate {
-    func addImage()
+    func cell(_ cell: ImagesTableViewCell, addButtonTouchUpInside buttonCell: UICollectionViewCell)
 }
 
 class ImagesTableViewCell: BaseGroupedTableViewCell {
     
-    public var images: [UIImage?] = [] {
+    public func fill(with images: [UIImage], destination: Destination, delegate: ImagesTableViewCellDelegate?) {
+        self.images = images
+        self.destination = destination
+        self.delegate = delegate
+    }
+    
+    private var images: [UIImage?] = [] {
         didSet {
             collectionView.reloadSections(IndexSet(integer: 1))
         }
     }
-    public weak var delegate: ImagesTableViewCellDelegate?
+    private weak var delegate: ImagesTableViewCellDelegate?
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -95,6 +101,7 @@ extension ImagesTableViewCell: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard indexPath.section == 0 else { return }
-        delegate?.addImage()
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        delegate?.cell(self, addButtonTouchUpInside: cell)
     }
 }

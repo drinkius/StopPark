@@ -40,6 +40,40 @@ enum FormData: String, CaseIterable {
     case editedMessage
     
     static var userPrivacyData: [FormData] = [.userName, .userSurname, .userFatherName, .userEmail, .userPhone, .userOrganizationName, .userOrganizationDate, .userOrganizationLetter, .userOrganizationNumber]
+
+    static var messageData: [FormData] {
+        return [.eventDate, .autoMark, .autoNumber, .eventAddress, .photoDate, .eventViolation]
+    }
+    
+    static var reapeatedToData: [FormData] {
+        return [.repeatedDivision, .repeatedDate]
+    }
+    
+    static var toData: [FormData] {
+        return [.district, .rang, .policeName]
+    }
+    
+    static var fromData: [FormData] {
+        var array: [FormData] = []
+        for formData in FormData.allCases {
+            if let _ = UserDefaultsManager.getFormData(formData) {
+                array.append(formData)
+            }
+        }
+        return array
+    }
+    
+    static var userData: [FormData] {
+        return [.userName, .userSurname, .userFatherName]
+    }
+    
+    static var orgData: [FormData] {
+        return [.userName, .userSurname, .userFatherName, .userOrganizationName, .userOrganizationNumber, .userOrganizationDate, .userOrganizationLetter]
+    }
+    
+    static var contactInfo: [FormData] {
+        return [userEmail, .userPhone]
+    }
 }
 
 struct Cell {

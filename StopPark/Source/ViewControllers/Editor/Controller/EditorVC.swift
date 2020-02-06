@@ -10,6 +10,8 @@ import UIKit
 
 class EditorVC: UIViewController {
 
+    let router: RouterProtocol
+
     public var actionBlock: ((String?) -> Void)?
     public var generatedMessage: String? {
         didSet {
@@ -78,6 +80,15 @@ class EditorVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+    }
+    
+    init(router: RouterProtocol) {
+        self.router = router
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        return nil
     }
     
     deinit {

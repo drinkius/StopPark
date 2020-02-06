@@ -8,18 +8,22 @@
 
 import UIKit
 
+protocol ButtonFooterViewDelegate: class {
+    func view(_ view: ButtonFooterView, didEditButtonTouchUpInside button: UIButton)
+    func view(_ view: ButtonFooterView, didSetTemplate template: Template)
+    func view(_ view: ButtonFooterView, onActivateButtonTouchUpInside button: UIButton)
+}
+
 class ButtonFooterView: BaseView {
     
-    public func fill(buttonName name: String, editAction: (() -> Void)?, activateAction: (() -> Void)?, templateAction: ((UIButton) -> Void)?) {
-        editButton.setTitle(name, for: .normal)
-        editActionBlock = editAction
-        activateActionBlock = activateAction
-        templateActionBlock = templateAction
+    private weak var delegate: ButtonFooterViewDelegate?
+    public func fill(with delegate: ButtonFooterViewDelegate) {
+        self.delegate = delegate
     }
-    
-    private var editActionBlock: (() -> Void)?
+        
     private lazy var editButton: UIButton = {
         let btn = UIButton()
+        btn.setTitle("Отредактировать сообщение", for: .normal)
         btn.setTitleColor(.highlited, for: .normal)
         btn.titleLabel?.font = .systemFont(ofSize: 10)
         btn.titleLabel?.numberOfLines = 2
@@ -52,7 +56,6 @@ class ButtonFooterView: BaseView {
         return array
     }()
     
-    private var templateActionBlock: ((UIButton) -> Void)?
     private lazy var templateButtons: [UIButton] = {
         var array: [UIButton] = []
         for i in 0..<4 {
@@ -76,10 +79,10 @@ class ButtonFooterView: BaseView {
         view.alpha = 0.8
         view.layer.cornerRadius = .standartCornerRadius
         view.layer.masksToBounds = true
+        view.isHidden = true
         return view
     }()
     
-    private var activateActionBlock: (() -> Void)?
     private lazy var activateButton: UIButton = {
         let btn = UIButton()
         btn.setTitle("Открыть доступ", for: .normal)
@@ -90,6 +93,7 @@ class ButtonFooterView: BaseView {
         btn.backgroundColor = .white
         btn.contentEdgeInsets = .buttonItemContentInset
         btn.sizeToFit()
+        btn.isHidden = true
         btn.addTarget(self, action: #selector(onActivate), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
@@ -99,7 +103,7 @@ class ButtonFooterView: BaseView {
         super.setupView()
         configureViews()
         configureConstraints()
-        configureActivation()
+//        configureActivation()
     }
     
     override func layoutSubviews() {
@@ -156,21 +160,25 @@ extension ButtonFooterView {
 // MARK: - Actions
 extension ButtonFooterView {
     @objc private func onEdit(_ sender: UIButton) {
-        editActionBlock?()
+        delegate?.view(self, didEditButtonTouchUpInside: sender)
     }
     
     @objc private func onSetTemplate(_ sender: UIButton) {
+        guard let template = Template.init(rawValue: sender.tag) else {
+            return
+        }
+        
         UIView.animate(withDuration: 0.3) {
             self.templateButtons.forEach {
                 $0.backgroundColor = .highlited
             }
             sender.backgroundColor = #colorLiteral(red: 0.0267679859, green: 0.3765846789, blue: 0.6633296609, alpha: 1)
         }
-        templateActionBlock?(sender)
-        print("template button clicked")
+        
+        delegate?.view(self, didSetTemplate: template)
     }
     
     @objc private func onActivate(_ sender: UIButton) {
-        activateActionBlock?()
+        delegate?.view(self, onActivateButtonTouchUpInside: sender)
     }
 }

@@ -8,7 +8,8 @@
 
 import UIKit
 import Firebase
-import Fabric
+//import
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,8 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         
         if AuthorizationManager.authorized {
-            let vc = HomeVC()
+            let router = HomeRouter()
+            let vc = HomeVC(router: router)
             let nav = CustomNavigationController(rootViewController: vc)
+            router.baseViewController = vc
             window?.rootViewController = nav
         } else {
             let vc = RegistrationVC()
@@ -38,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
-        Fabric.sharedSDK().debug = true
+//        Fabric.sharedSDK().debug = true
         return true
     }
 }

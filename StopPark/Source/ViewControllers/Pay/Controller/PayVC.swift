@@ -12,13 +12,14 @@ import StoreKit
 class PayVC: UIViewController {
     
     private let presenter: PayPresenter!
-    private var products: [SKProduct] = []
+    private var products: [SKProduct?] = []
     
     private lazy var backgroundImage: UIImageView = {
         let image = UIImageView()
         image.image = .payBackground
         image.alpha = 0.1
-        image.contentMode = .scaleAspectFit
+        image.contentMode = .scaleAspectFill
+        image.clipsToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -86,19 +87,13 @@ class PayVC: UIViewController {
             btn.layer.cornerRadius = .standartCornerRadius
             btn.layer.masksToBounds = true
             btn.addTarget(self, action: #selector(onPay(_:)), for: .touchUpInside)
+            btn.tag = i
             btn.translatesAutoresizingMaskIntoConstraints = false
             array.append(btn)
         }
         return array
     }()
-    
-    private lazy var activity: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(style: .white)
-        activity.hidesWhenStopped = true
-        activity.translatesAutoresizingMaskIntoConstraints = false
-        return activity
-    }()
-    
+        
     private lazy var payButton: LoadingButton = {
         let btn = LoadingButton()
         btn.setTitle("ВСЕГО ЗА 229 ₽", for: .normal)
@@ -140,9 +135,11 @@ class PayVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        IAPManager.shared.fetchAvailableProduct() { [weak self] products in
-//            guard let `self` = self else { return }
-            self?.products = products
+        IAPManager.shared.fetchAvailableProduct() { [weak self] result in
+            switch result {
+            case let .failure(text): self?.showErrorMessage(text)
+            case .success: break
+            }
         }
     }
     
@@ -160,7 +157,7 @@ extension PayVC {
     }
     
     private func configureViews() {
-        [backgroundImage, closeButton, titleLabel, buttonsVerticalStack, termsTextView, activity].forEach {
+        [backgroundImage, closeButton, titleLabel, buttonsVerticalStack, termsTextView].forEach {
             view.addSubview($0)
         }
         describeViews.forEach {
@@ -198,16 +195,16 @@ extension PayVC {
          buttonsVerticalStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: .hugePadding),
          buttonsVerticalStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -.hugePadding),
          buttonsVerticalStack.heightAnchor.constraint(equalToConstant: Theme.buttonItemHeight),
-         
-         activity.topAnchor.constraint(equalTo: payButton.topAnchor),
-         activity.leftAnchor.constraint(equalTo: payButton.leftAnchor),
-         activity.rightAnchor.constraint(equalTo: payButton.rightAnchor),
-         activity.bottomAnchor.constraint(equalTo: payButton.bottomAnchor),
-         
+                  
          termsTextView.topAnchor.constraint(equalTo: buttonsVerticalStack.bottomAnchor, constant: .padding),
          termsTextView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: .padding),
          termsTextView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -.padding),
-         termsTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -.nanoPadding)
+         termsTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -.nanoPadding),
+         
+         backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
+         backgroundImage.leftAnchor.constraint(equalTo: view.leftAnchor),
+         backgroundImage.rightAnchor.constraint(equalTo: view.rightAnchor),
+         backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ].forEach { $0.isActive = true }
     }
 }
@@ -218,10 +215,34 @@ extension PayVC {
         dismiss(animated: true)
     }
     @objc private func onPay(_ sender: UIButton) {
-        guard sender.titleLabel?.text == "ВСЕГО ЗА 229 ₽" else { return }
-        guard let product = products.first else { return }
+//        guard sender.titleLabel?.text == "ВСЕГО ЗА 229 ₽" else { return }
+//        guard let product = products.first else { return }
         
-        IAPManager.shared.purchase(product: product) { [weak self] message, product, transaction in
+//        guard products.count > sender.tag else {
+//            showErrorMessage("Продукта не существует.")
+//            return
+//        }
+//
+//        let product: SKProduct?
+//
+//        switch sender.tag {
+//        case 0: product = products.filter( { $0.id})
+//        case 1:
+//        case 2:
+//        case 3:
+//        default: break
+//        }
+//
+//        guard let product = products[sender.tag] else {
+//            showErrorMessage("Продукта не существует.")
+//            return
+//        }
+        guard let key = IAPKey(rawValue: sender.tag) else {
+            showErrorMessage("Продукт не найден, попробуйте позже.")
+            return
+        }
+        
+        IAPManager.shared.purchase(on: key) { [weak self] message, product, transaction in
             self?.payButton.stopAnimating()
             
             switch message {
