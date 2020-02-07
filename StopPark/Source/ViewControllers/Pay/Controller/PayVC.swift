@@ -12,7 +12,6 @@ import StoreKit
 class PayVC: UIViewController {
     
     private let presenter: PayPresenter!
-    private var products: [SKProduct?] = []
     
     private lazy var backgroundImage: UIImageView = {
         let image = UIImageView()
@@ -122,6 +121,12 @@ class PayVC: UIViewController {
         return view
     }()
     
+    private lazy var loaderView: LoaderView = {
+        let view = LoaderView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     init(with presenter: PayPresenter) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
@@ -135,12 +140,6 @@ class PayVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        IAPManager.shared.fetchAvailableProduct() { [weak self] result in
-            switch result {
-            case let .failure(text): self?.showErrorMessage(text)
-            case .success: break
-            }
-        }
     }
     
     deinit {
@@ -154,21 +153,15 @@ extension PayVC {
         view.backgroundColor = .themeContainer
         configureViews()
         configureConstraints()
+        configureIAPs()
     }
     
     private func configureViews() {
-        [backgroundImage, closeButton, titleLabel, buttonsVerticalStack, termsTextView].forEach {
-            view.addSubview($0)
-        }
-        describeViews.forEach {
-            view.addSubview($0)
-        }
-        [payButton, donateButtonsStack].forEach {
-            buttonsVerticalStack.addArrangedSubview($0)
-        }
-        donateButtons.forEach {
-            donateButtonsStack.addArrangedSubview($0)
-        }
+        [backgroundImage, closeButton, titleLabel, buttonsVerticalStack, termsTextView].forEach { view.addSubview($0) }
+        describeViews.forEach { view.addSubview($0) }
+        [payButton, donateButtonsStack].forEach { buttonsVerticalStack.addArrangedSubview($0) }
+        donateButtons.forEach { donateButtonsStack.addArrangedSubview($0) }
+        [loaderView].forEach { view.addSubview($0) }
     }
     
     private func configureConstraints() {
@@ -204,8 +197,30 @@ extension PayVC {
          backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
          backgroundImage.leftAnchor.constraint(equalTo: view.leftAnchor),
          backgroundImage.rightAnchor.constraint(equalTo: view.rightAnchor),
-         backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+         backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+         
+         loaderView.topAnchor.constraint(equalTo: view.topAnchor),
+         loaderView.leftAnchor.constraint(equalTo: view.leftAnchor),
+         loaderView.rightAnchor.constraint(equalTo: view.rightAnchor),
+         loaderView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ].forEach { $0.isActive = true }
+    }
+    
+    private func configureIAPs() {
+        loaderView.startAnimating()
+        IAPManager.shared.fetchAvailableProduct() { [weak self] result in
+            guard let `self` = self else { return }
+            
+            DispatchQueue.main.async {
+                self.loaderView.stopAnimating()
+                
+                switch result {
+                case let .failure(text):
+                    self.showMessage(text, addAction: [self.dissmisAction()])
+                case .success: break
+                }
+            }
+        }
     }
 }
 
@@ -215,46 +230,29 @@ extension PayVC {
         dismiss(animated: true)
     }
     @objc private func onPay(_ sender: UIButton) {
-//        guard sender.titleLabel?.text == "ВСЕГО ЗА 229 ₽" else { return }
-//        guard let product = products.first else { return }
-        
-//        guard products.count > sender.tag else {
-//            showErrorMessage("Продукта не существует.")
-//            return
-//        }
-//
-//        let product: SKProduct?
-//
-//        switch sender.tag {
-//        case 0: product = products.filter( { $0.id})
-//        case 1:
-//        case 2:
-//        case 3:
-//        default: break
-//        }
-//
-//        guard let product = products[sender.tag] else {
-//            showErrorMessage("Продукта не существует.")
-//            return
-//        }
         guard let key = IAPKey(rawValue: sender.tag) else {
             showErrorMessage("Продукт не найден, попробуйте позже.")
+            donateButtons.forEach { $0.stopAnimating() }
             return
         }
         
         IAPManager.shared.purchase(on: key) { [weak self] message, product, transaction in
-            self?.payButton.stopAnimating()
+            guard let `self` = self else { return }
             
-            switch message {
-            case .purchased:
-                UserDefaultsManager.setIAPTransactionHashValue(transaction.hashValue)
-                self?.onClose()
-            case .restored:
-                UserDefaultsManager.setIAPTransactionHashValue(transaction.hashValue)
-                let ok = UIAlertAction(title: "OK", style: .default, handler: { _ in self?.onClose() })
-                self?.showMessage(message.errorDescription, addAction: [ok])
-            case .noProductIDsFound, .noProductsFound, .paymentWasCancelled, .productRequestFailed:
-                self?.showErrorMessage(message.errorDescription)
+            DispatchQueue.main.async {
+                self.donateButtons.forEach { $0.stopAnimating() }
+                
+                switch message {
+                case .purchased:
+                    UserDefaultsManager.setIAPTransactionHashValue(transaction.hashValue)
+                    self.showMessage("Спасибо большое за поддержку проекта! 🥳", addAction: [self.dissmisAction("Ок")])
+                case .restored:
+                    UserDefaultsManager.setIAPTransactionHashValue(transaction.hashValue)
+                    self.showMessage(message.errorDescription, addAction: [self.dissmisAction("Ок")])
+                case .noProductIDsFound, .noProductsFound, .paymentWasCancelled, .productRequestFailed, .error:
+                    self.showErrorMessage(message.errorDescription)
+                case .cancelled: break
+                }
             }
         }
     }

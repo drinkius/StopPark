@@ -100,7 +100,7 @@ extension IAPManager: SKProductsRequestDelegate, SKPaymentTransactionObserver {
             completion(IAPManagerError.restored, nil, nil)
         }
     }
-    
+        
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction: AnyObject in transactions {
             if let trans = transaction as? SKPaymentTransaction {
@@ -114,6 +114,9 @@ extension IAPManager: SKProductsRequestDelegate, SKPaymentTransactionObserver {
                     
                 case .failed:
                     SKPaymentQueue.default().finishTransaction(transaction as! SKPaymentTransaction)
+                    if let completion = self.purchaseProductCompletion {
+                        completion(IAPManagerError.cancelled, nil, nil)
+                    }
                     break
                 case .restored:
                     SKPaymentQueue.default().finishTransaction(transaction as! SKPaymentTransaction)
@@ -135,6 +138,8 @@ extension IAPManager {
         case productRequestFailed
         case restored
         case purchased
+        case cancelled
+        case error
         
         var errorDescription: String {
             switch self {
@@ -144,6 +149,8 @@ extension IAPManager {
             case .productRequestFailed: return "In-App Purchase process was cancelled."
             case .restored: return "You've successfully restored your purchase!"
             case .purchased: return "You've successfully bought this purchase!"
+            case .cancelled: return "Пользователь отменил покупку."
+            case .error: return "Неопознанная ошибка, попробуйте позже."
             }
         }
     }

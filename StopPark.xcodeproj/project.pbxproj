@@ -66,6 +66,7 @@
 		C27F626123A7ED93002D55EB /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27F626023A7ED93002D55EB /* AuthorizationManager.swift */; };
 		C27F626323A8010E002D55EB /* CaptchaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27F626223A8010E002D55EB /* CaptchaView.swift */; };
 		C281DB7E23A93C7B00D2AC0D /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C281DB7D23A93C7B00D2AC0D /* ImagePicker.swift */; };
+		C281F7E623EDB12000335100 /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C281F7E523EDB12000335100 /* LoaderView.swift */; };
 		C2898BF023CF37EB008C2908 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2898BEF23CF37EB008C2908 /* Analytics.swift */; };
 		C292910523BFBF050015DB5A /* DistrictData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C292910423BFBF050015DB5A /* DistrictData.swift */; };
 		C2963EEF239FAD590020A2DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2963EEE239FAD590020A2DD /* AppDelegate.swift */; };
@@ -160,6 +161,7 @@
 		C27F626023A7ED93002D55EB /* AuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
 		C27F626223A8010E002D55EB /* CaptchaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptchaView.swift; sourceTree = "<group>"; };
 		C281DB7D23A93C7B00D2AC0D /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		C281F7E523EDB12000335100 /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
 		C2898BEF23CF37EB008C2908 /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
 		C292910423BFBF050015DB5A /* DistrictData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistrictData.swift; sourceTree = "<group>"; };
 		C2963EEB239FAD590020A2DD /* StopPark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StopPark.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -609,6 +611,7 @@
 				C2AFBF7B23BF41D100209F31 /* MessageView.swift */,
 				C21D267E23BF9E990057CC17 /* ProfileView.swift */,
 				C20C978C23D462FF00B6DAF6 /* PayDescribeView.swift */,
+				C281F7E523EDB12000335100 /* LoaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -785,6 +788,7 @@
 				C2AE25A823E576960012D481 /* LoadingButton.swift in Sources */,
 				C239B6E623AD5438007F1949 /* ImageCollectionViewCell.swift in Sources */,
 				C22E3C0F23EC819100E8209D /* RegistrationRouter.swift in Sources */,
+				C281F7E623EDB12000335100 /* LoaderView.swift in Sources */,
 				C24D7F7823EB27000066C733 /* Form+Table.swift in Sources */,
 				C27F626323A8010E002D55EB /* CaptchaView.swift in Sources */,
 				C24D7F7F23EB507A0066C733 /* Registration+Cell.swift in Sources */,

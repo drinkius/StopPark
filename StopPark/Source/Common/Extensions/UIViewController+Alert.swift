@@ -25,4 +25,14 @@ extension UIViewController {
         }
         present(alert, animated: true)
     }
+    
+    func dissmisAction(_ title: String = "Закрыть") -> UIAlertAction {
+        let action = UIAlertAction(title: "Закрыть", style: .default, handler: { _ in self.dismiss(animated: true) })
+        return action
+    }
+    
+    var okAction: UIAlertAction {
+        let action = UIAlertAction(title: "Ок", style: .default)
+        return action
+    }
 }

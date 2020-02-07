@@ -29,39 +29,30 @@ class LoadingButton: UIButton {
     }
     
     public func stopAnimating() {
-        changeStatus(animated: true)
+        UIView.animate(withDuration: 0.2, animations: {
+            self.titleLabel?.alpha = 1.0
+            self.imageView?.alpha = 1.0
+            self.indicator.alpha = 0
+        }, completion: { _ in
+            self.indicator.alpha = 1.0
+            self.indicator.isHidden = true
+            self.isEnabled = true
+        })
+    }
+    
+    public func startAnimating() {
+        indicator.alpha = 0
+        indicator.isHidden = false
+        self.isEnabled = false
+        UIView.animate(withDuration: 0.2, animations: {
+            self.titleLabel?.alpha = 0
+            self.imageView?.alpha = 0
+            self.indicator.alpha = 1.0
+        })
     }
             
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        changeStatus(animated: true)
-    }
-    
-    
-    private func changeStatus(animated: Bool) {
-        var alpha: CGFloat = 0.0
-        var reversedAlpha: CGFloat = 1.0
-        isEnabled = false
-        indicator.isHidden = false
-        
-        if isAnimating {
-            alpha = 0.0
-            reversedAlpha = 1.0
-            isEnabled = true
-            indicator.isHidden = true
-        }
-        
-        if animated {
-            UIView.animate(withDuration: 0.2) {
-                self.titleLabel?.alpha = alpha
-                self.imageView?.alpha = alpha
-                self.indicator.alpha = reversedAlpha
-            }
-        } else {
-            titleLabel?.alpha = alpha
-            imageView?.alpha = alpha
-            indicator.alpha = reversedAlpha
-        }
-        
+        startAnimating()
     }
 }
