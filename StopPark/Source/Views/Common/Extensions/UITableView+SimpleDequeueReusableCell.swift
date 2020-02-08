@@ -17,4 +17,14 @@ extension UITableView {
         guard let cell = dequeueReusableCell(withIdentifier: "\(T.self)", for: indexPath) as? T else { fatalError() }
         return cell
     }
+    
+    func register(aClass: AnyClass) {
+        register(aClass, forHeaderFooterViewReuseIdentifier: "\(aClass)")
+    }
+
+    func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>() -> T {
+        guard let view = dequeueReusableHeaderFooterView(withIdentifier: "\(T.self)") as? T else { fatalError() }
+        
+        return view
+    }
 }

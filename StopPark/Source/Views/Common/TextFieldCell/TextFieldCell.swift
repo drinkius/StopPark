@@ -21,7 +21,6 @@ class TextFieldCell: BaseGroupedTableViewCell {
         self.delegate = delegate
         self.formData = data    
         titleLabel.text = data.rawValue
-//        checkSavedData(for: data)
         placeholderText = ""
         
         switch data {

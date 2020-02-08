@@ -37,8 +37,7 @@ class ImagesTableViewCell: BaseGroupedTableViewCell {
         view.backgroundColor = .clear
         view.showsHorizontalScrollIndicator = false
         view.showsVerticalScrollIndicator = false
-        view.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
-        view.register(ButtonCollectionViewCell.self, forCellWithReuseIdentifier: ButtonCollectionViewCell.identifier)
+        [ImageCollectionViewCell.self, ButtonCollectionViewCell.self].forEach { view.register($0) }
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -83,15 +82,12 @@ extension ImagesTableViewCell: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard indexPath.section == 1 else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ButtonCollectionViewCell.identifier, for: indexPath)
+            let cell: ButtonCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
             return cell
         }
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath)
-        if let imageCell = cell as? ImageCollectionViewCell {
-            imageCell.fill(with: images[indexPath.row])
-            imageCell.delegate = delegate
-        }
+        let cell: ImageCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
+        cell.fill(with: images[indexPath.row], delegate: delegate)
         return cell
     }
     

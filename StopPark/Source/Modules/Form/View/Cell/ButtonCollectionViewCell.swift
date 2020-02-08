@@ -50,5 +50,4 @@ extension ButtonCollectionViewCell {
     enum Theme {
         static let buttonItemCornerRadius: CGFloat = 5.0
     }
-    static let identifier: String = "loadImageCEllId"
 }

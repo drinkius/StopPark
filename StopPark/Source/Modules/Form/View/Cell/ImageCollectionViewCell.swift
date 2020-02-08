@@ -14,11 +14,12 @@ protocol ImageCollectionViewCellDelegate: class {
 
 class ImageCollectionViewCell: BaseCollectionViewCell {
     
-    public weak var delegate: ImageCollectionViewCellDelegate?
+    private weak var delegate: ImageCollectionViewCellDelegate?
     
-    public func fill(with image: UIImage?) {
+    public func fill(with image: UIImage?, delegate: ImageCollectionViewCellDelegate?) {
         guard let image = image else { return }
-        uploadImage.image = image
+        self.uploadImage.image = image
+        self.delegate = delegate
     }
     
     private var uploadImage: UIImageView = {
@@ -97,6 +98,4 @@ extension ImageCollectionViewCell {
         static let buttonItemWidth: CGFloat = buttonItemHeight
         static let buttonItemCornerRadius: CGFloat = buttonItemHeight / 2
     }
-    
-    static let identifier: String = "imageCellId"
 }
