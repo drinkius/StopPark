@@ -115,3 +115,18 @@ extension FormVC: TextFieldCellDelegate {
         self.eventInfoForm[data] = text
     }
 }
+
+// MARK: - TimePickerCellDelegate
+extension FormVC: TimePickerCellDelegate {
+    func cell(_ cell: TimePickerCell, formData data: FormData?, didChangedTimeTo text: String?) {
+        guard let data = data else { return }
+        guard let text = text, !text.isEmpty else {
+            self.eventInfoForm[data] = nil
+            return
+        }
+
+        InvAnalytics.shared.sendEvent(fillFormData: data)
+        
+        self.eventInfoForm[data] = text
+    }
+}

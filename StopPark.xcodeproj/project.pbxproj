@@ -44,6 +44,7 @@
 		C246AC2823BBDA4400B1C7C0 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C246AC2723BBDA4400B1C7C0 /* HeaderView.swift */; };
 		C24A9C4623EF1D5D00C61270 /* Home+Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24A9C4523EF1D5D00C61270 /* Home+Table.swift */; };
 		C24A9C4823EF33AA00C61270 /* Home+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24A9C4723EF33AA00C61270 /* Home+View.swift */; };
+		C24A9C4A23EF395C00C61270 /* TimePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24A9C4923EF395C00C61270 /* TimePickerCell.swift */; };
 		C24D7F7823EB27000066C733 /* Form+Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24D7F7723EB27000066C733 /* Form+Table.swift */; };
 		C24D7F7A23EB29C00066C733 /* Form+Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24D7F7923EB29C00066C733 /* Form+Cell.swift */; };
 		C24D7F7D23EB4B960066C733 /* Registration+Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24D7F7C23EB4B960066C733 /* Registration+Table.swift */; };
@@ -139,6 +140,7 @@
 		C246AC2723BBDA4400B1C7C0 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		C24A9C4523EF1D5D00C61270 /* Home+Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Home+Table.swift"; sourceTree = "<group>"; };
 		C24A9C4723EF33AA00C61270 /* Home+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Home+View.swift"; sourceTree = "<group>"; };
+		C24A9C4923EF395C00C61270 /* TimePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerCell.swift; sourceTree = "<group>"; };
 		C24D7F7723EB27000066C733 /* Form+Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Form+Table.swift"; sourceTree = "<group>"; };
 		C24D7F7923EB29C00066C733 /* Form+Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Form+Cell.swift"; sourceTree = "<group>"; };
 		C24D7F7C23EB4B960066C733 /* Registration+Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Registration+Table.swift"; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				C246AC2323BB82FA00B1C7C0 /* TextFieldCell.swift */,
+				C24A9C4923EF395C00C61270 /* TimePickerCell.swift */,
 				C25823DD23CA42BA00F6C594 /* ClosedTableViewCell.swift */,
 			);
 			path = TextFieldCell;
@@ -875,6 +878,7 @@
 				C21D267F23BF9E990057CC17 /* ProfileView.swift in Sources */,
 				C24D7F8D23EB60770066C733 /* HomeRouter.swift in Sources */,
 				C26CB3FA23C3A67B0018A0E4 /* Data+String.swift in Sources */,
+				C24A9C4A23EF395C00C61270 /* TimePickerCell.swift in Sources */,
 				C2963EEF239FAD590020A2DD /* AppDelegate.swift in Sources */,
 				C20C978D23D462FF00B6DAF6 /* PayDescribeView.swift in Sources */,
 				C239B6EA23AD5DA2007F1949 /* URLs.swift in Sources */,

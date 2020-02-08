@@ -30,6 +30,10 @@ extension FormVC: UITableViewDataSource {
             cell.pickerDelegate = self
             cell.fill(with: data, dataCount: dataCount, cellIndex: indexPath.row, delegate: self)
             return cell
+        case let .time(data):
+            let cell: TimePickerCell = tableView.dequeueReusableCell(for: indexPath)
+            cell.fill(with: data, dataCount: dataCount, cellIndex: indexPath.row, delegate: self)
+            return cell
         case .image:
             let cell: ImagesTableViewCell = tableView.dequeueReusableCell(for: indexPath)
             cell.fill(with: eventImages, destination: .single, delegate: self)
@@ -65,7 +69,7 @@ extension FormVC: UITableViewDelegate {
             
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch sections[indexPath.section].rows[indexPath.row] {
-        case .privacy, .form: return UITableView.automaticDimension
+        case .privacy, .form, .time: return UITableView.automaticDimension
         case .image: return 80.0 + (2 * .padding)
         case .button: return 44.0 + (2 * .nanoPadding)
         }

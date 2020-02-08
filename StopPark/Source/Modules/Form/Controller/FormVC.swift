@@ -16,7 +16,17 @@ class FormVC: UIViewController {
         sections += [
             Section(type: .from(Str.Form.sectionFrom), rows: FormData.fromData.map { Section.RowType.privacy($0) }),
             Section(type: .to(Str.Form.sectionTo), rows: FormData.toData.map { Section.RowType.form($0) }),
-            Section(type: .messageData(Str.Form.sectionMessage), rows: FormData.messageData.map { Section.RowType.form($0) }),
+            Section(type: .messageData(Str.Form.sectionMessage), rows: FormData.messageData.map {
+                guard $0 != .eventDate else {
+                    return Section.RowType.time($0)
+                }
+                
+                guard $0 != .photoDate else {
+                    return Section.RowType.time($0)
+                }
+
+                return Section.RowType.form($0)
+            }),
             (Section(type: .images(Str.Form.sectionImages), rows: [.image])),
             (Section(type: .buttons, rows: [.button]))
         ]
@@ -36,7 +46,7 @@ class FormVC: UIViewController {
         tw.backgroundColor = .themeBackground
         tw.keyboardDismissMode = UIScrollView.KeyboardDismissMode.onDrag
         tw.showsVerticalScrollIndicator = false
-        [TextFieldCell.self, ClosedTableViewCell.self, ImagesTableViewCell.self, ButtonTableViewCell.self].forEach { tw.register($0)}
+        [TextFieldCell.self, ClosedTableViewCell.self, TimePickerCell.self, ImagesTableViewCell.self, ButtonTableViewCell.self].forEach { tw.register($0)}
         tw.translatesAutoresizingMaskIntoConstraints = false
         return tw
     }()
@@ -308,6 +318,7 @@ extension FormVC {
         enum RowType {
             case privacy(FormData)
             case form(FormData)
+            case time(FormData)
             case image
             case button
         }
