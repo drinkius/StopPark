@@ -12,7 +12,7 @@ class CustomNavigationController: UINavigationController, UIGestureRecognizerDel
     
     private lazy var backButton: UIBarButtonItem = {
         let btn = UIButton()
-        btn.setTitle("Назад", for: .normal)
+        btn.setTitle(Str.Generic.back, for: .normal)
         btn.setTitleColor(.white, for: .normal)
         btn.layer.cornerRadius = Theme.buttonItemCornerRadius
         btn.layer.masksToBounds = true

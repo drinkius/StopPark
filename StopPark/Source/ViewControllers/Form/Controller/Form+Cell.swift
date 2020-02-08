@@ -13,19 +13,19 @@ extension FormVC: ButtonTableViewCellDelegate {
     func cell(_ cell: ButtonTableViewCell, buttonTouchUpInside button: UIButton) {
         view.endEditing(true)
         guard Reachability.isConnectedToNetwork() else {
-            showErrorMessage(Strings.notConnected)
+            showErrorMessage(Str.Generic.noConnection)
             return
         }
         
         guard eventImages.count > 0 else {
             InvAnalytics.shared.sendEvent(event: .formSendFormRejectNoImage)
-            showErrorMessage("Загрузите сначала фотографии.")
+            showErrorMessage(Str.Generic.errorNoImage)
             return
         }
         
         guard let code = eventInfoForm[.district] else {
             InvAnalytics.shared.sendEvent(event: .formSendFormRejectNotFilled)
-            showErrorMessage("Вы не заполнили пункт: \"\(FormData.district.rawValue)\"")
+            showErrorMessage(Str.Generic.errorNotFilledPoint + FormData.district.rawValue)
             return
         }
 
@@ -35,20 +35,20 @@ extension FormVC: ButtonTableViewCellDelegate {
             let _ = eventInfoForm[.eventAddress],
             let _ = eventInfoForm[.photoDate] else {
                 InvAnalytics.shared.sendEvent(event: .formSendFormRejectNotFilled)
-                showErrorMessage("Заполните все не опциональные пункты для генерации текста обращения.")
+                showErrorMessage(Str.Generic.errorNoFilledMessageData)
                 return
         }
         
         if eventImages.count < 5 {
             InvAnalytics.shared.sendEvent(event: .formSendFormImageNotify)
-            let continueAction = UIAlertAction(title: "Продолжить", style: .destructive, handler: { _ in
+            let continueAction = UIAlertAction(title: Str.Generic.continue, style: .destructive, handler: { _ in
                 InvAnalytics.shared.sendEvent(event: .formClickIgnoreImageNotify)
                 self.continueSend(code: code)
             })
-            let addMoreImagesAction = UIAlertAction(title: "Добавить еще фотографий", style: .default) { _ in
+            let addMoreImagesAction = UIAlertAction(title: Str.Form.addMoreImages, style: .default) { _ in
                 InvAnalytics.shared.sendEvent(event: .formClickAcceptImageNotify)
             }
-            showMessage("Рекомендуем добавлять как минимум 5 фото для успешного рассмотрения вашего дела.", addAction: [continueAction, addMoreImagesAction])
+            showMessage(Str.Form.imageRecomendation, addAction: [continueAction, addMoreImagesAction])
         } else {
             continueSend(code: code)
         }

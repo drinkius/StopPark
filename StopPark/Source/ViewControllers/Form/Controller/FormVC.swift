@@ -14,10 +14,10 @@ class FormVC: UIViewController {
         var sections: [Section] = []
         
         sections += [
-            Section(type: .from("Ваши данные"), rows: FormData.fromData.map { Section.RowType.privacy($0) }),
-            Section(type: .to("Куда адресовано"), rows: FormData.toData.map { Section.RowType.form($0) }),
-            Section(type: .messageData("Генерация текста обращения"), rows: FormData.messageData.map { Section.RowType.form($0) }),
-            (Section(type: .images("Прикрепите фотографии"), rows: [.image])),
+            Section(type: .from(Str.Form.sectionFrom), rows: FormData.fromData.map { Section.RowType.privacy($0) }),
+            Section(type: .to(Str.Form.sectionTo), rows: FormData.toData.map { Section.RowType.form($0) }),
+            Section(type: .messageData(Str.Form.sectionMessage), rows: FormData.messageData.map { Section.RowType.form($0) }),
+            (Section(type: .images(Str.Form.sectionImages), rows: [.image])),
             (Section(type: .buttons, rows: [.button]))
         ]
         
@@ -64,7 +64,7 @@ class FormVC: UIViewController {
     
     private lazy var cancelButton: UIBarButtonItem = {
         let btn = UIButton()
-        btn.setTitle("Отмена", for: .normal)
+        btn.setTitle(Str.Generic.cancel, for: .normal)
         btn.setTitleColor(.white, for: .normal)
         btn.layer.cornerRadius = Theme.buttonItemCornerRadius
         btn.layer.masksToBounds = true
@@ -114,7 +114,7 @@ class FormVC: UIViewController {
 // MARK: - Private Functions
 extension FormVC {
     private func setupView() {
-        title = "Форма обращения"
+        title = Str.Form.title
         view.backgroundColor = .themeBackground
         navigationItem.rightBarButtonItem = cancelButton
         navigationController?.navigationBar.isTranslucent = false
@@ -188,7 +188,7 @@ extension FormVC {
     }
         
     private func updateTemplates() {
-        guard let buttonSectionIndex = sections.firstIndex(where: { $0.type.index == Section.SectionType.messageData("Генерация текста обращения").index }) else { return }
+        guard let buttonSectionIndex = sections.firstIndex(where: { $0.type.index == Section.SectionType.messageData(Str.Form.sectionMessage).index }) else { return }
         let indexPath = IndexSet(integer: buttonSectionIndex)
         tableView.reloadSections(indexPath, with: .fade)
     }
@@ -257,7 +257,7 @@ extension FormVC: ImagePickerDelegate {
     func didSelect(image: UIImage?) {
         guard let image = image else { return }
         
-        guard let buttonSectionIndex = sections.firstIndex(where: { $0.type.index == Section.SectionType.images("Прикрепите фотографии").index }) else { return }
+        guard let buttonSectionIndex = sections.firstIndex(where: { $0.type.index == Section.SectionType.images(Str.Form.sectionImages).index }) else { return }
 
         
         eventImages.append(image)

@@ -57,7 +57,7 @@ extension RegistrationVC: UITableViewDelegate {
         switch sections[section].type {
         case .contacts:
             let messageFooterView = MessageFooterView()
-            messageFooterView.fill(with: "Ваши данные используются только для отправки Ваших обращений в ГИБДД. Мы не отправляем спам и не используем Ваши данные в иных целях.")
+            messageFooterView.fill(with: Str.Generic.privacyInfo)
             return messageFooterView
         default: return UIView()
         }

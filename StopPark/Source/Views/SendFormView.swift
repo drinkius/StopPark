@@ -77,7 +77,7 @@ class SendFormView: BaseView {
     
     private lazy var cancelButton: UIButton = {
         let btn = UIButton()
-        btn.setTitle("Отменить", for: .normal)
+        btn.setTitle(Str.Generic.cancel, for: .normal)
         btn.setTitleColor(.highlited, for: .normal)
         btn.titleLabel?.numberOfLines = 0
         btn.layer.cornerRadius = Theme.buttonItemCornerRadius
@@ -147,37 +147,37 @@ extension SendFormView {
     
     private func updateContent(for type: ContentDestination) {
         if type == .downloadCaptcha {
-            guard titleLabel.text != "Подтвердите, что вы не робот" else { return }
+            guard titleLabel.text != Str.Form.notTheRobot else { return }
         }
         closeButton.isHidden = false
         captchaView.isHidden = true
         switch type {
         case .sendingRequest:
-            titleLabel.text = "Отправляем запрос на сервер..."
+            titleLabel.text = Str.Form.sendToServer
             closeButton.isHidden = true
             captchaView.imageView.image = nil
         case .failedCaptcha:
-            titleLabel.text = Strings.captchaError
-            closeButton.setTitle("Попробовать снова", for: .normal)
+            titleLabel.text = Str.Generic.errorLoadCaptcha
+            closeButton.setTitle(Str.Generic.try, for: .normal)
             closeButton.addTarget(self, action: #selector(closeForm(_:)), for: .touchUpInside)
         case .captchaUploaded:
-            titleLabel.text = "Подтвердите, что вы не робот"
-            closeButton.setTitle("Отправить на проверку", for: .normal)
+            titleLabel.text = Str.Form.notTheRobot
+            closeButton.setTitle(Str.Form.sendToCheck, for: .normal)
             closeButton.addTarget(self, action: #selector(sendCaptcha), for: .touchUpInside)
             captchaView.isHidden = false
         case .closeForm:
-            titleLabel.text = "Ваше заявление отправлено! Подтверждение выслано вам на почту. Информация о данном обращении на главной странице."
-            closeButton.setTitle("Перейти к списку обращений", for: .normal)
+            titleLabel.text = Str.Form.statementSended
+            closeButton.setTitle(Str.Form.goToStatementsList, for: .normal)
             closeButton.addTarget(self, action: #selector(closeForm), for: .touchUpInside)
         case .uploadImages:
-            titleLabel.text = "Фотографии загружаются на сервер, пожалуйста, подождите немного..."
+            titleLabel.text = Str.Form.loadingImages
             closeButton.isHidden = true
         case .downloadCaptcha:
-            titleLabel.text = "Загружаем капчу..."
+            titleLabel.text = Str.Form.loadingCaptcha
             closeButton.setTitle("", for: .normal)
             closeButton.isHidden = true
         case .refreshCaptcha:
-            titleLabel.text = "Обновляем капчу..."
+            titleLabel.text = Str.Form.updateCaptcha
             closeButton.setTitle("", for: .normal)
             closeButton.isHidden = true
         }
@@ -262,7 +262,7 @@ extension SendFormView {
     @objc private func sendCaptcha() {
         viewShouldEndEditing()
         guard let text = captchaView.textFieldText, text != "" else {
-            delegate?.view(self, didReceiveError: "Введите капчу")
+            delegate?.view(self, didReceiveError: Str.Form.enterCaptcha)
             return
         }
         delegate?.view(self, didSendCaptcha: text)
@@ -291,7 +291,7 @@ extension SendFormView: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.text?.isEmpty == true {
-            textField.placeholder = "Введите капчу"
+            textField.placeholder = Str.Form.enterCaptcha
         }
     }
     

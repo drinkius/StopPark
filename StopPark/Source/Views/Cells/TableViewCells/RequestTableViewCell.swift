@@ -11,11 +11,11 @@ import UIKit
 class RequestTableViewCell: BaseGroupedTableViewCell {
     
     public func fill(with data: Appeal) {
-        timeLabel.text = "Обращение от " + "\(data.time.toCalendarDate())"
-        idLabel.attributedText = "ID обращения:\n"
+        timeLabel.text = Str.Home.timeStatement + "\(data.time.toCalendarDate())"
+        idLabel.attributedText = Str.Home.idStatement
             .attributed
             .appendBold(data.id, withFontSize: 12)
-        codeLabel.attributedText = "Код проверки статуса обращения:\n"
+        codeLabel.attributedText = Str.Home.codeStatement
             .attributed
             .appendBold(data.code, withFontSize: 12)
         
@@ -30,7 +30,7 @@ class RequestTableViewCell: BaseGroupedTableViewCell {
         
     private var timeLabel: UILabel = {
         let lbl = UILabel()
-        lbl.text = "Обращение от "
+        lbl.text = Str.Home.timeStatement
         lbl.textColor = .themeGrayText
         lbl.font = .systemFont(ofSize: 10)
         lbl.translatesAutoresizingMaskIntoConstraints = false
@@ -53,7 +53,7 @@ class RequestTableViewCell: BaseGroupedTableViewCell {
     
     private var idLabel: UILabel = {
         let lbl = UILabel()
-        lbl.text = "ID обращения: "
+        lbl.text = Str.Home.idStatement
         lbl.numberOfLines = 0
         lbl.font = .systemFont(ofSize: 12)
         lbl.translatesAutoresizingMaskIntoConstraints = false
@@ -62,7 +62,7 @@ class RequestTableViewCell: BaseGroupedTableViewCell {
     
     private var codeLabel: UILabel = {
         let lbl = UILabel()
-        lbl.text = "Код проверки статуса обращения: "
+        lbl.text = Str.Home.codeStatement
         lbl.numberOfLines = 0
         lbl.font = .systemFont(ofSize: 12)
         lbl.translatesAutoresizingMaskIntoConstraints = false

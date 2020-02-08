@@ -79,7 +79,7 @@ extension SettingsVC {
     }
     
     private func configureTitle() {
-        title = "Настройки"
+        title = Str.Settings.title
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.barTintColor = .themeContainer
     }
@@ -93,8 +93,8 @@ extension SettingsVC {
             
             var title: String {
                 switch self {
-                case .privacy: return "Ваш профиль"
-                case .additional: return "Дополнительное"
+                case .privacy: return Str.Settings.sectionProfile
+                case .additional: return Str.Settings.sectionAdditional
                 }
             }
         }
@@ -104,8 +104,8 @@ extension SettingsVC {
             
             var title: String {
                 switch self {
-                case .privacy: return "Профиль"
-                case .setting: return "Информация о подачи заявления"
+                case .privacy: return Str.Settings.rowPrivacy
+                case .setting: return Str.Settings.rowInfo
                 }
             }
         }

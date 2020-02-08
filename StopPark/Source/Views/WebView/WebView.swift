@@ -95,7 +95,7 @@ extension WebView {
     private func getCaptchaImage() {
         web.evaluateJavaScript(Scripts.getCaptureImageURL, completionHandler: { resp, error in
             guard let urlString = resp as? String, let url = URL(string: urlString) else {
-                self.delegate?.webView(self, didReceiveError: Strings.captchaError)
+                self.delegate?.webView(self, didReceiveError: Str.Generic.errorLoadCaptcha)
                 return
             }
             self.delegate?.webView(self, didReceiveCaptchaURL: url)
@@ -107,7 +107,7 @@ extension WebView {
         web.evaluateJavaScript(Scripts.getFinalID) { data, error in
             guard let text = data as? String else {
                 self.getCaptchaImage()
-                self.delegate?.webView(self, didReceiveError: Strings.cantGetData)
+                self.delegate?.webView(self, didReceiveError: Str.Generic.errorLoadData)
                 return
             }
             
@@ -123,7 +123,7 @@ extension WebView {
         web.evaluateJavaScript(Scripts.getFinalCode) { data, error in
             guard let text = data as? String else {
                 self.getCaptchaImage()
-                self.delegate?.webView(self, didReceiveError: Strings.cantGetData)
+                self.delegate?.webView(self, didReceiveError: Str.Generic.errorLoadData)
                 return
             }
             
@@ -190,7 +190,7 @@ extension WebView {
         
         for image in images {
             guard let urlRequest = RequestManager.shared.uploadDataRequest(image: image) else {
-                completion(.failure(Strings.wrongURL))
+                completion(.failure(Str.Generic.errorWrongURL))
                 return
             }
             
@@ -216,7 +216,7 @@ extension WebView {
     
     public func getSubUnitCode(with code: String, completion: @escaping (Result) -> ()) {
         guard let urlRequest = RequestManager.shared.subUnitRequest(with: code) else {
-            completion(.failure(Strings.wrongURL))
+            completion(.failure(Str.Generic.errorWrongURL))
             return
         }
         

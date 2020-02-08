@@ -18,7 +18,7 @@ class RegistrationVC: UIViewController {
         
     public var destination: Destination = .registration {
         didSet {
-            title = "Ваш профиль"
+            title = Str.Registration.titleProfile
         }
     }
     
@@ -32,7 +32,6 @@ class RegistrationVC: UIViewController {
         return control
     }()
         
-    private var registrationForm = Form(.registrationUser)
     private lazy var tableView: UITableView = {
         let tw = UITableView(frame: .zero, style: .grouped)
         tw.delegate = self
@@ -112,10 +111,10 @@ extension RegistrationVC {
         var sections: [Section] = []
 
         switch type {
-        case .user: sections.append(Section(type: .privacy("Заявитель"), rows: FormData.userData.map { Section.RowType.form($0)}))
-        case .organization: sections.append(Section(type: .privacy("Заявитель"), rows: FormData.orgData.map { Section.RowType.form($0)}))
+        case .user: sections.append(Section(type: .privacy(Str.Registration.sectionPrivacy), rows: FormData.userData.map { Section.RowType.form($0)}))
+        case .organization: sections.append(Section(type: .privacy(Str.Registration.sectionPrivacy), rows: FormData.orgData.map { Section.RowType.form($0)}))
         }
-        sections.append(Section(type: .contacts("Адрес для ответа"), rows: FormData.contactInfo.map { Section.RowType.form($0)}))
+        sections.append(Section(type: .contacts(Str.Registration.sectionContacts), rows: FormData.contactInfo.map { Section.RowType.form($0)}))
 
         self.sections = sections
     }
@@ -136,13 +135,13 @@ extension RegistrationVC {
         view.endEditing(true)
         
         guard AuthorizationManager.authorized else {
-            showErrorMessage("Вы заполнили не все пункты.")
+            showErrorMessage(Str.Generic.errorNotFilled)
             InvAnalytics.shared.sendEvent(event: .loginFail)
             return
         }
         
         guard let email = UserDefaultsManager.getFormData(.userEmail), email.isEmail() else {
-            showErrorMessage("Вы ввели не правильную электронную почту.")
+            showErrorMessage(Str.Generic.errorWrongEmail)
             InvAnalytics.shared.sendEvent(event: .loginFail)
             return
         }
@@ -192,8 +191,8 @@ extension RegistrationVC {
         
         var title: String {
             switch self {
-            case .user: return "Физическое лицо"
-            case .organization: return "Юридическое лицо"
+            case .user: return Str.Registration.individualEntity
+            case .organization: return Str.Registration.legalEntity
             }
         }
     }

@@ -56,7 +56,7 @@ class EditorVC: UIViewController {
         btn.layer.masksToBounds = true
         btn.contentEdgeInsets = Theme.buttonItemContentInset
         btn.sizeToFit()
-        btn.setTitle("Подтвердить", for: .normal)
+        btn.setTitle(Str.Generic.confirm, for: .normal)
         btn.backgroundColor = .highlited
         btn.addTarget(self, action: #selector(onAction(_:)), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
@@ -70,7 +70,7 @@ class EditorVC: UIViewController {
         btn.layer.masksToBounds = true
         btn.contentEdgeInsets = Theme.buttonItemContentInset
         btn.sizeToFit()
-        btn.setTitle("Отмена", for: .normal)
+        btn.setTitle(Str.Generic.cancel, for: .normal)
         btn.backgroundColor = .red
         btn.addTarget(self, action: #selector(onAction(_:)), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false

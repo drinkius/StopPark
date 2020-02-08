@@ -40,7 +40,7 @@ class ProfileView: BaseView {
     
     private lazy var makeRequestButton: UIButton = {
         let btn = UIButton()
-        btn.setTitle("Отправить обращение", for: .normal)
+        btn.setTitle(Str.Home.sendStatement, for: .normal)
         btn.titleLabel?.font = .systemFont(ofSize: 10, weight: .medium)
         btn.backgroundColor = .highlited
         btn.layer.cornerRadius = 5
@@ -88,12 +88,12 @@ extension ProfileView {
         guard let name = UserDefaultsManager.getFormData(.userName),
             let surname = UserDefaultsManager.getFormData(.userSurname),
             let email = UserDefaultsManager.getFormData(.userEmail) else {
-                userLabel.text = "Неизвестный пользователь"
-                emailLabel.text = "Добавьте email"
+                userLabel.text = Str.Home.unknownUser
+                emailLabel.text = Str.Home.addEmail
             return
         }
         userLabel.text = name + " " + surname
-        emailLabel.text = "email: " + email
+        emailLabel.text = Str.Home.email + email
     }
 }
 

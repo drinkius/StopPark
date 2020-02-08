@@ -46,7 +46,7 @@ extension SettingsVC: UITableViewDelegate {
         case .additional:
             let footerView = MessageFooterView()
             let appVersion = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "1.0"
-            footerView.fill(with: "Версия приложения: \(appVersion)")
+            footerView.fill(with: Str.Generic.appVersion + appVersion)
             return footerView
         default: return UIView()
         }

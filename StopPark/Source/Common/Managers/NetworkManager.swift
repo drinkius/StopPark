@@ -19,17 +19,17 @@ class NetworkManager {
     func uploadImage(to url: URLRequest, completion: @escaping (Result) -> Void) {
         request(with: url) { data, error in
             guard let data = data else {
-                let description = error?.localizedDescription ?? Strings.notConnected
+                let description = error?.localizedDescription ?? Str.Generic.noConnection
                 completion(.failure(description))
                 return
             }
             
             guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
-                completion(.failure(Strings.cantGetData))
+                completion(.failure(Str.Generic.errorLoadData))
                 return
             }
             guard let file = json["file"] as? [String: Any], let id = file["id"] as? String else {
-                completion(.failure(Strings.cantGetData))
+                completion(.failure(Str.Generic.errorLoadData))
                 return
             }
             
@@ -41,18 +41,18 @@ class NetworkManager {
     func getSubUnitCode(from url: URLRequest, completion: @escaping (Result) -> ()) {
         request(with: url) { data, error in
             guard let data = data else {
-                let description = error?.localizedDescription ?? Strings.notConnected
+                let description = error?.localizedDescription ?? Str.Generic.noConnection
                 completion(.failure(description))
                 return
             }
             
             guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: String] else {
-                completion(.failure(Strings.cantGetData))
+                completion(.failure(Str.Generic.errorLoadData))
                 return
             }
             
             guard let code = json.keys.first else {
-                completion(.failure(Strings.cantGetData))
+                completion(.failure(Str.Generic.errorLoadData))
                 return
             }
             

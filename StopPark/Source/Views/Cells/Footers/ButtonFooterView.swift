@@ -23,7 +23,7 @@ class ButtonFooterView: BaseView {
         
     private lazy var editButton: UIButton = {
         let btn = UIButton()
-        btn.setTitle("Отредактировать сообщение", for: .normal)
+        btn.setTitle(Str.Form.editMessage, for: .normal)
         btn.setTitleColor(.highlited, for: .normal)
         btn.titleLabel?.font = .systemFont(ofSize: 10)
         btn.titleLabel?.numberOfLines = 2
@@ -85,7 +85,7 @@ class ButtonFooterView: BaseView {
     
     private lazy var activateButton: UIButton = {
         let btn = UIButton()
-        btn.setTitle("Открыть доступ", for: .normal)
+        btn.setTitle(Str.Form.activateTemplates, for: .normal)
         btn.titleLabel?.font = .systemFont(ofSize: 12)
         btn.setTitleColor(.highlited, for: .normal)
         btn.titleLabel?.numberOfLines = 0

@@ -14,7 +14,7 @@ extension FormVC: ButtonFooterViewDelegate {
         view.endEditing(true)
         guard eventImages.count > 0 else {
             InvAnalytics.shared.sendEvent(event: .formEditMessageRejectNoImage)
-            showErrorMessage("Загрузите сначала фотографии.")
+            showErrorMessage(Str.Generic.errorNoImage)
             return
         }
         guard let date = eventInfoForm[.eventDate],
@@ -23,7 +23,7 @@ extension FormVC: ButtonFooterViewDelegate {
             let addr = eventInfoForm[.eventAddress],
             let photoDate = eventInfoForm[.photoDate] else {
                 InvAnalytics.shared.sendEvent(event: .formEditMessageRejectNotFilled)
-                showErrorMessage("Вы заполнили не все пункты.")
+                showErrorMessage(Str.Generic.errorNotFilled)
                 return
         }
         InvAnalytics.shared.sendEvent(event: .formClickEditMessage)

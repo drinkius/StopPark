@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             let vc = RegistrationVC()
             let nav = CustomNavigationController(rootViewController: vc)
-            vc.title = "Регистрация"
+            vc.title = Str.Registration.titleReg
             nav.navigationBar.prefersLargeTitles = true
             window?.rootViewController = nav
         }

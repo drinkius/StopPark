@@ -15,7 +15,8 @@ struct URLs {
     private static let fileupload = mainRequest + "/fileupload"
     static let getSubUnit = mainRequest + "/get_subunit_list?code="
     static let cheackStatusURL = mainRequest + "/check/?status="
-    
+    static let companyRulesLink: String = "https://docs.google.com/document/d/1V135CzCRsKZjFCXUksYzJ8r2qvXr2wUZzd0shCMgTis"
+
     static let baseURL = URL(string: base)
     static let mainRequestURL = URL(string: mainRequest)
     static let checkCorrectURL = URL(string: checkCorrect)

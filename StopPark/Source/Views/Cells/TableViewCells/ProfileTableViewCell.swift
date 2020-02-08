@@ -44,7 +44,7 @@ class ProfileTableViewCell: BaseGroupedTableViewCell {
     
     private var actionLabel: UILabel = {
         let lbl = UILabel()
-        lbl.text = "Нажмите, чтобы изменить данные"
+        lbl.text = Str.Settings.changeProfile
         lbl.textColor = .themeGrayText
         lbl.numberOfLines = 0
         lbl.font = .systemFont(ofSize: 10)

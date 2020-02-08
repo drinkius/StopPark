@@ -27,7 +27,7 @@ class InfoRouter: RouterProtocol {
         switch context {
         case .default:
             let vc = InfoVC()
-            vc.title = "Информация"
+            vc.title = Str.Info.title
             DispatchQueue.main.async {
                 navigationController.pushViewController(vc, animated: animated)
             }

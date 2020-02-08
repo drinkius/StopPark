@@ -31,7 +31,7 @@ class HomeVC: UIViewController {
         
     private var titleLabel: UILabel = {
         let lbl = UILabel()
-        lbl.text = "STOPPARK"
+        lbl.text = Str.Generic.appName
         lbl.textColor = .themeMainTitle
         lbl.font = .systemFont(ofSize: 12, weight: .bold)
         lbl.translatesAutoresizingMaskIntoConstraints = false
@@ -138,7 +138,7 @@ extension HomeVC {
             }
             return
         }
-        messageView.present(with: "У Вас нет пока что обращений, но Вы можете подать его сейчас.")
+        messageView.present(with: Str.Home.noStatements)
     }
 }
 
@@ -157,7 +157,7 @@ extension HomeVC {
     
     private func onForm() {
         guard Reachability.isConnectedToNetwork() else {
-            showErrorMessage(Strings.notConnected)
+            showErrorMessage(Str.Generic.noConnection)
             return
         }
         InvAnalytics.shared.sendEvent(event: .homeClickForm)
@@ -181,7 +181,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = HeaderView()
-        headerView.fill(with: "Предыдущие обращения")
+        headerView.fill(with: Str.Home.previousStatements)
         return headerView
     }
 }

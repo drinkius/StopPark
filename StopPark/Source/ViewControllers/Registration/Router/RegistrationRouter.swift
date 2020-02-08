@@ -24,7 +24,7 @@ class RegistrationRouter: RouterProtocol {
         case .registration:
             let vc = RegistrationVC()
             vc.destination = .registration
-            vc.title = "Регистрация"
+            vc.title = Str.Registration.titleReg
             let nav = CustomNavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .fullScreen
             DispatchQueue.main.async {
@@ -33,7 +33,7 @@ class RegistrationRouter: RouterProtocol {
         case .profile:
             let vc = RegistrationVC()
             vc.destination = .settings
-            vc.title = "Ваш профиль"
+            vc.title = Str.Registration.titleProfile
             let nav = CustomNavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .fullScreen
             DispatchQueue.main.async {

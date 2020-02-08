@@ -18,7 +18,7 @@ class ButtonTableViewCell: BaseTableViewCell {
     
     private lazy var button: UIButton = {
         let btn = UIButton()
-        btn.setTitle("Отправить форму", for: .normal)
+        btn.setTitle(Str.Form.sendForm, for: .normal)
         btn.titleLabel?.font = .systemFont(ofSize: 12, weight: .medium)
         btn.backgroundColor = .highlited
         btn.layer.cornerRadius = .standartCornerRadius

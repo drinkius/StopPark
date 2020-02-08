@@ -54,7 +54,7 @@ class CaptchaView: BaseView {
         let tf = UITextField()
         tf.returnKeyType = .send
         tf.textColor = .black
-        tf.attributedPlaceholder = NSAttributedString(string: "Введите капчу", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
+        tf.attributedPlaceholder = NSAttributedString(string: Str.Form.enterCaptcha, attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
         tf.textAlignment = .center
         tf.autocapitalizationType = .allCharacters
         tf.autocorrectionType = .no

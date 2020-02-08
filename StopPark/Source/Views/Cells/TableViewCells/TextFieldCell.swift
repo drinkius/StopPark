@@ -40,7 +40,7 @@ class TextFieldCell: BaseGroupedTableViewCell {
         case .eventAddress:
             textField.autocapitalizationType = .none
         case .eventViolation:
-            placeholderText = "Парковка на тротуаре, мешал прохожим."
+            placeholderText = Str.Form.describePlaceholder
         default: textField.keyboardType = .default
         }
         
@@ -71,7 +71,7 @@ class TextFieldCell: BaseGroupedTableViewCell {
                 
     private lazy var cancelButton: UIBarButtonItem = {
         let btn = UIButton()
-        btn.setTitle("Готово", for: .normal)
+        btn.setTitle(Str.Generic.ready, for: .normal)
         btn.setTitleColor(.white, for: .normal)
         btn.layer.cornerRadius = Theme.buttonItemCornerRadius
         btn.layer.masksToBounds = true

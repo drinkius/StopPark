@@ -86,8 +86,6 @@
 		C2AFBF7A23BF3F8E00209F31 /* RequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AFBF7923BF3F8E00209F31 /* RequestTableViewCell.swift */; };
 		C2AFBF7C23BF41D100209F31 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AFBF7B23BF41D100209F31 /* MessageView.swift */; };
 		C2BCAD9623A5265E0008D492 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BCAD9523A5265E0008D492 /* Theme.swift */; };
-		C2BCAD9A23A52FEB0008D492 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BCAD9923A52FEB0008D492 /* Section.swift */; };
-		C2BCAD9D23A5496E0008D492 /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BCAD9C23A5496E0008D492 /* Form.swift */; };
 		C2D9BA0223C1A7370077DE46 /* SendFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D9BA0123C1A7370077DE46 /* SendFormView.swift */; };
 		C2DD38CC23C47254005B474D /* AppealManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DD38CB23C47254005B474D /* AppealManager.swift */; };
 		C2E1571123A3A01000105763 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E1571023A3A01000105763 /* BaseView.swift */; };
@@ -183,8 +181,6 @@
 		C2AFBF7923BF3F8E00209F31 /* RequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTableViewCell.swift; sourceTree = "<group>"; };
 		C2AFBF7B23BF41D100209F31 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		C2BCAD9523A5265E0008D492 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
-		C2BCAD9923A52FEB0008D492 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
-		C2BCAD9C23A5496E0008D492 /* Form.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Form.swift; sourceTree = "<group>"; };
 		C2D9BA0123C1A7370077DE46 /* SendFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFormView.swift; sourceTree = "<group>"; };
 		C2DD38CB23C47254005B474D /* AppealManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppealManager.swift; sourceTree = "<group>"; };
 		C2E1571023A3A01000105763 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
@@ -510,8 +506,6 @@
 			children = (
 				C2E1572723A4C05700105763 /* Cell.swift */,
 				C21D267C23BF918B0057CC17 /* Appeal.swift */,
-				C2BCAD9923A52FEB0008D492 /* Section.swift */,
-				C2BCAD9C23A5496E0008D492 /* Form.swift */,
 				C292910423BFBF050015DB5A /* DistrictData.swift */,
 				C2AE25A923E5B8330012D481 /* Template.swift */,
 			);
@@ -805,13 +799,11 @@
 				C24362EA23EC4C3900CA3931 /* Form+View.swift in Sources */,
 				C2E1572623A3AAC800105763 /* WebView.swift in Sources */,
 				C258916923CB55A000C940DB /* SettingsVC.swift in Sources */,
-				C2BCAD9D23A5496E0008D492 /* Form.swift in Sources */,
 				C2AFBF7023BF0AF300209F31 /* UIViewController+Alert.swift in Sources */,
 				C2D9BA0223C1A7370077DE46 /* SendFormView.swift in Sources */,
 				C226B31823E1F84C00DBA616 /* SettingCell.swift in Sources */,
 				C246AC2623BB974300B1C7C0 /* BaseGroupTableViewCell.swift in Sources */,
 				C27F625D23A7C60C002D55EB /* RequestManager.swift in Sources */,
-				C2BCAD9A23A52FEB0008D492 /* Section.swift in Sources */,
 				C2BCAD9623A5265E0008D492 /* Theme.swift in Sources */,
 				C21E71DB23A6806C002BC191 /* Loader.swift in Sources */,
 				C2E1572C23A4C27200105763 /* UserDefaultsManager.swift in Sources */,

@@ -157,11 +157,11 @@ extension PayVC {
     }
     
     private func configureViews() {
-        [backgroundImage, closeButton, titleLabel, buttonsVerticalStack, termsTextView].forEach { view.addSubview($0) }
+        [backgroundImage, titleLabel, buttonsVerticalStack, termsTextView].forEach { view.addSubview($0) }
         describeViews.forEach { view.addSubview($0) }
         [payButton, donateButtonsStack].forEach { buttonsVerticalStack.addArrangedSubview($0) }
         donateButtons.forEach { donateButtonsStack.addArrangedSubview($0) }
-        [loaderView].forEach { view.addSubview($0) }
+        [loaderView, closeButton].forEach { view.addSubview($0) }
     }
     
     private func configureConstraints() {
@@ -231,7 +231,7 @@ extension PayVC {
     }
     @objc private func onPay(_ sender: UIButton) {
         guard let key = IAPKey(rawValue: sender.tag) else {
-            showErrorMessage("Продукт не найден, попробуйте позже.")
+            showErrorMessage(Str.Pay.errorProductNotFound)
             donateButtons.forEach { $0.stopAnimating() }
             return
         }
@@ -245,10 +245,10 @@ extension PayVC {
                 switch message {
                 case .purchased:
                     UserDefaultsManager.setIAPTransactionHashValue(transaction.hashValue)
-                    self.showMessage("Спасибо большое за поддержку проекта! 🥳", addAction: [self.dissmisAction("Ок")])
+                    self.showMessage(Str.Pay.thanksToSupport, addAction: [self.dissmisAction(Str.Generic.ok)])
                 case .restored:
                     UserDefaultsManager.setIAPTransactionHashValue(transaction.hashValue)
-                    self.showMessage(message.errorDescription, addAction: [self.dissmisAction("Ок")])
+                    self.showMessage(message.errorDescription, addAction: [self.dissmisAction(Str.Generic.ok)])
                 case .noProductIDsFound, .noProductsFound, .paymentWasCancelled, .productRequestFailed, .error:
                     self.showErrorMessage(message.errorDescription)
                 case .cancelled: break

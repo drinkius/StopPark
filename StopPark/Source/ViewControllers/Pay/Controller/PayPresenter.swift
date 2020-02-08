@@ -11,15 +11,15 @@ import UIKit
 struct TemplateDescribeModel {
         
     let payStringStorage: [String] = [
-        "Получаете безлимитный доступ к темплейтам, которые повысят шанс положительного исхода вашего заявления!",
-        "Экономите время при заполнении формы!",
-        "Поддерживаете разработку проекта и разработчиков данного проекта!",
+        Str.Pay.payMotivationText1,
+        Str.Pay.payMotivationText2,
+        Str.Pay.payMotivationText3,
     ]
     
     let donateStringStorage: [String] = [
-        "Улучшаете город вместе с нами!",
-        "Становитесь частью сообщества, которому не все равно на город и общественность!",
-        "Поддерживаете разработку проекта и разработчиков данного проекта!"]
+        Str.Pay.donateMotivationText1,
+        Str.Pay.donateMotivationText2,
+        Str.Pay.donateMotivationText3]
 }
 
 struct DonateModel {
@@ -58,15 +58,15 @@ class PayPresenter: NSObject {
     }
     
     var termsText: NSAttributedString {
-        let text = NSMutableAttributedString(string: "При выборе подписки сумма будет списана с учетной записи iTunes при подтверждении покупки.\nПользователь может управлять подписками, а автоматическое продление может быть отключено в настройках учетной записи пользователя после покупки.\nПодписка автоматически продлевается, если автоматическое продление не отключено по крайней мере за 24 часа до окончания текущего периода.\nПравила компании вы можете прочитать тут")
-        let linkText = "Правила компании вы можете прочитать тут"
+        let text = NSMutableAttributedString(string: Str.Pay.terms)
+        let linkText = Str.Pay.companyRulesText
         let range = text.mutableString.range(of: linkText)
-        text.addAttribute(.link, value: "https://www.google.com", range: range)
+        text.addAttribute(.link, value: URLs.companyRulesLink, range: range)
         return text
     }
     
     var titleText: String {
-        return isDonate ? "ПОДДЕРЖКА\nРАЗРАБОТЧИКОВ" : "ПРЕМИУМ\nДОСТУП"
+        return isDonate ? Str.Pay.titleDonate : Str.Pay.titlePay
     }
 }
 
