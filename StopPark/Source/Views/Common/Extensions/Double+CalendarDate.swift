@@ -9,7 +9,7 @@
 import Foundation
 
 extension Double {
-    func toCalendarDate(dateFormat: String = "DD.MM.YYYY") -> String {
+    func toCalendarDate(dateFormat: String = "dd.MM.YYYY") -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = dateFormat
         let time = formatter.string(from: Date(timeIntervalSince1970: self))

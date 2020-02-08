@@ -11,7 +11,7 @@ import UIKit
 class RequestTableViewCell: BaseGroupedTableViewCell {
     
     public func fill(with data: Appeal) {
-        timeLabel.text = Str.Home.timeStatement + "\(data.time.toCalendarDate())"
+        timeLabel.text = Str.Home.timeStatement + data.time.toCalendarDate()
         idLabel.attributedText = Str.Home.idStatement
             .attributed
             .appendBold(data.id, withFontSize: 12)

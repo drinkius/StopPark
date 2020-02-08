@@ -300,9 +300,9 @@
 		C22E32E023EF18C20071D69F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C22E32E123EF18C80071D69F /* Cell */,
 				C21D267E23BF9E990057CC17 /* ProfileView.swift */,
 				C2AFBF7B23BF41D100209F31 /* MessageView.swift */,
-				C22E32E123EF18C80071D69F /* Cell */,
 			);
 			path = View;
 			sourceTree = "<group>";
