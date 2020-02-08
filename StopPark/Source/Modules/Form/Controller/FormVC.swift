@@ -25,8 +25,6 @@ class FormVC: UIViewController {
     }
     
     let router: RouterProtocol
-
-    private var districtData = DistrictData.allCases
     
     var eventInfoForm: [FormData: String] = [:]
     var eventImages: [UIImage] = []
@@ -274,16 +272,16 @@ extension FormVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return districtData.count
+        return DistrictData.allCases.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return districtData[row].rawValue
+        return DistrictData.allCases[row].rawValue
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? TextFieldCell else { return }
-        cell.textFieldText = districtData[row].rawValue
+        cell.textFieldText = DistrictData.allCases[row].rawValue
     }
 }
 

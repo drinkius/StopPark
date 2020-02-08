@@ -42,6 +42,8 @@
 		C246AC2423BB82FA00B1C7C0 /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C246AC2323BB82FA00B1C7C0 /* TextFieldCell.swift */; };
 		C246AC2623BB974300B1C7C0 /* BaseGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C246AC2523BB974300B1C7C0 /* BaseGroupTableViewCell.swift */; };
 		C246AC2823BBDA4400B1C7C0 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C246AC2723BBDA4400B1C7C0 /* HeaderView.swift */; };
+		C24A9C4623EF1D5D00C61270 /* Home+Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24A9C4523EF1D5D00C61270 /* Home+Table.swift */; };
+		C24A9C4823EF33AA00C61270 /* Home+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24A9C4723EF33AA00C61270 /* Home+View.swift */; };
 		C24D7F7823EB27000066C733 /* Form+Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24D7F7723EB27000066C733 /* Form+Table.swift */; };
 		C24D7F7A23EB29C00066C733 /* Form+Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24D7F7923EB29C00066C733 /* Form+Cell.swift */; };
 		C24D7F7D23EB4B960066C733 /* Registration+Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24D7F7C23EB4B960066C733 /* Registration+Table.swift */; };
@@ -135,6 +137,8 @@
 		C246AC2323BB82FA00B1C7C0 /* TextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
 		C246AC2523BB974300B1C7C0 /* BaseGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseGroupTableViewCell.swift; sourceTree = "<group>"; };
 		C246AC2723BBDA4400B1C7C0 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		C24A9C4523EF1D5D00C61270 /* Home+Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Home+Table.swift"; sourceTree = "<group>"; };
+		C24A9C4723EF33AA00C61270 /* Home+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Home+View.swift"; sourceTree = "<group>"; };
 		C24D7F7723EB27000066C733 /* Form+Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Form+Table.swift"; sourceTree = "<group>"; };
 		C24D7F7923EB29C00066C733 /* Form+Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Form+Cell.swift"; sourceTree = "<group>"; };
 		C24D7F7C23EB4B960066C733 /* Registration+Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Registration+Table.swift"; sourceTree = "<group>"; };
@@ -501,6 +505,8 @@
 			isa = PBXGroup;
 			children = (
 				C2AFBF7523BF1BF400209F31 /* HomeVC.swift */,
+				C24A9C4523EF1D5D00C61270 /* Home+Table.swift */,
+				C24A9C4723EF33AA00C61270 /* Home+View.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -831,12 +837,14 @@
 				C24362EA23EC4C3900CA3931 /* Form+View.swift in Sources */,
 				C2E1572623A3AAC800105763 /* WebView.swift in Sources */,
 				C258916923CB55A000C940DB /* SettingsVC.swift in Sources */,
+				C24A9C4823EF33AA00C61270 /* Home+View.swift in Sources */,
 				C2AFBF7023BF0AF300209F31 /* UIViewController+Alert.swift in Sources */,
 				C2D9BA0223C1A7370077DE46 /* SendFormView.swift in Sources */,
 				C226B31823E1F84C00DBA616 /* SettingCell.swift in Sources */,
 				C246AC2623BB974300B1C7C0 /* BaseGroupTableViewCell.swift in Sources */,
 				C27F625D23A7C60C002D55EB /* RequestManager.swift in Sources */,
 				C2BCAD9623A5265E0008D492 /* Theme.swift in Sources */,
+				C24A9C4623EF1D5D00C61270 /* Home+Table.swift in Sources */,
 				C21E71DB23A6806C002BC191 /* Loader.swift in Sources */,
 				C2E1572C23A4C27200105763 /* UserDefaultsManager.swift in Sources */,
 				C24D7F8423EB593B0066C733 /* FormRouter.swift in Sources */,

@@ -9,12 +9,8 @@
 import UIKit
 
 class HomeVC: UIViewController {
-    
-    
-    private var data: [Appeal] = [] {
-        didSet { checkTableViewData() }
-    }
-    
+        
+    var rows: [RowType] = []
     let router: RouterProtocol
 
     private lazy var settingsButton: UIBarButtonItem = {
@@ -73,8 +69,8 @@ class HomeVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        data = AppealManager.shared.appeals
         configureTitle()
+        configureRows()
         profileView.updateValues()
     }
     
@@ -93,7 +89,6 @@ extension HomeVC {
     private func setupView() {
         configureViews()
         configureConstraints()
-        checkTableViewData()
     }
     
     private func configureViews() {
@@ -130,9 +125,10 @@ extension HomeVC {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
     }
     
-    private func checkTableViewData() {
+    private func configureRows() {
+        rows = AppealManager.shared.appeals.map { .statement($0) }
         tableView.reloadData()
-        guard data.isEmpty else {
+        guard rows.isEmpty else {
             if messageView.isHidden == false {
                 messageView.dismissView()
             }
@@ -154,48 +150,15 @@ extension HomeVC {
         let context = HomeRouter.RouteContext.donate
         router.enqueueRoute(with: context)
     }
-    
-    private func onForm() {
-        guard Reachability.isConnectedToNetwork() else {
-            showErrorMessage(Str.Generic.noConnection)
-            return
-        }
-        InvAnalytics.shared.sendEvent(event: .homeClickForm)
-        Vibration.light.vibrate()
-        let context = HomeRouter.RouteContext.form
-        router.enqueueRoute(with: context)
-    }
-}
-
-// MARK: - UITableView
-extension HomeVC: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: RequestTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-        cell.fill(with: data[indexPath.row])
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = HeaderView()
-        headerView.fill(with: Str.Home.previousStatements)
-        return headerView
-    }
-}
-
-// MARK: - ProfileViewDelegate
-extension HomeVC: ProfileViewDelegate {
-    func openForm() {
-        onForm()
-    }
 }
 
 // MARK: - Support
 extension HomeVC {
     enum Theme {
         static let profileItemHeight: CGFloat = 80.0
+    }
+    
+    enum RowType {
+        case statement(Appeal)
     }
 }
