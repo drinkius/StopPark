@@ -22,7 +22,7 @@ class RegistrationRouter: RouterProtocol {
         
         switch context {
         case .registration:
-            let vc = RegistrationVC()
+            let vc = RegistrationVC(router: self)
             vc.destination = .registration
             vc.title = Str.Registration.titleReg
             let nav = CustomNavigationController(rootViewController: vc)
@@ -31,7 +31,7 @@ class RegistrationRouter: RouterProtocol {
                 baseVC.present(nav, animated: animated)
             }
         case .profile:
-            let vc = RegistrationVC()
+            let vc = RegistrationVC(router: self)
             vc.destination = .settings
             vc.title = Str.Registration.titleProfile
             let nav = CustomNavigationController(rootViewController: vc)
@@ -42,7 +42,24 @@ class RegistrationRouter: RouterProtocol {
         }
     }
     
-    func enqueueRoute(with context: Any, animated: Bool) { }
+    func enqueueRoute(with context: Any, animated: Bool) {
+        guard let routeContext = context as? RouteContext else {
+            assertionFailure("The route type mismatch")
+            return
+        }
+        
+        guard let baseVC = baseViewController else {
+            assertionFailure("baseViewController is not set")
+            return
+        }
+        
+        switch routeContext {
+        case .home:
+            let router = HomeRouter()
+            let context = HomeRouter.PresentationContext.default
+            router.present(on: baseVC, animated: animated, context: context)
+        }
+    }
     
     func dismiss(animated: Bool) { }
 
@@ -56,5 +73,6 @@ extension RegistrationRouter {
     }
     
     enum RouteContext {
+        case home
     }
 }

@@ -10,6 +10,7 @@ import UIKit
 
 class RegistrationVC: UIViewController {
             
+    let router: RouterProtocol
     var sections: [Section] = [] {
         didSet {
             tableView.reloadData()
@@ -60,6 +61,15 @@ class RegistrationVC: UIViewController {
         super.viewDidLoad()
         InvAnalytics.shared.sendEvent(event: .loginPageOpened)
         setupView()
+    }
+    
+    init(router: RouterProtocol) {
+        self.router = router
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        return nil
     }
     
     deinit {
@@ -150,13 +160,9 @@ extension RegistrationVC {
         switch destination {
         case .registration:
             InvAnalytics.shared.sendEvent(event: .loginSuccess)
+            let context = RegistrationRouter.RouteContext.home
+            router.enqueueRoute(with: context)
             
-            let router = HomeRouter()
-            let formVC = HomeVC(router: router)
-            let nav = CustomNavigationController(rootViewController: formVC)
-            router.baseViewController = nav
-            nav.modalPresentationStyle = .fullScreen
-            present(nav, animated: true)
         case .settings:
             dismiss(animated: true)
         }

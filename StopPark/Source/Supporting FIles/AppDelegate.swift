@@ -27,10 +27,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             router.baseViewController = vc
             window?.rootViewController = nav
         } else {
-            let vc = RegistrationVC()
-            let nav = CustomNavigationController(rootViewController: vc)
+            let router = RegistrationRouter()
+            let vc = RegistrationVC(router: router)
             vc.title = Str.Registration.titleReg
+            let nav = CustomNavigationController(rootViewController: vc)
             nav.navigationBar.prefersLargeTitles = true
+            router.baseViewController = vc
             window?.rootViewController = nav
         }
         

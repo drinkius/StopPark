@@ -12,7 +12,26 @@ class HomeRouter: RouterProtocol {
     
     weak var baseViewController: UIViewController?
     
-    func present(on baseVC: UIViewController, animated: Bool, context: Any) { }
+    func present(on baseVC: UIViewController, animated: Bool, context: Any) {
+        guard let context = context as? PresentationContext else {
+            assertionFailure("The context type mismatch")
+            return
+        }
+                
+        baseViewController = baseVC
+        
+        switch context {
+        case .default:
+            let router = HomeRouter()
+            let vc = HomeVC(router: router)
+            let nav = CustomNavigationController(rootViewController: vc)
+            router.baseViewController = vc
+            nav.modalPresentationStyle = .fullScreen
+            DispatchQueue.main.async {
+                baseVC.present(nav, animated: animated)
+            }
+        }
+    }
     
     func enqueueRoute(with context: Any, animated: Bool) {
         guard let routeContext = context as? RouteContext else {
