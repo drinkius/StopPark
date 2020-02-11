@@ -59,6 +59,8 @@
 		C25823DE23CA42BA00F6C594 /* ClosedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25823DD23CA42BA00F6C594 /* ClosedTableViewCell.swift */; };
 		C258916923CB55A000C940DB /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C258916823CB55A000C940DB /* SettingsVC.swift */; };
 		C258916B23CB66E300C940DB /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C258916A23CB66E300C940DB /* ProfileTableViewCell.swift */; };
+		C25981BA23F3292F005E0C90 /* Array+Difference.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25981B923F3292F005E0C90 /* Array+Difference.swift */; };
+		C25981BC23F32AF3005E0C90 /* Form+Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25981BB23F32AF3005E0C90 /* Form+Picker.swift */; };
 		C25A836923D1DACA0007848E /* String+EmailValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25A836823D1DACA0007848E /* String+EmailValidation.swift */; };
 		C265B34023A80815000C72B5 /* UIImage+download.swift in Sources */ = {isa = PBXBuildFile; fileRef = C265B33F23A80815000C72B5 /* UIImage+download.swift */; };
 		C26CB3FA23C3A67B0018A0E4 /* Data+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26CB3F923C3A67B0018A0E4 /* Data+String.swift */; };
@@ -155,6 +157,8 @@
 		C25823DD23CA42BA00F6C594 /* ClosedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosedTableViewCell.swift; sourceTree = "<group>"; };
 		C258916823CB55A000C940DB /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		C258916A23CB66E300C940DB /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
+		C25981B923F3292F005E0C90 /* Array+Difference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Difference.swift"; sourceTree = "<group>"; };
+		C25981BB23F32AF3005E0C90 /* Form+Picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Form+Picker.swift"; sourceTree = "<group>"; };
 		C25A836823D1DACA0007848E /* String+EmailValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+EmailValidation.swift"; sourceTree = "<group>"; };
 		C265B33F23A80815000C72B5 /* UIImage+download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+download.swift"; sourceTree = "<group>"; };
 		C26CB3F923C3A67B0018A0E4 /* Data+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+String.swift"; sourceTree = "<group>"; };
@@ -463,6 +467,7 @@
 				C24D7F7923EB29C00066C733 /* Form+Cell.swift */,
 				C24362E923EC4C3900CA3931 /* Form+View.swift */,
 				C24362EB23EC588800CA3931 /* Form+Network.swift */,
+				C25981BB23F32AF3005E0C90 /* Form+Picker.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -545,6 +550,7 @@
 				C2326F8723D21FD7007F6E7B /* UIViewController+Keyboard.swift */,
 				C2151C2423DF2EB10062764D /* UITableView+SimpleDequeueReusableCell.swift */,
 				C22E32E423EF19960071D69F /* UICollectionView+SimpleDequeueReusableCell.swift */,
+				C25981B923F3292F005E0C90 /* Array+Difference.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -859,6 +865,7 @@
 				C2E1572823A4C05700105763 /* Cell.swift in Sources */,
 				C254A9EF23D3EB9500537F39 /* PayPresenter.swift in Sources */,
 				C23018A823CC6C4500174752 /* CustomNavigationController.swift in Sources */,
+				C25981BA23F3292F005E0C90 /* Array+Difference.swift in Sources */,
 				C21D267D23BF918B0057CC17 /* Appeal.swift in Sources */,
 				C2898BF023CF37EB008C2908 /* Analytics.swift in Sources */,
 				C22E3C0623EC7BD400E8209D /* Settings+Table.swift in Sources */,
@@ -881,6 +888,7 @@
 				C24A9C4A23EF395C00C61270 /* TimePickerCell.swift in Sources */,
 				C2963EEF239FAD590020A2DD /* AppDelegate.swift in Sources */,
 				C20C978D23D462FF00B6DAF6 /* PayDescribeView.swift in Sources */,
+				C25981BC23F32AF3005E0C90 /* Form+Picker.swift in Sources */,
 				C239B6EA23AD5DA2007F1949 /* URLs.swift in Sources */,
 				C2E1572E23A4C81E00105763 /* Display.swift in Sources */,
 				C281DB7E23A93C7B00D2AC0D /* ImagePicker.swift in Sources */,

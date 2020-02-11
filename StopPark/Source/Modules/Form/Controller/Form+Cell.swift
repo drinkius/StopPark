@@ -108,7 +108,7 @@ extension FormVC: TextFieldCellDelegate {
 
         InvAnalytics.shared.sendEvent(fillFormData: data)
         if data == .district {
-            self.eventInfoForm[data] = String(text.dropLast(text.count - 2))
+            self.eventInfoForm[data] = DistrictData.getCode(from: text)
             return
         }
 

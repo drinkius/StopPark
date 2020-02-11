@@ -275,26 +275,6 @@ extension FormVC: ImagePickerDelegate {
     }
 }
 
-// MARK: - UIPickerView
-extension FormVC: UIPickerViewDelegate, UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return DistrictData.allCases.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return DistrictData.allCases[row].rawValue
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? TextFieldCell else { return }
-        cell.textFieldText = DistrictData.allCases[row].rawValue
-    }
-}
-
 // MARK: - Support
 extension FormVC {
     enum Theme {
