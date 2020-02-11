@@ -59,6 +59,13 @@ extension FormVC: UITableViewDelegate {
         switch sections[indexPath.section].rows[indexPath.row] {
         case let .form(data):
             guard let textFieldCell = cell as? TextFieldCell else { return }
+            
+            if data == .district {
+                guard let formData = eventInfoForm[data], let raw = Int(formData) else { return }
+                textFieldCell.textFieldText = DistrictData(rawValue: raw)?.title
+                return
+            }
+            
             textFieldCell.textFieldText = eventInfoForm[data]
         case .image:
             guard let imagesCell = cell as? ImagesTableViewCell else { return }
