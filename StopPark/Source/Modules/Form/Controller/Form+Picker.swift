@@ -58,12 +58,12 @@ extension FormVC: UIPickerViewDelegate, UIPickerViewDataSource {
         case let .section(text):
             label.font = .systemFont(ofSize: 11)
             label.text = text
-            label.textColor = .lightGray
+            label.textColor = .themeDiffrentImageTint
             return label
         case let .row(text):
             label.text = text
             label.font = .systemFont(ofSize: 14)
-            label.textColor = .black
+            label.textColor = .themeMainTitle
             return label
         }
     }
