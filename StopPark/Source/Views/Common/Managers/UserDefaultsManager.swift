@@ -28,6 +28,8 @@ let kCaptureImage: String = "kCaptureImage"
 let kUploadImageIds: String = "kUploadImageIds"
 let kSession: String = "kUploadImageSession"
 
+let kPreviousSelectedRegion: String = "kPreviousSelectedRegion"
+
 let kAppeals: String = "kAppeals"
 
 let kIAPTransactionHashValue: String = "kIAPTransactionHashValue"
@@ -45,6 +47,7 @@ struct UserDefaultsManager {
         case .userOrganizationLetter: UserDefaults.standard.set(data, forKey: kUserOrganizationLetter)
         case .userEmail: UserDefaults.standard.set(data, forKey: kEmail)
         case .userPhone: UserDefaults.standard.set(data, forKey: kPhone)
+        case .district: UserDefaults.standard.set(data, forKey: kPreviousSelectedRegion)
         default: break
         }
     }
@@ -60,6 +63,7 @@ struct UserDefaultsManager {
         case .userOrganizationLetter: return UserDefaults.standard.string(forKey: kUserOrganizationLetter)
         case .userEmail: return UserDefaults.standard.string(forKey: kEmail)
         case .userPhone: return UserDefaults.standard.string(forKey: kPhone)
+        case .district: return UserDefaults.standard.string(forKey: kPreviousSelectedRegion)
         default: return nil
         }
     }

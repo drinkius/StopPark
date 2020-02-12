@@ -93,6 +93,7 @@ class FormVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        configureSavedData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -199,6 +200,12 @@ extension FormVC {
         guard let buttonSectionIndex = sections.firstIndex(where: { $0.type.index == Section.SectionType.messageData(Str.Form.sectionMessage).index }) else { return }
         let indexPath = IndexSet(integer: buttonSectionIndex)
         tableView.reloadSections(indexPath, with: .fade)
+    }
+    
+    private func configureSavedData() {
+        if let title = UserDefaultsManager.getFormData(.district), let raw = DistrictData.getCode(from: title) {
+            eventInfoForm[.district] = raw
+        }
     }
 }
 
