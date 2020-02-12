@@ -45,14 +45,14 @@ class TextFieldCell: BaseGroupedTableViewCell {
         
         if dataCount == 1 {
             destination = .single
-        }
-
-        if cellIndex == 0 {
-            destination = .top
-        } else if cellIndex == dataCount - 1 {
-            destination = .bottom
         } else {
-            destination = .middle
+            if cellIndex == 0 {
+                destination = .top
+            } else if cellIndex == dataCount - 1 {
+                destination = .bottom
+            } else {
+                destination = .middle
+            }
         }
     }
     public var textFieldText: String? {

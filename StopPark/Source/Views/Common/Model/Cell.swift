@@ -50,7 +50,8 @@ enum FormData: String, CaseIterable {
     }
     
     static var toData: [FormData] {
-        return [.district, .rang, .policeName]
+        return [.district]
+//        return [.district, .rang, .policeName]
     }
     
     static var fromData: [FormData] {
