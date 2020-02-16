@@ -36,7 +36,7 @@ extension FormVC: UITableViewDataSource {
             return cell
         case .image:
             let cell: ImagesTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-            cell.fill(with: eventImages, destination: .single, delegate: self)
+            cell.fill(with: .single, delegate: self)
             return cell
         case .button:
             let cell: ButtonTableViewCell = tableView.dequeueReusableCell(for: indexPath)
@@ -67,9 +67,6 @@ extension FormVC: UITableViewDelegate {
             }
             
             textFieldCell.textFieldText = eventInfoForm[data]
-        case .image:
-            guard let imagesCell = cell as? ImagesTableViewCell else { return }
-            imagesCell.fill(with: eventImages, destination: .single, delegate: self)
         default: break
         }
     }

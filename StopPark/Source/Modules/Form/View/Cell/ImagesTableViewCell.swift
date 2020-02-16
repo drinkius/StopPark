@@ -8,24 +8,23 @@
 
 import UIKit
 
-protocol ImagesTableViewCellDelegate: ImageCollectionViewCellDelegate {
+protocol ImagesTableViewCellDelegate: ImageCollectionViewCellDelegate, UICollectionViewDataSource {
     func cell(_ cell: ImagesTableViewCell, addButtonTouchUpInside buttonCell: UICollectionViewCell)
 }
 
 class ImagesTableViewCell: BaseGroupedTableViewCell {
     
-    public func fill(with images: [UIImage], destination: Destination, delegate: ImagesTableViewCellDelegate?) {
-        self.images = images
+    public func fill(with destination: Destination, delegate: ImagesTableViewCellDelegate?) {
         self.destination = destination
         self.delegate = delegate
     }
     
-    private var images: [UIImage?] = [] {
+    private weak var delegate: ImagesTableViewCellDelegate? {
         didSet {
-            collectionView.reloadSections(IndexSet(integer: 1))
+            collectionView.dataSource = delegate
+            collectionView.reloadData()
         }
     }
-    private weak var delegate: ImagesTableViewCellDelegate?
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -33,7 +32,6 @@ class ImagesTableViewCell: BaseGroupedTableViewCell {
         layout.minimumLineSpacing = 0
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.delegate = self
-        view.dataSource = self
         view.backgroundColor = .clear
         view.showsHorizontalScrollIndicator = false
         view.showsVerticalScrollIndicator = false
@@ -67,34 +65,15 @@ extension ImagesTableViewCell {
     }
 }
 
-// MARK: - UICollectionView
-extension ImagesTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
-    }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch section {
-        case 0: return 1
-        case 1: return images.count
-        default: return 0
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard indexPath.section == 1 else {
-            let cell: ButtonCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
-            return cell
-        }
-        
-        let cell: ImageCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
-        cell.fill(with: images[indexPath.row], delegate: delegate)
-        return cell
-    }
-    
+// MARK: - UICollectionViewDelegateFlowLayout
+extension ImagesTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: contentContainer.frame.height, height: contentContainer.frame.height)
     }
-    
+}
+
+// MARK: - UICollectionViewDelegate
+extension ImagesTableViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard indexPath.section == 0 else { return }
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }

@@ -10,34 +10,45 @@ import UIKit
 
 class FormVC: UIViewController {
         
-    var sections: [Section] {
-        var sections: [Section] = []
+    var sections: [TableSection] {
+        var sections: [TableSection] = []
         
         sections += [
-            Section(type: .from(Str.Form.sectionFrom), rows: FormData.fromData.map { Section.RowType.privacy($0) }),
-            Section(type: .to(Str.Form.sectionTo), rows: FormData.toData.map { Section.RowType.form($0) }),
-            Section(type: .messageData(Str.Form.sectionMessage), rows: FormData.messageData.map {
+            TableSection(type: .from(Str.Form.sectionFrom), rows: FormData.fromData.map { TableSection.RowType.privacy($0) }),
+            TableSection(type: .to(Str.Form.sectionTo), rows: FormData.toData.map { TableSection.RowType.form($0) }),
+            TableSection(type: .messageData(Str.Form.sectionMessage), rows: FormData.messageData.map {
                 guard $0 != .eventDate else {
-                    return Section.RowType.time($0)
+                    return TableSection.RowType.time($0)
                 }
                 
                 guard $0 != .photoDate else {
-                    return Section.RowType.time($0)
+                    return TableSection.RowType.time($0)
                 }
 
-                return Section.RowType.form($0)
+                return TableSection.RowType.form($0)
             }),
-            (Section(type: .images(Str.Form.sectionImages), rows: [.image])),
-            (Section(type: .buttons, rows: [.button]))
+            (TableSection(type: .images(Str.Form.sectionImages), rows: [.image])),
+            (TableSection(type: .buttons, rows: [.button]))
         ]
         
         return sections
     }
     
+    var collectionSections: [CollectionSection] = [] {
+        didSet {
+            reloadImagesSection()
+        }
+    }
+    
     let router: RouterProtocol
     
     var eventInfoForm: [FormData: String] = [:]
-    var eventImages: [UIImage] = []
+    var eventImages: [UIImage] = [] {
+        didSet {
+            configureCollectionSection()
+        }
+    }
+    
     lazy var tableView: UITableView = {
         let tw = UITableView(frame: .zero, style: .grouped)
         tw.delegate = self
@@ -133,6 +144,7 @@ extension FormVC {
         observeKeyboard()
         configureViews()
         configureConstraints()
+        configureCollectionSection()
     }
     
     private func configureViews() {
@@ -163,7 +175,7 @@ extension FormVC {
     }
     
     func openSendFormView() {
-        guard let buttonSectionIndex = sections.firstIndex(where: { $0.type.index == Section.SectionType.buttons.index }) else { return }
+        guard let buttonSectionIndex = sections.firstIndex(where: { $0.type.index == TableSection.SectionType.buttons.index }) else { return }
         let indexPath = IndexPath(row: 0, section: buttonSectionIndex)
         let frame = tableView.rectForRow(at: indexPath).offsetBy(dx: -tableView.contentOffset.x, dy: -tableView.contentOffset.y)
         
@@ -197,7 +209,7 @@ extension FormVC {
     }
         
     private func updateTemplates() {
-        guard let buttonSectionIndex = sections.firstIndex(where: { $0.type.index == Section.SectionType.messageData(Str.Form.sectionMessage).index }) else { return }
+        guard let buttonSectionIndex = sections.firstIndex(where: { $0.type.index == TableSection.SectionType.messageData(Str.Form.sectionMessage).index }) else { return }
         let indexPath = IndexSet(integer: buttonSectionIndex)
         tableView.reloadSections(indexPath, with: .fade)
     }
@@ -206,6 +218,29 @@ extension FormVC {
         if let title = UserDefaultsManager.getFormData(.district), let raw = DistrictData.getCode(from: title) {
             eventInfoForm[.district] = raw
         }
+    }
+    
+    private func configureCollectionSection() {
+        var sections: [CollectionSection] = []
+        
+        sections += [
+            CollectionSection(type: .button, rows: [.button])
+        ]
+        
+        sections += [
+            CollectionSection(type: .images, rows: eventImages.map { .image($0) })
+        ]
+        
+        self.collectionSections = sections
+    }
+    
+    func reloadImagesSection() {
+        guard let imagesSectionIndex = sections.firstIndex(where: { $0.type.index == TableSection.SectionType.images(Str.Form.sectionImages).index }) else {
+            return
+        }
+
+        let indexSet = IndexSet(integer: imagesSectionIndex)
+        tableView.reloadSections(indexSet, with: .none)
     }
 }
 
@@ -272,7 +307,7 @@ extension FormVC: ImagePickerDelegate {
     func didSelect(image: UIImage?) {
         guard let image = image else { return }
         
-        guard let buttonSectionIndex = sections.firstIndex(where: { $0.type.index == Section.SectionType.images(Str.Form.sectionImages).index }) else { return }
+        guard let buttonSectionIndex = sections.firstIndex(where: { $0.type.index == TableSection.SectionType.images(Str.Form.sectionImages).index }) else { return }
 
         
         eventImages.append(image)
@@ -288,7 +323,7 @@ extension FormVC {
         static let buttonItemCornerRadius: CGFloat = 5.0
     }
     
-    struct Section {
+    struct TableSection {
         enum SectionType {
             case from(String), to(String), messageData(String), images(String), buttons
             
@@ -308,6 +343,18 @@ extension FormVC {
             case time(FormData)
             case image
             case button
+        }
+        
+        let type: SectionType
+        var rows: [RowType]
+    }
+    
+    struct CollectionSection {
+        enum SectionType {
+            case button, images
+        }
+        enum RowType {
+            case button, image(UIImage)
         }
         
         let type: SectionType

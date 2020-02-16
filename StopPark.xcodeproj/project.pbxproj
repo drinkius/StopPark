@@ -99,6 +99,7 @@
 		C2E1572823A4C05700105763 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E1572723A4C05700105763 /* Cell.swift */; };
 		C2E1572C23A4C27200105763 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E1572B23A4C27200105763 /* UserDefaultsManager.swift */; };
 		C2E1572E23A4C81E00105763 /* Display.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E1572D23A4C81E00105763 /* Display.swift */; };
+		C2F27BE823F934C8002A78BB /* Form+Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F27BE723F934C8002A78BB /* Form+Collection.swift */; };
 		E3D27D65E73B944D8ACF18C3 /* Pods_StopPark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F72FF626E0065B00DB49660 /* Pods_StopPark.framework */; };
 /* End PBXBuildFile section */
 
@@ -199,6 +200,7 @@
 		C2E1572723A4C05700105763 /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		C2E1572B23A4C27200105763 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		C2E1572D23A4C81E00105763 /* Display.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Display.swift; sourceTree = "<group>"; };
+		C2F27BE723F934C8002A78BB /* Form+Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Form+Collection.swift"; sourceTree = "<group>"; };
 		DD68897A28419CC4BCDCE004 /* Pods-StopPark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StopPark.release.xcconfig"; path = "Target Support Files/Pods-StopPark/Pods-StopPark.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -463,6 +465,7 @@
 			isa = PBXGroup;
 			children = (
 				C246AC2123BB825700B1C7C0 /* FormVC.swift */,
+				C2F27BE723F934C8002A78BB /* Form+Collection.swift */,
 				C24D7F7723EB27000066C733 /* Form+Table.swift */,
 				C24D7F7923EB29C00066C733 /* Form+Cell.swift */,
 				C24362E923EC4C3900CA3931 /* Form+View.swift */,
@@ -880,6 +883,7 @@
 				C24362EC23EC588800CA3931 /* Form+Network.swift in Sources */,
 				C2AFBF7623BF1BF400209F31 /* HomeVC.swift in Sources */,
 				C2AFBF7C23BF41D100209F31 /* MessageView.swift in Sources */,
+				C2F27BE823F934C8002A78BB /* Form+Collection.swift in Sources */,
 				C25A836923D1DACA0007848E /* String+EmailValidation.swift in Sources */,
 				C21D268123BFA72F0057CC17 /* MessageFooterView.swift in Sources */,
 				C21D267F23BF9E990057CC17 /* ProfileView.swift in Sources */,

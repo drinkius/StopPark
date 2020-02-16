@@ -87,13 +87,7 @@ extension FormVC: ImagesTableViewCellDelegate, ImageCollectionViewCellDelegate {
         InvAnalytics.shared.sendEvent(event: .formClickDeleteImage)
         eventImages.remove(at: index)
         
-        
-        guard let buttonSectionIndex = sections.firstIndex(where: { $0.type.index == Section.SectionType.buttons.index }) else {
-            return
-        }
-
-        let indexSet = IndexSet(integer: buttonSectionIndex)
-        tableView.reloadSections(indexSet, with: .none)
+        reloadImagesSection()
     }
 }
 
