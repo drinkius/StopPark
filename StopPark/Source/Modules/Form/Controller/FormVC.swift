@@ -215,7 +215,7 @@ extension FormVC {
     }
     
     private func configureSavedData() {
-        if let title = UserDefaultsManager.getFormData(.district), let raw = DistrictData.getCode(from: title) {
+        if let title = UserDefaultsManager.getPreviousDistrict(), let raw = DistrictData.getCode(from: title) {
             eventInfoForm[.district] = raw
         }
     }

@@ -47,7 +47,6 @@ struct UserDefaultsManager {
         case .userOrganizationLetter: UserDefaults.standard.set(data, forKey: kUserOrganizationLetter)
         case .userEmail: UserDefaults.standard.set(data, forKey: kEmail)
         case .userPhone: UserDefaults.standard.set(data, forKey: kPhone)
-        case .district: UserDefaults.standard.set(data, forKey: kPreviousSelectedRegion)
         default: break
         }
     }
@@ -63,9 +62,16 @@ struct UserDefaultsManager {
         case .userOrganizationLetter: return UserDefaults.standard.string(forKey: kUserOrganizationLetter)
         case .userEmail: return UserDefaults.standard.string(forKey: kEmail)
         case .userPhone: return UserDefaults.standard.string(forKey: kPhone)
-        case .district: return UserDefaults.standard.string(forKey: kPreviousSelectedRegion)
         default: return nil
         }
+    }
+    
+    static func setPreviousDistrict(_ value: String?) {
+        UserDefaults.standard.set(value, forKey: kPreviousSelectedRegion)
+    }
+    
+    static func getPreviousDistrict() -> String? {
+        return UserDefaults.standard.string(forKey: kPreviousSelectedRegion)
     }
     
 // MARK: - Upload Images Ids
