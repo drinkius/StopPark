@@ -200,16 +200,13 @@ enum DistrictData: Int, CaseIterable {
         return [.moscovCity, .peter]
     }
     
-    static var anotherBigCities: [DistrictData] {
+    static var otherBigCities: [DistrictData] {
         return [.volgograd, .voronezh, .krasnodar, .krasnoyarsk, .novosib, .novgorod, .omsk, .perm, .rostov, .samar, .chelyab]
     }
     
-    static var anotherCities: [DistrictData] {
+    static var allCities: [DistrictData] {
         let all = DistrictData.allCases
-        let diff = all
-            .difference(from: bigCities)
-            .difference(from: anotherBigCities)
             .sorted { $0.title.lowercased() < $1.title.lowercased() }
-        return diff
+        return all
     }
 }

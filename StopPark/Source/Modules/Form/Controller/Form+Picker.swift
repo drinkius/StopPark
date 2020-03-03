@@ -20,9 +20,9 @@ extension FormVC: UIPickerViewDelegate, UIPickerViewDataSource {
         var pickerRows: [PickerRowType] = [.section("")]
         pickerRows += DistrictData.bigCities.map { .row($0.title) }
         pickerRows += [.section("Остальные миллионники по алфавиту")]
-        pickerRows += DistrictData.anotherBigCities.map { .row($0.title) }
-        pickerRows += [.section("Остальные по алфавиту")]
-        pickerRows += DistrictData.anotherCities.map { .row($0.title) }
+        pickerRows += DistrictData.otherBigCities.map { .row($0.title) }
+        pickerRows += [.section("Все города по алфавиту")]
+        pickerRows += DistrictData.allCities.map { .row($0.title) }
         return pickerRows
     }
     
