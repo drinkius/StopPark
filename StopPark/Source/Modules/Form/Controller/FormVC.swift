@@ -183,8 +183,55 @@ extension FormVC {
             self.navigationController?.setNavigationBarHidden(true, animated: true)
         }
     }
+
+    // after this - sendVerificationCode
+    func sendEmailVerificationRequest() {
+        DispatchQueue.main.async { [weak self] in
+            self?.sendFormView.updateView(for: .requestingCodeEmail)
+        }
+
+        guard UserDefaultsManager.getSession() != nil else {
+            self.showErrorMessage("Что-то пошло не так")
+            return
+        }
+
+        NetworkManager.shared.request(with: RequestManager.shared.emailVerificationRequest()!) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let text):
+                    self?.showErrorMessage(text)
+                case .success:
+                    self?.sendFormView.updateView(for: .enterVerificationCode)
+                }
+            }
+        }
+    }
+
+    // after this - sendCaptchaRequest
+    func sendVerificationCode(_ code: String) {
+        guard UserDefaultsManager.getSession() != nil else {
+            self.showErrorMessage("Что-то пошло не так")
+            return
+        }
+
+        NetworkManager.shared.request(with: RequestManager.shared.sendVerificationCodeRequest(code)!) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let text):
+                    self?.showErrorMessage(text)
+                case .success:
+                    self?.sendCaptchaRequest()
+                }
+            }
+        }
+    }
     
-    func sendPreFinalRequest(with code: String) {
+    func sendCaptchaRequest() {
+        guard let code = eventInfoForm[.district] else {
+            InvAnalytics.shared.sendEvent(event: .formSendFormRejectNotFilled)
+            showErrorMessage(Str.Generic.errorNotFilledPoint + FormData.district.rawValue)
+            return
+        }
         sendFormView.updateView(for: .startSendFullForm)
         webView.getSubUnitCode(with: code) { [unowned self] result in
             DispatchQueue.main.async {

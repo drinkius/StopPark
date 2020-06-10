@@ -11,6 +11,8 @@ import Foundation
 struct URLs {
     private static let base = "https://xn--90adear.xn--p1ai"
     private static let mainRequest = base + "/request_main"
+    private static let emailRequest = base + "/request_main/confirm_mail"
+    private static let checkCode = base + "/request_main/check_code"
     private static let checkCorrect = mainRequest + "/check_correct_form?ajax=Y"
     private static let fileupload = mainRequest + "/fileupload"
     static let getSubUnit = mainRequest + "/get_subunit_list?code="
@@ -19,6 +21,8 @@ struct URLs {
 
     static let baseURL = URL(string: base)
     static let mainRequestURL = URL(string: mainRequest)
+    static let emailRequestURL = URL(string: emailRequest)!
+    static let checkEmailCodeURL = URL(string: checkCode)!
     static let checkCorrectURL = URL(string: checkCorrect)
     static let fileuploadURL = URL(string: fileupload)
 }

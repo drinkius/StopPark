@@ -23,7 +23,7 @@ extension FormVC: ButtonTableViewCellDelegate {
             return
         }
         
-        guard let code = eventInfoForm[.district] else {
+        guard eventInfoForm[.district] != nil else {
             InvAnalytics.shared.sendEvent(event: .formSendFormRejectNotFilled)
             showErrorMessage(Str.Generic.errorNotFilledPoint + FormData.district.rawValue)
             return
@@ -43,27 +43,28 @@ extension FormVC: ButtonTableViewCellDelegate {
             InvAnalytics.shared.sendEvent(event: .formSendFormImageNotify)
             let continueAction = UIAlertAction(title: Str.Generic.continue, style: .destructive, handler: { _ in
                 InvAnalytics.shared.sendEvent(event: .formClickIgnoreImageNotify)
-                self.continueSend(code: code)
+                self.sendRequestForm()
             })
             let addMoreImagesAction = UIAlertAction(title: Str.Form.addMoreImages, style: .default) { _ in
                 InvAnalytics.shared.sendEvent(event: .formClickAcceptImageNotify)
             }
             showMessage(Str.Form.imageRecomendation, addAction: [continueAction, addMoreImagesAction])
         } else {
-            continueSend(code: code)
+            sendRequestForm()
         }
     }
-    
-    private func continueSend(code: String) {
+
+    // Начало отправки запроса
+    private func sendRequestForm() {
         InvAnalytics.shared.sendEvent(event: .formClickSendForm)
         Vibration.success.vibrate()
         openSendFormView()
                 
         sendFormView.updateView(for: .uploadImages)
-        webView.sendImageToServer(images: eventImages) { [weak self] result in
+        webView.sendImagesToServer(eventImages) { [weak self] result in
             switch result {
             case .failure(let text): self?.showErrorMessage(text)
-            case .success(_): self?.sendPreFinalRequest(with: code)
+            case .success(_): self?.sendEmailVerificationRequest() //self?.sendCaptchaRequest()//
             }
         }
     }

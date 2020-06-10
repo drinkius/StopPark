@@ -11,11 +11,8 @@ import UIKit
 extension UIColor {
     static func setColor(light: UIColor, dark: UIColor) -> UIColor {
         if #available(iOS 13, *) {
-            return UIColor { trait -> UIColor in
-                if trait.userInterfaceStyle == .dark {
-                    return dark
-                }
-                return light
+            return UIColor {
+                $0.userInterfaceStyle == .dark ? dark : light
             }
         }
         return light

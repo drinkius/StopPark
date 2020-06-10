@@ -10,6 +10,7 @@ import UIKit
 
 protocol SendFormViewDelegate: class {
     func view(_ view: SendFormView, didSendCaptcha captcha: String)
+    func view(_ view: SendFormView, sendVerificationCode code: String)
     func view(_ view: SendFormView, didReceiveError error: String)
     func view(_ view: SendFormView, closeButtonTouchUpInside button: UIButton)
     func view(_ view: SendFormView, cancelButtonTouchUpInside button: UIButton)
@@ -19,6 +20,8 @@ protocol SendFormViewDelegate: class {
 class SendFormView: BaseView {
         
     public weak var delegate: SendFormViewDelegate?
+
+    private var closeButtonAction: (() -> Void)?
     
     private var type: ContentDestination = .sendingRequest
     private var fillView: UIView = {
@@ -56,6 +59,14 @@ class SendFormView: BaseView {
         let view = CaptchaView()
         view.textFeildDelegate = self
         view.changeActionBlock = { [weak self] in self?.refreshCaptcha() }
+        view.isHidden = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    private lazy var verificationCodeView: EnterCodeView = {
+        let view = EnterCodeView()
+        view.textFeildDelegate = self
         view.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -106,9 +117,10 @@ extension SendFormView {
         [stackContainer, closeButton, fillView, cancelButton].forEach {
             addSubview($0)
         }
-        [titleLabel, captchaView].forEach {
+        [titleLabel].forEach {
             stackContainer.addArrangedSubview($0)
         }
+        closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
     }
     
     private func configureConstraints() {
@@ -135,40 +147,65 @@ extension SendFormView {
             self.titleLabel.alpha = 0
             self.closeButton.alpha = 0
             self.captchaView.alpha = 0
+            self.verificationCodeView.alpha = 0
         }, completion: { _ in
             self.updateContent(for: type)
             UIView.animate(withDuration: 0.3, animations: {
                 self.titleLabel.alpha = 1
                 self.closeButton.alpha = 1
                 self.captchaView.alpha = 1
+                self.verificationCodeView.alpha = 1
             })
         })
     }
     
     private func updateContent(for type: ContentDestination) {
         if type == .downloadCaptcha {
-            guard titleLabel.text != Str.Form.notTheRobot else { return }
+            guard titleLabel.text != Str.Form.notARobot else { return }
+        } else if type == .verifyEmail {
+            guard titleLabel.text != Str.Form.verifyEmail else { return }
         }
         closeButton.isHidden = false
-        captchaView.isHidden = true
+        [
+        captchaView,
+        verificationCodeView,
+        ].forEach {
+            $0.isHidden = true
+            stackContainer.removeArrangedSubview($0)
+        }
         switch type {
         case .sendingRequest:
-            titleLabel.text = Str.Form.sendToServer
+            titleLabel.text = Str.Form.sendingToServer
             closeButton.isHidden = true
             captchaView.imageView.image = nil
+        case .requestingCode:
+            titleLabel.text = Str.Form.requestingCode
+            closeButton.isHidden = true
+            captchaView.imageView.image = nil
+        case .checkingCode:
+            titleLabel.text = Str.Form.checkingCode
+            closeButton.isHidden = true
+            captchaView.imageView.image = nil
+        case .verifyEmail:
+            titleLabel.text = Str.Form.verifyEmail
+            closeButton.setTitle(Str.Form.sendToCheck, for: .normal)
+            closeButtonAction = sendEmailVerificationCode
+            stackContainer.addArrangedSubview(verificationCodeView)
+            verificationCodeView.isHidden = false
         case .failedCaptcha:
             titleLabel.text = Str.Generic.errorLoadCaptcha
             closeButton.setTitle(Str.Generic.try, for: .normal)
-            closeButton.addTarget(self, action: #selector(closeForm(_:)), for: .touchUpInside)
+            closeButtonAction = closeForm
         case .captchaUploaded:
-            titleLabel.text = Str.Form.notTheRobot
+            titleLabel.text = Str.Form.notARobot
             closeButton.setTitle(Str.Form.sendToCheck, for: .normal)
-            closeButton.addTarget(self, action: #selector(sendCaptcha), for: .touchUpInside)
+            closeButtonAction = sendCaptcha
+            stackContainer.addArrangedSubview(captchaView)
             captchaView.isHidden = false
         case .closeForm:
             titleLabel.text = Str.Form.statementSended
             closeButton.setTitle(Str.Form.goToStatementsList, for: .normal)
-            closeButton.addTarget(self, action: #selector(closeForm), for: .touchUpInside)
+            closeButtonAction = closeForm
         case .uploadImages:
             titleLabel.text = Str.Form.loadingImages
             closeButton.isHidden = true
@@ -242,6 +279,9 @@ extension SendFormView {
         case .uploadImages: updateContentAnimated(for: .uploadImages)
         case .startSendFullForm: updateContentAnimated(for: .sendingRequest)
         case .endSendFullForm: updateContentAnimated(for: .closeForm)
+        case .requestingCodeEmail: updateContentAnimated(for: .requestingCode)
+        case .enterVerificationCode: updateContentAnimated(for: .verifyEmail)
+        case .checkingCode: updateContentAnimated(for: .checkingCode)
         }
     }
     
@@ -258,8 +298,24 @@ extension SendFormView {
             self.layoutIfNeeded()
         }
     }
-    
-    @objc private func sendCaptcha() {
+
+    @objc
+    private func closeButtonTapped() {
+        closeButtonAction?()
+    }
+
+    // Tutai
+    private func sendEmailVerificationCode() {
+        viewShouldEndEditing()
+        guard let text = verificationCodeView.textFieldText, text != "" else {
+            delegate?.view(self, didReceiveError: Str.Form.enterCaptcha)
+            return
+        }
+        delegate?.view(self, sendVerificationCode: text)
+        updateContentAnimated(for: .checkingCode)
+    }
+
+    private func sendCaptcha() {
         viewShouldEndEditing()
         guard let text = captchaView.textFieldText, text != "" else {
             delegate?.view(self, didReceiveError: Str.Form.enterCaptcha)
@@ -268,13 +324,14 @@ extension SendFormView {
         delegate?.view(self, didSendCaptcha: text)
         updateContentAnimated(for: .sendingRequest)
     }
-    
-    @objc private func closeForm(_ sender: UIButton) {
-        delegate?.view(self, closeButtonTouchUpInside: sender)
+
+    private func closeForm() {
+        delegate?.view(self, closeButtonTouchUpInside: closeButton)
     }
     
     @objc private func viewShouldEndEditing() {
         captchaView.endEditing(true)
+        verificationCodeView.endEditing(true)
     }
     
     @objc private func cancelRequest(_ sender: UIButton) {
@@ -310,6 +367,9 @@ extension SendFormView {
     }
     
     enum Destination {
+        case requestingCodeEmail
+        case enterVerificationCode
+        case checkingCode
         case getCaptcha(URL?)
         case uploadImages
         case startSendFullForm
@@ -318,6 +378,9 @@ extension SendFormView {
     
     private enum ContentDestination {
         case sendingRequest
+        case requestingCode
+        case checkingCode
+        case verifyEmail
         case downloadCaptcha
         case failedCaptcha
         case captchaUploaded

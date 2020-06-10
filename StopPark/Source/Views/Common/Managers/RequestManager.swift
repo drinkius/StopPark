@@ -126,7 +126,7 @@ class RequestManager {
         return "Boundary-\(UUID().uuidString)"
     }
     
-    private func getFormURLEncodedData(params: [String: String]) -> Data? {
+    func getFormURLEncodedData(params: [String: String]) -> Data? {
         var data = [String]()
 
         for (key, value) in params {
@@ -152,6 +152,34 @@ extension RequestManager {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "GET"
         
+        return urlRequest
+    }
+
+    func emailVerificationRequest() -> URLRequest? {
+        guard let session = UserDefaultsManager.getSession() else {
+            return nil
+        }
+        var urlRequest = URLRequest(url: URLs.emailRequestURL)
+        urlRequest.httpMethod = "POST"
+        urlRequest.addValue(.requestMainRefer)
+        urlRequest.addValue(.xRequestedWith)
+        urlRequest.addValue(.setCookieWithPath(session))
+
+        return urlRequest
+    }
+
+    func sendVerificationCodeRequest(_ code: String) -> URLRequest? {
+        guard let session = UserDefaultsManager.getSession() else {
+            return nil
+        }
+        var urlRequest = URLRequest(url: URLs.checkEmailCodeURL)
+        urlRequest.httpMethod = "POST"
+        urlRequest.addValue(.requestMainRefer)
+        urlRequest.addValue(.xRequestedWith)
+        urlRequest.addValue(.setCookieWithPath(session))
+
+        urlRequest.httpBody = RequestManager.shared.getFormURLEncodedData(params: ["key": code])
+
         return urlRequest
     }
     
@@ -217,7 +245,6 @@ extension RequestManager {
         
         return urlRequest
     }
-    
     
     func finalRequest(with captcha: String) -> URLRequest? {
         guard let url = URLs.mainRequestURL else {

@@ -15,6 +15,8 @@ enum Result {
 
 class NetworkManager {
     static let shared = NetworkManager()
+
+    private init() {}
         
     func uploadImage(to url: URLRequest, completion: @escaping (Result) -> Void) {
         request(with: url) { data, error in
@@ -58,6 +60,25 @@ class NetworkManager {
             
             completion(.success(code))
             
+            print(json)
+        }
+    }
+
+    func request(with url: URLRequest, completion: @escaping (Result) -> ()) {
+        request(with: url) { data, error in
+            guard let data = data else {
+                let description = error?.localizedDescription ?? Str.Generic.noConnection
+                completion(.failure(description))
+                return
+            }
+
+            guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: String] else {
+                completion(.failure(Str.Generic.errorLoadData))
+                return
+            }
+
+            completion(.success(json))
+
             print(json)
         }
     }

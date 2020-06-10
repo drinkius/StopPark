@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9CD383D4248FB25E00289A95 /* EnterCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD383D3248FB25E00289A95 /* EnterCodeView.swift */; };
 		C20C978D23D462FF00B6DAF6 /* PayDescribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20C978C23D462FF00B6DAF6 /* PayDescribeView.swift */; };
 		C20C979123D4857600B6DAF6 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C20C979023D4857600B6DAF6 /* StoreKit.framework */; };
 		C2151C2523DF2EB10062764D /* UITableView+SimpleDequeueReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2151C2423DF2EB10062764D /* UITableView+SimpleDequeueReusableCell.swift */; };
@@ -106,6 +107,7 @@
 /* Begin PBXFileReference section */
 		2F72FF626E0065B00DB49660 /* Pods_StopPark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StopPark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E1851CA4048BC9F370FA800 /* Pods-StopPark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StopPark.debug.xcconfig"; path = "Target Support Files/Pods-StopPark/Pods-StopPark.debug.xcconfig"; sourceTree = "<group>"; };
+		9CD383D3248FB25E00289A95 /* EnterCodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterCodeView.swift; sourceTree = "<group>"; };
 		C20C978C23D462FF00B6DAF6 /* PayDescribeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayDescribeView.swift; sourceTree = "<group>"; };
 		C20C979023D4857600B6DAF6 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C2151C2423DF2EB10062764D /* UITableView+SimpleDequeueReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+SimpleDequeueReusableCell.swift"; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				C22E32E623EF1B880071D69F /* Cell */,
 				C2E1572523A3AAC800105763 /* WebView.swift */,
 				C27F626223A8010E002D55EB /* CaptchaView.swift */,
+				9CD383D3248FB25E00289A95 /* EnterCodeView.swift */,
 				C2D9BA0123C1A7370077DE46 /* SendFormView.swift */,
 				C21E71DA23A6806C002BC191 /* Loader.swift */,
 			);
@@ -566,7 +569,9 @@
 				6C201951B74B728D1A568213 /* Pods */,
 				2EBE473262FCD924D6B3931A /* Frameworks */,
 			);
+			indentWidth = 4;
 			sourceTree = "<group>";
+			tabWidth = 4;
 		};
 		C2963EEC239FAD590020A2DD /* Products */ = {
 			isa = PBXGroup;
@@ -833,6 +838,7 @@
 				C239B6E623AD5438007F1949 /* ImageCollectionViewCell.swift in Sources */,
 				C22E3C0F23EC819100E8209D /* RegistrationRouter.swift in Sources */,
 				C281F7E623EDB12000335100 /* LoaderView.swift in Sources */,
+				9CD383D4248FB25E00289A95 /* EnterCodeView.swift in Sources */,
 				C24D7F7823EB27000066C733 /* Form+Table.swift in Sources */,
 				C27F626323A8010E002D55EB /* CaptchaView.swift in Sources */,
 				C24D7F7F23EB507A0066C733 /* Registration+Cell.swift in Sources */,

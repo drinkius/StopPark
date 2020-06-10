@@ -8,62 +8,69 @@
 
 import Foundation
 
-let kDistrict: String = "kDistrict"
-let kSubdivision: String = "kSubdivision"
-let kRang: String = "kRang"
-let kPoliceName: String = "kPoliceName"
-let kUserName: String = "kUserName"
-let kUserSurname: String = "kUserSurname"
-let kUserFatherName: String = "kUserFatherName"
-let kEmail: String = "kEmail"
-let kPhone: String = "kPhone"
+private let kDistrict: String = "kDistrict"
+private let kSubdivision: String = "kSubdivision"
+private let kRang: String = "kRang"
+private let kPoliceName: String = "kPoliceName"
+private let kUserName: String = "kUserName"
+private let kUserSurname: String = "kUserSurname"
+private let kUserFatherName: String = "kUserFatherName"
+private let kEmail: String = "kEmail"
+private let kPhone: String = "kPhone"
 
-let kUserOrganizationName: String = "kUserOrganizationName"
-let kUserOrganizationOut: String = "kUserOrganizationOut"
-let kUserOrganizationDate: String = "kUserOrganizationDate"
-let kUserOrganizationLetter: String = "kUserOrganizationLetter"
+private let kUserOrganizationName: String = "kUserOrganizationName"
+private let kUserOrganizationOut: String = "kUserOrganizationOut"
+private let kUserOrganizationDate: String = "kUserOrganizationDate"
+private let kUserOrganizationLetter: String = "kUserOrganizationLetter"
 
-let kCaptureImage: String = "kCaptureImage"
+private let kCaptureImage: String = "kCaptureImage"
 
-let kUploadImageIds: String = "kUploadImageIds"
-let kSession: String = "kUploadImageSession"
+private let kUploadImageIds: String = "kUploadImageIds"
+private let kSession: String = "kUploadImageSession"
 
-let kPreviousSelectedRegion: String = "kPreviousSelectedRegion"
+private let kPreviousSelectedRegion: String = "kPreviousSelectedRegion"
 
-let kAppeals: String = "kAppeals"
+private let kAppeals: String = "kAppeals"
 
-let kIAPTransactionHashValue: String = "kIAPTransactionHashValue"
+private let kIAPTransactionHashValue: String = "kIAPTransactionHashValue"
 
 struct UserDefaultsManager {
-    
-    static func setFormData(_ type: FormData, data: String?) {
+
+    private static var cache = [String: String]()
+
+    private static func key(for type: FormData) -> String? {
         switch type {
-        case .userName: UserDefaults.standard.set(data, forKey: kUserName)
-        case .userSurname: UserDefaults.standard.set(data, forKey: kUserSurname)
-        case .userFatherName: UserDefaults.standard.set(data, forKey: kUserFatherName)
-        case .userOrganizationName: UserDefaults.standard.set(data, forKey: kUserOrganizationName)
-        case .userOrganizationNumber: UserDefaults.standard.set(data, forKey: kUserOrganizationOut)
-        case .userOrganizationDate: UserDefaults.standard.set(data, forKey: kUserOrganizationDate)
-        case .userOrganizationLetter: UserDefaults.standard.set(data, forKey: kUserOrganizationLetter)
-        case .userEmail: UserDefaults.standard.set(data, forKey: kEmail)
-        case .userPhone: UserDefaults.standard.set(data, forKey: kPhone)
-        default: break
+        case .userName: return kUserName
+        case .userSurname: return kUserSurname
+        case .userFatherName: return kUserFatherName
+        case .userOrganizationName: return kUserOrganizationName
+        case .userOrganizationNumber: return kUserOrganizationOut
+        case .userOrganizationDate: return kUserOrganizationDate
+        case .userOrganizationLetter: return kUserOrganizationLetter
+        case .userEmail: return kEmail
+        case .userPhone: return kPhone
+        default: return nil
         }
     }
     
-    static func getFormData(_ type: FormData) -> String? {
-        switch type {
-        case .userName: return UserDefaults.standard.string(forKey: kUserName)
-        case .userSurname: return UserDefaults.standard.string(forKey: kUserSurname)
-        case .userFatherName: return UserDefaults.standard.string(forKey: kUserFatherName)
-        case .userOrganizationName: return UserDefaults.standard.string(forKey: kUserOrganizationName)
-        case .userOrganizationNumber: return UserDefaults.standard.string(forKey: kUserOrganizationOut)
-        case .userOrganizationDate: return UserDefaults.standard.string(forKey: kUserOrganizationDate)
-        case .userOrganizationLetter: return UserDefaults.standard.string(forKey: kUserOrganizationLetter)
-        case .userEmail: return UserDefaults.standard.string(forKey: kEmail)
-        case .userPhone: return UserDefaults.standard.string(forKey: kPhone)
-        default: return nil
+    static func setFormData(_ type: FormData, data: String?) {
+        guard let key = key(for: type) else {
+            return
         }
+        cache[key] = data
+        UserDefaults.standard.set(data, forKey: key)
+    }
+    
+    static func getFormData(_ type: FormData) -> String? {
+        guard let key = key(for: type) else {
+            return nil
+        }
+        guard let value = cache[key] else {
+            let value = UserDefaults.standard.string(forKey: key)
+            cache[key] = value
+            return value
+        }
+        return value
     }
     
     static func setPreviousDistrict(_ value: String?) {

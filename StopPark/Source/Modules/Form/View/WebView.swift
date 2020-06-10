@@ -185,31 +185,41 @@ extension WebView {
         delegate?.loading()
     }
     
-    public func sendImageToServer(images: [UIImage], completion: @escaping (Result) -> ()) {        
+    public func sendImagesToServer(_ images: [UIImage], completion: @escaping (Result) -> ()) {
         var ids: [String] = []
-        
+
+        let group = DispatchGroup()
+        var errorResult: Result?
         for image in images {
+            group.enter()
             guard let urlRequest = RequestManager.shared.uploadDataRequest(image: image) else {
-                completion(.failure(Str.Generic.errorWrongURL))
-                return
+                errorResult = .failure(Str.Generic.errorWrongURL)
+                group.leave()
+                continue
+            }
+            guard errorResult == nil else {
+                group.leave()
+                continue
             }
             
             NetworkManager.shared.uploadImage(to: urlRequest) { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .failure(let text):
-                        completion(.failure(text))
-                        return
-                    case .success(let data):
-                        guard let id = data as? String else { return }
-                        ids.append(id)
-                        
-                        if ids.count == images.count {
-                            UserDefaultsManager.setUploadImagesIds(ids)
-                            completion(.success())
-                        }
-                    }
+                switch result {
+                case .failure(let text):
+                    errorResult = .failure(text)
+                    group.leave()
+                case .success(let data):
+                    guard let id = data as? String else { return }
+                    ids.append(id)
+                    group.leave()
                 }
+            }
+        }
+        group.notify(queue: .main) {
+            if let errorResult = errorResult {
+                completion(errorResult)
+            } else {
+                UserDefaultsManager.setUploadImagesIds(ids)
+                completion(.success())
             }
         }
     }
@@ -220,7 +230,7 @@ extension WebView {
             return
         }
         
-        guard let _ = UserDefaultsManager.getSession() else {
+        guard UserDefaultsManager.getSession() != nil else {
             initialRequest() { _ in
                 NetworkManager.shared.getSubUnitCode(from: urlRequest) { result in
                     completion(result)

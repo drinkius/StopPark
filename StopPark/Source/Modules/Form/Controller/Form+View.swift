@@ -53,6 +53,11 @@ extension FormVC: ButtonFooterViewDelegate {
 
 // MARK: - SendFormViewDelegate
 extension FormVC: SendFormViewDelegate {
+    func view(_ view: SendFormView, sendVerificationCode code: String) {
+        InvAnalytics.shared.sendEvent(event: .formClickSendVerificationCode)
+        sendVerificationCode(code)
+    }
+
     func view(_ view: SendFormView, didSendCaptcha captcha: String) {
         InvAnalytics.shared.sendEvent(event: .formClickSendCaptcha)
         webView.finalLoadData(with: captcha)
@@ -71,6 +76,7 @@ extension FormVC: SendFormViewDelegate {
     func view(_ view: SendFormView, cancelButtonTouchUpInside button: UIButton) {
         InvAnalytics.shared.sendEvent(event: .formClickCancel)
         Vibration.light.vibrate()
+        // Отмена отправки
         dismiss(animated: true)
     }
     

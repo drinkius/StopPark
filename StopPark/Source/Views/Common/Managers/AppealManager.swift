@@ -18,7 +18,7 @@ class AppealManager {
         UserDefaultsManager.setSavedAppeals(appeals)
     }
     
-    init() {
+    private init() {
         guard let appeals = UserDefaultsManager.getSavedAppeals() else {
             self.appeals = []
             return
