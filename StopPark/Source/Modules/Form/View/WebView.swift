@@ -24,7 +24,6 @@ class WebView: BaseView {
     
     private var sessionGetItBlock: ((Result) -> ())?
     private var currentRequestType: RequestType = .initial
-    private var eventInfoForm: [FormData: String]?
     private let config = WKWebViewConfiguration()
     private lazy var web: WKWebView = {
         let w = WKWebView(frame: .zero, configuration: config)
@@ -152,12 +151,11 @@ extension WebView {
         delegate?.loading()
     }
     
-    public func preFinalLoadData(_ data: [FormData: String]) {
-        guard let urlRequest = RequestManager.shared.preFinalRequest(with: data) else {
+    public func preFinalLoadData() {
+        guard let urlRequest = RequestManager.shared.preFinalRequest() else {
             return
         }
-        
-        eventInfoForm = data
+
         currentRequestType = .preFinal
 
         web.load(urlRequest)

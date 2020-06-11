@@ -14,13 +14,18 @@ class RequestManager {
     static let shared = RequestManager()
     
 //    let step2 = ["agree": "on", "step": "2"]
-    private var eventInfoForm: [FormData: String]?
+    private var eventInfoData: [FormData: String]?
+
+    func setFormData(_ data: [FormData: String]) {
+        self.eventInfoData = data
+    }
+
     func createFormURLEncodedBody(captcha: String = "") -> Data? {
         
         guard let firstName = UserDefaultsManager.getFormData(.userName) else { return Data() }
         guard let lastName = UserDefaultsManager.getFormData(.userSurname) else { return Data() }
         guard let email = UserDefaultsManager.getFormData(.userEmail) else { return Data() }
-        guard let eventInfoForm = eventInfoForm else { return nil }
+        guard let eventInfoForm = eventInfoData else { return nil }
         
         var params = [
             "surname": "\(lastName)",
@@ -163,7 +168,11 @@ extension RequestManager {
         urlRequest.httpMethod = "POST"
         urlRequest.addValue(.xRequestedWith)
         urlRequest.addValue(.requestMainRefer)
-        urlRequest.addValue(.setCookieWithPath(session))
+        urlRequest.addValue(.cookieWithRegion(Int(eventInfoData?[.district] ?? "") ?? 77, session))
+        urlRequest.addValue(.defaultContentType)
+
+        let dataBody = createFormURLEncodedBody()
+        urlRequest.httpBody = dataBody
 
         return urlRequest
     }
@@ -176,14 +185,15 @@ extension RequestManager {
         urlRequest.httpMethod = "POST"
         urlRequest.addValue(.requestMainRefer)
         urlRequest.addValue(.xRequestedWith)
-        urlRequest.addValue(.setCookieWithPath(session))
+        urlRequest.addValue(.cookieWithRegion(Int(eventInfoData?[.district] ?? "") ?? 77, session))
+        urlRequest.addValue(.defaultContentType)
 
         urlRequest.httpBody = RequestManager.shared.getFormURLEncodedData(params: ["key": code])
 
         return urlRequest
     }
     
-    func preFinalRequest(with data: [FormData: String]) -> URLRequest? {
+    func preFinalRequest() -> URLRequest? {
         guard let url = URLs.mainRequestURL else {
             return nil
         }
@@ -191,8 +201,6 @@ extension RequestManager {
         guard let session = UserDefaultsManager.getSession() else {
             return nil
         }
-        
-        eventInfoForm = data
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
@@ -225,7 +233,7 @@ extension RequestManager {
         urlRequest.addValue(.host)
         urlRequest.addValue(.acceptEncoding)
         urlRequest.addValue(.accept)
-        urlRequest.addValue(.cookieWithRegion(session))
+        urlRequest.addValue(.cookieWithRegion(Int(eventInfoData?[.district] ?? "") ?? 77, session))
         
         let photo = Media(withImage: image, forKey: "file")
         let dataBody = RequestManager.shared.createFormDataBody(with: ["input_name": "file"], media: [photo!], boundary: boundary)
@@ -279,7 +287,7 @@ extension URLRequest {
         case accept
         case host
         case setCookieWithPath(String)
-        case cookieWithRegion(String)
+        case cookieWithRegion(Int, String)
     }
     
     mutating func addValue(_ type: HeaderField) {
@@ -300,99 +308,8 @@ extension URLRequest {
             setValue("XMLHttpRequest", forHTTPHeaderField: "x-requested-with")
         case .setCookieWithPath(let session):
             addValue("session=\(session); path=/", forHTTPHeaderField: "Set-Cookie")
-        case .cookieWithRegion(let session):
-            addValue("regionCode=77; session=\(session)", forHTTPHeaderField: "Cookie")
+        case .cookieWithRegion(let region, let session):
+            addValue("regionCode=\(region); session=\(session)", forHTTPHeaderField: "Cookie")
         }
     }
 }
-
-
-//    func finalRequest(regionCode: Int, subUnit: Int, post: String = "", fio: String = "", eventRegion: String = "", rrSubUnitName: String = "", rrDate: String = "", message: String, media: [Media]?, boundary: String) -> Data {
-//
-//        guard let firstName = UserDefaultsManager.getUserName() else { return Data() }
-//        guard let lastName = UserDefaultsManager.getUserSurname() else { return Data() }
-//        guard let email = UserDefaultsManager.getEmail() else { return Data() }
-//
-//        var params = [
-//            "surname": "\(lastName)",
-//            "firstname": "\(firstName)",
-//            "email": "\(email)",
-//            "step": "3",
-//            "agree": "on"]
-//
-//        if let fatherName = UserDefaultsManager.getUserFatherName() {
-//            params["patronymic"] = "\(fatherName)"
-//        }
-//
-//        if let phone = UserDefaultsManager.getPhone() {
-//            params["phone"] = "\(phone)"
-//        }
-//
-//        if let orgName = UserDefaultsManager.getOrganizationName() {
-//            params["is_organization"] = "\(1)"
-//            params["org_name"] = "\(orgName)"
-//        } else {
-//            params["is_organization"] = "\(0)"
-//        }
-//
-//        if let orgOut = UserDefaultsManager.getOrganizationOut() {
-//            params["org_out"] = "\(orgOut)"
-//        }
-//
-//        if let orgDate = UserDefaultsManager.getOrganizationDate() {
-//            params["org_date"] = "\(orgDate)"
-//        }
-//
-//        if let orgLetter = UserDefaultsManager.getOrganizationLetter() {
-//            params["org_letter"] = "\(orgLetter)"
-//        }
-//
-//        if let captureText = UserDefaultsManager.getCapruteImageText() {
-//            params["captcha"] = "\(captureText)"
-//        }
-//
-//        if let imageIDs = UserDefaultsManager.getUploadImagesIds() {
-//            for id in imageIDs {
-//                params["file"] = "\(id)"
-//            }
-//        }
-//
-//        params["region_code"] = "\(regionCode)"
-//        params["subunit"] = "\(subUnit)"
-//        params["post"] = "\(post)"
-//        params["fio"] = "\(fio)"
-//        params["event_region"] = "\(eventRegion)"
-//        params["subunit_name"] = "\(rrSubUnitName)"
-//        params["subunit_date"] = "\(rrDate)"
-//        params["message"] = "\(message)"
-//
-//        print(params)
-//        return createFormDataFinalBody(with: params, media: media, boundary: boundary)
-//    }
-//
-//    func createFormDataFinalBody(with params: Parameters?, media: [Media]?, boundary: String) -> Data {
-//        let lineBreak = "\r\n"
-//        var body = Data()
-//
-//        if let parameters = params {
-//            for (key, value) in parameters {
-//                body.append("--\(boundary + lineBreak)")
-//                body.append("Content-Disposition: form-data; name=\"\(key)\"\(lineBreak + lineBreak)")
-//                body.append("\(value + lineBreak)")
-//            }
-//
-////            if let media = media {
-////                for photo in media {
-////                }
-////            }
-//        }
-//
-//        body.append("--\(boundary + lineBreak)")
-//        body.append("Content-Disposition: form-data; name=\"file\"; filename=\"\"\(lineBreak)")
-//        body.append("Content-Type: application/octet-stream\(lineBreak + lineBreak)")
-//        body.append(lineBreak)
-//
-//
-//        body.append("--\(boundary)--\(lineBreak)")
-//        return body
-//    }

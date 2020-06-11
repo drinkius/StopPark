@@ -72,8 +72,9 @@ class NetworkManager {
                 return
             }
 
-            guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: String] else {
+            guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else {
                 completion(.failure(Str.Generic.errorLoadData))
+                print(String(data: data, encoding: .utf8) ?? "No string")
                 return
             }
 

@@ -61,6 +61,8 @@ extension FormVC: ButtonTableViewCellDelegate {
         openSendFormView()
                 
         sendFormView.updateView(for: .uploadImages)
+
+        RequestManager.shared.setFormData(eventInfoForm)
         webView.sendImagesToServer(eventImages) { [weak self] result in
             switch result {
             case .failure(let text): self?.showErrorMessage(text)

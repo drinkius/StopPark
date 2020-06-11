@@ -253,7 +253,8 @@ extension FormVC {
                     }
 
                     self.eventInfoForm[.subDivision] = code
-                    self.webView.preFinalLoadData(self.eventInfoForm)
+
+                    self.webView.preFinalLoadData()
                     print(self.eventInfoForm)
                 }
             }
