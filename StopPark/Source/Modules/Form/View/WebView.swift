@@ -117,7 +117,9 @@ extension WebView {
                 self.delegate?.showFinalBody()
             }
             
-            if let error = error { self.delegate?.webView(self, didReceiveError: error.localizedDescription) }
+            if let error = error {
+                self.delegate?.webView(self, didReceiveError: error.localizedDescription)
+            }
         }
         web.evaluateJavaScript(Scripts.getFinalCode) { data, error in
             guard let text = data as? String else {
@@ -133,7 +135,9 @@ extension WebView {
                 self.delegate?.showFinalBody()
             }
             
-            if let error = error { self.delegate?.webView(self, didReceiveError: error.localizedDescription) }
+            if let error = error {
+                self.delegate?.webView(self, didReceiveError: error.localizedDescription)
+            }
         }
     }
 }

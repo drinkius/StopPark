@@ -21,6 +21,9 @@ class SendFormView: BaseView {
     public weak var delegate: SendFormViewDelegate?
 
     private var closeButtonAction: (() -> Void)?
+
+    private var animating: Bool = false
+    private var pendingUpdate: ContentDestination?
     
     private var type: ContentDestination = .sendingRequest
     private var fillView: UIView = {
@@ -142,18 +145,31 @@ extension SendFormView {
     }
     
     private func updateContentAnimated(for type: ContentDestination) {
-        UIView.animate(withDuration: 0.3, animations: {
+        guard !animating else {
+            pendingUpdate = type
+            return
+        }
+        animating = true
+        UIView.animate(withDuration: 0.3,
+                       animations: {
             self.titleLabel.alpha = 0
             self.closeButton.alpha = 0
             self.captchaView.alpha = 0
             self.verificationCodeView.alpha = 0
         }, completion: { _ in
             self.updateContent(for: type)
-            UIView.animate(withDuration: 0.3, animations: {
+            UIView.animate(withDuration: 0.3,
+                           animations: {
                 self.titleLabel.alpha = 1
                 self.closeButton.alpha = 1
                 self.captchaView.alpha = 1
                 self.verificationCodeView.alpha = 1
+            }, completion: { _ in
+                self.animating = false
+                if let update = self.pendingUpdate {
+                    self.pendingUpdate = nil
+                    self.updateContentAnimated(for: update)
+                }
             })
         })
     }
@@ -268,6 +284,8 @@ extension SendFormView {
     }
     
     public func updateView(for type: Destination) {
+        print("Dumpin++")
+        dump(type)
         Vibration.light.vibrate()
         switch type {
         case .getCaptcha(let url): getCaptchaFromURL(url)

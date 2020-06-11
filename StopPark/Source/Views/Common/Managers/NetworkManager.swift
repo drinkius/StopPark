@@ -79,8 +79,6 @@ class NetworkManager {
             }
 
             completion(.success(json))
-
-            print(json)
         }
     }
     

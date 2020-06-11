@@ -210,7 +210,12 @@ extension FormVC {
                 switch result {
                 case .failure(let text):
                     self?.showErrorMessage(text)
-                case .success:
+                case .success(let json):
+                    let dict = json as? [String: Any]
+                    guard dict?["success"] as? Int == 1 else {
+                        self?.showErrorMessage((dict?["message"] as? String) ?? ("Что-то пошло не так"))
+                        return
+                    }
                     self?.sendFormView.updateView(for: .enterVerificationCode)
                 }
             }
@@ -229,7 +234,14 @@ extension FormVC {
                 switch result {
                 case .failure(let text):
                     self?.showErrorMessage(text)
-                case .success:
+                case .success(let json):
+                    let dict = json as? [String: Any]
+                    guard dict?["success"] as? Int == 1 else {
+                        self?.showErrorMessage((dict?["message"] as? String) ?? ("Что-то пошло не так")) {
+                            self?.sendFormView.updateView(for: .enterVerificationCode)
+                        }
+                        return
+                    }
                     self?.sendCaptchaRequest()
                 }
             }
