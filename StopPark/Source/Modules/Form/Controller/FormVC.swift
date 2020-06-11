@@ -179,8 +179,18 @@ extension FormVC {
         let indexPath = IndexPath(row: 0, section: buttonSectionIndex)
         let frame = tableView.rectForRow(at: indexPath).offsetBy(dx: -tableView.contentOffset.x, dy: -tableView.contentOffset.y)
         
-        sendFormView.animateFillingBackground(with: frame) {
+        sendFormView.setOpen(true, frame: frame) {
             self.navigationController?.setNavigationBarHidden(true, animated: true)
+        }
+    }
+
+    func closeSendFormView() {
+        guard let buttonSectionIndex = sections.firstIndex(where: { $0.type.index == TableSection.SectionType.buttons.index }) else { return }
+        let indexPath = IndexPath(row: 0, section: buttonSectionIndex)
+        let frame = tableView.rectForRow(at: indexPath).offsetBy(dx: -tableView.contentOffset.x, dy: -tableView.contentOffset.y)
+
+        sendFormView.setOpen(false, frame: frame) {
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
         }
     }
 

@@ -67,17 +67,10 @@ extension FormVC: SendFormViewDelegate {
         showErrorMessage(error)
     }
     
-    func view(_ view: SendFormView, closeButtonTouchUpInside button: UIButton) {
+    func cancelSendingRequest() {
         InvAnalytics.shared.sendEvent(event: .formClickCancel)
         Vibration.light.vibrate()
-        dismiss(animated: true)
-    }
-    
-    func view(_ view: SendFormView, cancelButtonTouchUpInside button: UIButton) {
-        InvAnalytics.shared.sendEvent(event: .formClickCancel)
-        Vibration.light.vibrate()
-        // Отмена отправки
-        dismiss(animated: true)
+        closeSendFormView()
     }
     
     func view(_ view: SendFormView, changeCaptchaOn captchaView: CaptchaView) {

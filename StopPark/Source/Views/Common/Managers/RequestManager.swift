@@ -161,8 +161,8 @@ extension RequestManager {
         }
         var urlRequest = URLRequest(url: URLs.emailRequestURL)
         urlRequest.httpMethod = "POST"
-        urlRequest.addValue(.requestMainRefer)
         urlRequest.addValue(.xRequestedWith)
+        urlRequest.addValue(.requestMainRefer)
         urlRequest.addValue(.setCookieWithPath(session))
 
         return urlRequest

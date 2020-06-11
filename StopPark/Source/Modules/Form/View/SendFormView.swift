@@ -12,9 +12,8 @@ protocol SendFormViewDelegate: class {
     func view(_ view: SendFormView, didSendCaptcha captcha: String)
     func view(_ view: SendFormView, sendVerificationCode code: String)
     func view(_ view: SendFormView, didReceiveError error: String)
-    func view(_ view: SendFormView, closeButtonTouchUpInside button: UIButton)
-    func view(_ view: SendFormView, cancelButtonTouchUpInside button: UIButton)
     func view(_ view: SendFormView, changeCaptchaOn captchaView: CaptchaView)
+    func cancelSendingRequest()
 }
 
 class SendFormView: BaseView {
@@ -97,7 +96,7 @@ class SendFormView: BaseView {
         btn.isHidden = true
         btn.contentEdgeInsets = Theme.buttonItemContentInset
         btn.titleLabel?.font = .systemFont(ofSize: 12)
-        btn.addTarget(self, action: #selector(cancelRequest), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(closeForm), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -245,9 +244,9 @@ extension SendFormView {
 
 // MARK: - Actions
 extension SendFormView {
-    public func animateFillingBackground(with frame: CGRect, block: @escaping () -> ()) {
+    public func setOpen(_ open: Bool, frame: CGRect, block: @escaping () -> ()) {
         guard frame != .zero else { return }
-        isHidden = false
+        isHidden = open ? false : true
         fillView.frame = frame
 
         UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut, animations: {
@@ -255,18 +254,14 @@ extension SendFormView {
         }, completion: { _ in
             block()
             UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 10, options: .curveEaseInOut, animations: {
-                self.fillView.layer.cornerRadius = 0
                 self.fillView.frame = .init(origin: .zero, size: self.bounds.size)
             }, completion: { _ in
-                self.backgroundColor = .highlited
-                self.cancelButton.alpha = 0
-                self.cancelButton.isHidden = false
+                self.backgroundColor = open ? .highlited : .clear
+                self.cancelButton.isHidden = open ? false : true
                 UIView.animate(withDuration: 0.4, animations: {
-                    self.fillView.alpha = 0
-                    self.cancelButton.alpha = 1.0
+                    self.fillView.alpha = open ? 0 : 1
+                    self.cancelButton.alpha = open ? 1.0 : 0
                 }, completion: { _ in
-                    self.fillView.alpha = 0
-                    self.cancelButton.alpha = 1.0
                 })
             })
         })
@@ -325,17 +320,14 @@ extension SendFormView {
         updateContentAnimated(for: .sendingRequest)
     }
 
+    @objc
     private func closeForm() {
-        delegate?.view(self, closeButtonTouchUpInside: closeButton)
+        delegate?.cancelSendingRequest()
     }
     
     @objc private func viewShouldEndEditing() {
         captchaView.endEditing(true)
         verificationCodeView.endEditing(true)
-    }
-    
-    @objc private func cancelRequest(_ sender: UIButton) {
-        delegate?.view(self, cancelButtonTouchUpInside: sender)
     }
 }
 
