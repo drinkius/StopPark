@@ -20,7 +20,7 @@ class RequestManager {
         self.eventInfoData = data
     }
 
-    func createFormURLEncodedBody(captcha: String = "") -> Data? {
+    func createFormURLEncodedBody(extraParams: [String: String]? = nil) -> Data? {
         
         guard let firstName = UserDefaultsManager.getFormData(.userName) else { return Data() }
         guard let lastName = UserDefaultsManager.getFormData(.userSurname) else { return Data() }
@@ -95,8 +95,11 @@ class RequestManager {
             message = Strings.generateTemplateText(date: eventDate, auto: autoMark, number: autoNumber, address: eventAddress, photoDate: photoDate, eventViolation: eventViolation)
         }
 
-        params["captcha"] = "\(captcha)"
         params["message"] = "\(message)"
+
+        if let extraParams = extraParams {
+            params.merge(extraParams) { current, _ -> String in return current }
+        }
         
         return getFormURLEncodedData(params: params)
     }
@@ -188,7 +191,7 @@ extension RequestManager {
         urlRequest.addValue(.cookieWithRegion(Int(eventInfoData?[.district] ?? "") ?? 77, session))
         urlRequest.addValue(.defaultContentType)
 
-        urlRequest.httpBody = RequestManager.shared.getFormURLEncodedData(params: ["key": code])
+        urlRequest.httpBody = createFormURLEncodedBody(extraParams: ["key": code])
 
         return urlRequest
     }
@@ -270,7 +273,7 @@ extension RequestManager {
         urlRequest.addValue(.xRequestedWith)
         urlRequest.addValue(.setCookieWithPath(session))
 
-        let dataBody = RequestManager.shared.createFormURLEncodedBody(captcha: captcha)
+        let dataBody = RequestManager.shared.createFormURLEncodedBody(extraParams: ["captcha": "\(captcha)"])
         urlRequest.httpBody = dataBody
         
         return urlRequest
