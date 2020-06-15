@@ -103,6 +103,7 @@ extension WebView {
     
     private func getFinalAppealData() {
         var newAppeal = Appeal(time: Date().timeIntervalSince1970)
+        /*
         web.evaluateJavaScript("document.documentElement.outerHTML") { (html, error) in
             guard let html = html as? String else {
                 print(error)
@@ -110,6 +111,7 @@ extension WebView {
             }
             print(html)
         }
+         */
         web.evaluateJavaScript(Scripts.getFinalID) { data, error in
             guard let text = data as? String else {
                 self.getCaptchaImage()

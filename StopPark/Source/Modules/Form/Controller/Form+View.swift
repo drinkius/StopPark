@@ -73,6 +73,12 @@ extension FormVC: SendFormViewDelegate {
         Vibration.light.vibrate()
         closeSendFormView()
     }
+
+    func closeRequestForGood() {
+        InvAnalytics.shared.sendEvent(event: .formSuccessfulFinish)
+        Vibration.light.vibrate()
+        dismiss(animated: true)
+    }
     
     func view(_ view: SendFormView, changeCaptchaOn captchaView: CaptchaView) {
         webView.refreshCaptchaLoadData()

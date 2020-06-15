@@ -14,6 +14,7 @@ protocol SendFormViewDelegate: class {
     func view(_ view: SendFormView, didReceiveError error: String)
     func view(_ view: SendFormView, changeCaptchaOn captchaView: CaptchaView)
     func cancelSendingRequest()
+    func closeRequestForGood()
 }
 
 class SendFormView: BaseView {
@@ -217,10 +218,10 @@ extension SendFormView {
             closeButtonAction = sendCaptcha
             stackContainer.addArrangedSubview(captchaView)
             captchaView.isHidden = false
-        case .closeForm:
+        case .successfulFinish:
             titleLabel.text = Str.Form.statementSended
             closeButton.setTitle(Str.Form.goToStatementsList, for: .normal)
-            closeButtonAction = closeForm
+            closeButtonAction = finishRequest
         case .uploadImages:
             titleLabel.text = Str.Form.loadingImages
             closeButton.isHidden = true
@@ -291,7 +292,7 @@ extension SendFormView {
         case .getCaptcha(let url): getCaptchaFromURL(url)
         case .uploadImages: updateContentAnimated(for: .uploadImages)
         case .startSendFullForm: updateContentAnimated(for: .sendingRequest)
-        case .endSendFullForm: updateContentAnimated(for: .closeForm)
+        case .endSendFullForm: updateContentAnimated(for: .successfulFinish)
         case .requestingCodeEmail: updateContentAnimated(for: .requestingCode)
         case .enterVerificationCode: updateContentAnimated(for: .verifyEmail)
         case .checkingCode: updateContentAnimated(for: .checkingCode)
@@ -341,6 +342,10 @@ extension SendFormView {
     @objc
     private func closeForm() {
         delegate?.cancelSendingRequest()
+    }
+
+    private func finishRequest() {
+        delegate?.closeRequestForGood()
     }
     
     @objc private func viewShouldEndEditing() {
@@ -395,7 +400,7 @@ extension SendFormView {
         case failedCaptcha
         case captchaUploaded
         case uploadImages
-        case closeForm
+        case successfulFinish
         case refreshCaptcha
     }
 }

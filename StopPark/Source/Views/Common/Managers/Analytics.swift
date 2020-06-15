@@ -25,6 +25,7 @@ enum InvEvent {
     case settingsClickInfo
             
     case formClickCancel
+    case formSuccessfulFinish
     case formClickEditMessage
     case formClickAddImage
     case formClickDeleteImage
@@ -100,6 +101,7 @@ enum GAAction: String {
     case clickSendVerification = "Click Send Verification Code"
     
     case clickCancel = "Click Cancel"
+    case successfulFinish = "Successful form finish"
     case clickConfirm = "Click Confirm"
     
     case fillRegion = "Fill Region"
@@ -224,6 +226,11 @@ class InvAnalytics {
             let action = GAAction.clickCancel.rawValue
             let category = GACategory.form.rawValue
             sendGoogleAnalytics(category: category, event: action, label: InvAnalytics.uuid)
+        case .formSuccessfulFinish:
+            let action = GAAction.successfulFinish.rawValue
+            let category = GACategory.form.rawValue
+            sendGoogleAnalytics(category: category, event: action, label: InvAnalytics.uuid)
+
         case .formClickEditMessage:
             let action = GAAction.clickEditMessage.rawValue
             let category = GACategory.form.rawValue
