@@ -247,6 +247,26 @@ extension FormVC {
             }
         }
     }
+
+    func sendFinalRequest(captcha: String) {
+        NetworkManager.shared.request(with: RequestManager.shared.finalRequest(with: captcha)!) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let text):
+                    self?.showErrorMessage(text)
+                case .success(let json):
+                    let dict = json as? [String: Any]
+                    guard dict?["success"] as? Int == 1 else {
+                        self?.showErrorMessage((dict?["message"] as? String) ?? ("Что-то пошло не так")) {
+                            self?.sendFormView.updateView(for: .enterVerificationCode)
+                        }
+                        return
+                    }
+                    self?.sendCaptchaRequest()
+                }
+            }
+        }
+    }
     
     func sendCaptchaRequest() {
         guard let code = eventInfoForm[.district] else {
@@ -266,7 +286,7 @@ extension FormVC {
 
                     self.eventInfoForm[.subDivision] = code
 
-                    self.webView.preFinalLoadData()
+                    self.webView.preFinalLoadData(self.eventInfoForm)
                     print(self.eventInfoForm)
                 }
             }

@@ -20,7 +20,7 @@ class RequestManager {
         self.eventInfoData = data
     }
 
-    func createFormURLEncodedBody(extraParams: [String: String]? = nil) -> Data? {
+    private func createFormURLEncodedBody(extraParams: [String: String]? = nil) -> Data? {
         
         guard let firstName = UserDefaultsManager.getFormData(.userName) else { return Data() }
         guard let lastName = UserDefaultsManager.getFormData(.userSurname) else { return Data() }

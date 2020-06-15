@@ -103,6 +103,13 @@ extension WebView {
     
     private func getFinalAppealData() {
         var newAppeal = Appeal(time: Date().timeIntervalSince1970)
+        web.evaluateJavaScript("document.documentElement.outerHTML") { (html, error) in
+            guard let html = html as? String else {
+                print(error)
+                return
+            }
+            print(html)
+        }
         web.evaluateJavaScript(Scripts.getFinalID) { data, error in
             guard let text = data as? String else {
                 self.getCaptchaImage()
@@ -155,7 +162,8 @@ extension WebView {
         delegate?.loading()
     }
     
-    public func preFinalLoadData() {
+    public func preFinalLoadData(_ data: [FormData: String]) {
+        RequestManager.shared.setFormData(data)
         guard let urlRequest = RequestManager.shared.preFinalRequest() else {
             return
         }
@@ -165,7 +173,7 @@ extension WebView {
         web.load(urlRequest)
         delegate?.loading()
     }
-        
+
     public func finalLoadData(with captcha: String) {
         guard let urlRequest = RequestManager.shared.finalRequest(with: captcha) else {
             return

@@ -60,6 +60,7 @@ extension FormVC: SendFormViewDelegate {
 
     func view(_ view: SendFormView, didSendCaptcha captcha: String) {
         InvAnalytics.shared.sendEvent(event: .formClickSendCaptcha)
+//        sendFinalRequest(captcha: captcha)
         webView.finalLoadData(with: captcha)
     }
     
