@@ -89,7 +89,6 @@ enum DistrictData: Int, CaseIterable {
     case zabaykal = 75
     case yaroslav = 76
     case eurey = 79
-    case krym = 82
     case neneck = 83
     case hynty = 86
     case chukot = 87
@@ -177,7 +176,6 @@ enum DistrictData: Int, CaseIterable {
         case .moscovCity:       return "г. Москва (77)"
         case .peter:            return "г. Санкт-Петербург (78)"
         case .eurey:            return "Еврейская автономная область (79)"
-        case .krym:             return "Республика Крым (82)"
         case .neneck:           return "Ненецкий автономный округ (83)"
         case .hynty:            return "Ханты-Мансийский автономный округ - Югра (86)"
         case .chukot:           return "Чукотский автономный округ (87)"
