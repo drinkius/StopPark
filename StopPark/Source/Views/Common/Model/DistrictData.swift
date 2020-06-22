@@ -93,7 +93,6 @@ enum DistrictData: Int, CaseIterable {
     case hynty = 86
     case chukot = 87
     case yamal = 89
-    case sevastopol = 92
     case chechen = 95
     
     var title: String {
@@ -180,7 +179,6 @@ enum DistrictData: Int, CaseIterable {
         case .hynty:            return "Ханты-Мансийский автономный округ - Югра (86)"
         case .chukot:           return "Чукотский автономный округ (87)"
         case .yamal:            return "Ямало-Ненецкий автономный округ (89)"
-        case .sevastopol:       return "г. Севастополь (92)"
         case .chechen:          return "Чеченская Республика (95)"
         }
     }
