@@ -1,0 +1,6 @@
+framework module Pods_StopPark {
+  umbrella header "Pods-StopPark-umbrella.h"
+
+  export *
+  module * { export * }
+}
